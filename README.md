@@ -1,35 +1,28 @@
 # Optimización estocástica de reforestación
 
-Abra **modelo_reforestacion.ipynb**. Contiene el desarrollo matemático, la implementación completa y las salidas de una ejecución verificada para el polígono P1 de la tabla del socio formador.
+Abra **modelo_reforestacion.ipynb** junto con la carpeta **data/** en el mismo directorio. Con las dependencias de Python instaladas, esa es la única carpeta necesaria para ejecutar el notebook. Contiene el desarrollo matemático, la implementación completa y las salidas de una ejecución verificada para el polígono P1 de la tabla del socio formador.
 
 ## Archivos
 
 - `modelo_reforestacion.ipynb`: notebook principal, 17 secciones, código editable y resultados guardados.
 - `data/`: inventarios de 30 polígonos, especies, costos, porcentajes históricos y huellas de las fuentes.
-- `resultados/`: tablas calculadas, imágenes, configuración y vista HTML del notebook.
-- `sources/`: referencias originales de solo lectura; no modificadas.
-- `scripts/crear_notebook.py`: extracción de datos y construcción del notebook. **Regenerarlo reemplaza el notebook**, incluidas modificaciones manuales; no es necesario para ejecutar el análisis.
-- `scripts/ejecutar_notebook.py`: ejecución en kernel limpio y exportación HTML.
+- `resultados/`: tablas calculadas, imágenes y configuración; el notebook crea esta carpeta automáticamente al ejecutarse.
 - `requirements.txt`: versiones de las dependencias principales utilizadas.
 
 ## Ejecución
 
 En VS Code, abra la carpeta del proyecto, abra el notebook y seleccione `.venv/Scripts/python.exe` como entorno. Ejecute todas las celdas en orden. En esta ubicación, cree el entorno siguiendo los pasos siguientes antes de ejecutar. El notebook ya incluye las salidas de la ejecución verificada.
 
-Para trasladarlo a otra computadora, copie el notebook y `data/` juntos; también se recomienda conservar `sources/` y este README. Desde la carpeta copiada:
+Para trasladarlo a otra computadora, copie el notebook y `data/` juntos; conserve `requirements.txt` para instalar las dependencias y este README como guía. Desde la carpeta copiada:
 
 ```shell
 python -m venv .venv
 .venv\Scripts\python -m pip install -r requirements.txt
 ```
 
-Seleccione ese entorno en Jupyter o VS Code. Para verificar sin interfaz:
+Seleccione ese entorno en Jupyter o VS Code y ejecute todas las celdas en orden.
 
-```shell
-.venv\Scripts\python scripts/ejecutar_notebook.py
-```
-
-El directorio de trabajo debe ser la carpeta que contiene el notebook y `data/`. Los resultados se regeneran en `resultados/`. No hay rutas temporales o privadas incrustadas en el notebook. El entorno `.venv` no debe copiarse entre computadoras.
+El directorio de trabajo debe ser la carpeta que contiene el notebook y `data/`. No es necesario copiar resultados previos: la carpeta `resultados/` se crea automáticamente y sus archivos se regeneran al ejecutar el notebook. No hay rutas temporales o privadas incrustadas en el notebook. El entorno `.venv` no debe copiarse entre computadoras.
 
 ## Alcance y supuestos
 
