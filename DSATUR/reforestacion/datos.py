@@ -7,6 +7,7 @@ from .algoritmos import validar_C
 class Datos:
     def __init__(self, root):
         root = Path(root)
+        self.root = root
         self.especies = pd.read_csv(root/'data/especies.csv')
         self.inventario = pd.read_csv(root/'data/inventario.csv')
         self.supervivencia = pd.read_csv(root/'data/supervivencia_porcentajes.csv')
@@ -62,3 +63,4 @@ def cargar_competencia(path, especies):
     C = np.asarray(raw['matriz'], dtype=float)
     validar_C(C, len(especies))
     return C
+

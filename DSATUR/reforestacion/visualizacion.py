@@ -22,7 +22,9 @@ def mapa(puntos, etiquetas, especies, limites, titulo, nf=0):
 
 def comparacion(tabla, titulo):
     fig,ax = plt.subplots(figsize=(8,5),layout='constrained')
-    ax.bar(tabla.metodo,tabla.J,color=['#999999','#67a9cf','#2166ac'])
+    tabla = tabla.loc[tabla.metodo.isin(['Aleatoria','DSATUR + local'])].copy()
+    tabla['metodo'] = tabla.metodo.replace({'DSATUR + local':'DSATUR + búsqueda local'})
+    ax.bar(tabla.metodo,tabla.J,color=['#999999','#2166ac'])
     for i,v in enumerate(tabla.J):
         ax.text(i,v,f'{v:.3f}',ha='center',va='bottom')
     ax.set(ylim=(0,tabla.J.max()*1.13),ylabel='Competencia J (índice adimensional)',title=titulo)
@@ -32,7 +34,7 @@ def comparacion(tabla, titulo):
 def monte_carlo(tabla, titulo):
     ok = tabla.loc[tabla.estado.eq('ok')]
     fig,axs = plt.subplots(1,2,figsize=(12,5),layout='constrained')
-    for col,label,color,marker in [('J_base','Aleatoria','#888888','s'),('J_dsatur','DSATUR','#67a9cf','^'),('J_final','DSATUR + local','#2166ac','o')]:
+    for col,label,color,marker in [('J_base','Aleatoria','#888888','s'),('J_final','DSATUR + búsqueda local','#2166ac','o')]:
         if not ok.empty:
             axs[0].plot(ok.escenario,ok[col],marker=marker,color=color,label=label)
     axs[0].set(xlabel='Escenario espacial completo',ylabel='Competencia J (índice)',title=titulo)
@@ -65,3 +67,4 @@ def diagnosticos(detalle, C, especies):
     fig,ax = plt.subplots();h=detalle['historia'];ax.step(h[:,0],h[:,1],where='post')
     ax.set(xlabel='Propuestas de intercambio (incluye descartadas)',ylabel='Competencia J (índice)',title='Descensos: mejoras aceptadas; mesetas: sin mejora')
     yield 'busqueda_local',fig
+

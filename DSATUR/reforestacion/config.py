@@ -18,9 +18,10 @@ class Config:
     max_plantas: int = 4000
     max_corridas: int = 24
     diagnosticos: bool = False
+    presupuesto_por_ha: float = 12500.0  # referencia; se valida, no altera cuotas
 
     def __post_init__(self):
-        positivos = [self.densidad, self.aspecto, self.paso_malla, self.separacion_min, self.radio]
+        positivos = [self.presupuesto_por_ha, self.densidad, self.aspecto, self.paso_malla, self.separacion_min, self.radio]
         if not np.isfinite(positivos).all() or min(positivos) <= 0:
             raise ValueError('Parámetros geométricos finitos y positivos requeridos.')
         if self.paso_malla < self.separacion_min:
@@ -45,4 +46,5 @@ def perfil(nombre='rapido', **cambios):
         raise ValueError('Perfil desconocido.')
     cfg = Config(escenarios=2) if nombre == 'rapido' else Config(max_plantas=20000, max_corridas=360)
     return replace(cfg, **cambios)
+
 

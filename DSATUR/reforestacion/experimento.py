@@ -9,6 +9,7 @@ from .geometria import (dimensiones, flujos, simular_existentes, candidatas,
                         construir_grafo, EscenarioNoConstruido)
 from .algoritmos import validar_C, base_aleatoria, dsatur, busqueda_local, objetivo
 from .validacion import validar_solucion
+from .economia import presupuesto_poligono
 
 class LimiteRecursos(ValueError):
     pass
@@ -42,6 +43,7 @@ def ejecutar_escenario(p, escenario, datos, config, C):
         'costo_um':float(q@datos.especies.costo_unitario.to_numpy()),
         'seg_geometria':tiempo_geometria,'seg_base':tb,'seg_dsatur':td,'seg_local':tl,
         'seg_total':perf_counter()-inicio, **{'local_'+k:v for k,v in stats.items()}}
+    fila.update(presupuesto_poligono(datos,p,config))
     return fila,{'g':g,'base':base,'dsatur':ds,'final':final,'historia':h,'F':F,'fijas':fijas,'V':V,'limites':limites,'n':n,'R':R,'q':q,'stats':stats}
 
 
@@ -56,7 +58,7 @@ def seleccionar_poligonos(seleccion):
     return [int(p) for p in ids]
 
 
-def ejecutar_lote(datos, config, C, salida_detalles=None, graficas=True):
+def ejecutar_lote(datos, config, C, salida_detalles=None, graficas=True, progreso=None):
     validar_C(C)
     ids = seleccionar_poligonos(config.poligonos)
     filas = []
@@ -73,31 +75,54 @@ def ejecutar_lote(datos, config, C, salida_detalles=None, graficas=True):
                 fila = dict(poligono=p,escenario=e,estado='fallo',detalle=f'{type(error).__name__}: {error}')
             if detalle is not None and e == 0 and salida_detalles is not None:
                 guardar_detalle_poligono(salida_detalles, datos, fila, detalle, C, graficas=graficas)
+            if e == 0 and detalle is None and salida_detalles is not None:
+                ruta = Path(salida_detalles)/f'P{p}'
+                for nombre in ('distribucion.csv','comparacion.csv','graficas/01_existentes.png','graficas/02_final.png','graficas/03_comparacion.png'):
+                    (ruta/nombre).unlink(missing_ok=True)
             filas.append(fila)
+            if progreso is not None:
+                progreso(fila)
     return pd.DataFrame(filas)
 
 
-def agregar(lote):
-    """No sumar escenarios como si fueran un solo terreno: totales por escenario."""
-    ok = lote.loc[lote.estado.eq('ok')]
-    if ok.empty:
-        return pd.DataFrame(columns=['escenario','existentes','nuevas','total','J_base','J_dsatur','J_final','costo_um','poligonos_completados','mejora_pct'])
-    out = ok.groupby('escenario')[['existentes','nuevas','total','J_base','J_dsatur','J_final','costo_um']].sum()
-    out['poligonos_completados'] = ok.groupby('escenario').size()
-    out['mejora_pct'] = 100*(out.J_base-out.J_final)/out.J_base.replace(0,np.nan)
-    return out.reset_index()
+def agregar(lote, poligonos_esperados=None, escenarios_esperados=None):
+    """Solo publica sumas de escenarios completos respecto al conjunto solicitado.
+
+    Por defecto exige P1–P30. Un reporte de un solo polígono debe pasarlo
+    explícitamente como conjunto esperado. No se mezclan escenarios.
+    """
+    ids = seleccionar_poligonos('todos' if poligonos_esperados is None else poligonos_esperados)
+    if lote.duplicated(['poligono','escenario']).any():
+        raise ValueError('Hay escenarios duplicados por polígono.')
+    if not set(lote.poligono).issubset(ids):
+        raise ValueError('El lote contiene polígonos no solicitados.')
+    escenarios = sorted(lote.escenario.unique()) if escenarios_esperados is None else list(range(escenarios_esperados))
+    metricas = ['existentes','nuevas','total','J_base','J_dsatur','J_final','costo_um','presupuesto_um','saldo_um']
+    filas = []
+    for e in escenarios:
+        tabla = lote.loc[lote.escenario.eq(e)]
+        ok = tabla.loc[tabla.estado.eq('ok')]
+        completos = sorted(ok.poligono.tolist()) == sorted(ids)
+        fila = dict(escenario=e, estado='completo' if completos else 'incompleto',
+            poligonos_esperados=len(ids), poligonos_completados=len(ok),
+            poligonos_faltantes=','.join(map(str,sorted(set(ids)-set(ok.poligono)))))
+        for col in metricas:
+            fila[col] = float(ok[col].sum()) if completos and col in ok else np.nan
+        fila['mejora_pct'] = 100*(fila['J_base']-fila['J_final'])/fila['J_base'] if completos and fila['J_base'] > 0 else np.nan
+        fila['poligonos_fuera_presupuesto'] = int((~ok.cumple_presupuesto.eq(True)).sum()) if completos and 'cumple_presupuesto' in ok else np.nan
+        fila['cumplen_todos_presupuesto'] = bool(ok.cumple_presupuesto.all()) if completos and 'cumple_presupuesto' in ok else None
+        filas.append(fila)
+    return pd.DataFrame(filas)
 
 
 def guardar_ejecucion(carpeta, datos, config, C, lote, organizado=False):
     carpeta = Path(carpeta); carpeta.mkdir(parents=True,exist_ok=True)
     if organizado:
-        nombre = 'resumen_30_poligonos.csv' if len(seleccionar_poligonos(config.poligonos)) == 30 else 'resumen_seleccion.csv'
-        cols = ['poligono','escenario','estado','detalle','existentes','nuevas','total','J_base','J_dsatur','J_final','costo_um','mejora_pct']
-        lote.reindex(columns=cols).to_csv(carpeta/nombre,index=False)
-        agregar(lote).to_csv(carpeta/'resumen_global.csv',index=False)
+        from .reportes import guardar_modelo_completo
+        return guardar_modelo_completo(carpeta,datos,config,C,lote)
     else:
         lote.to_csv(carpeta/'escenarios.csv',index=False)
-        agregar(lote).to_csv(carpeta/'agregado.csv',index=False)
+        agregar(lote, seleccionar_poligonos(config.poligonos), config.escenarios).to_csv(carpeta/'agregado.csv',index=False)
     datos.resumen(config).to_csv(carpeta/'cuotas_30.csv',index=False)
     versiones = {x:importlib.metadata.version(x) for x in ['numpy','pandas','scipy','networkx','matplotlib','nbformat','nbclient']}
     (carpeta/'configuracion.json').write_text(json.dumps(dict(config=asdict(config),matriz_C=C.tolist(),
@@ -128,6 +153,9 @@ def guardar_detalle_poligono(raiz, datos, fila, detalle, C, graficas=True):
             ('DSATUR + local', y, fila['seg_dsatur'] + fila['seg_local'])
         ]
     ])
+    for clave in ('presupuesto_um','costo_um','saldo_um','presupuesto_utilizado_pct','cumple_presupuesto'):
+        tabla[clave] = fila[clave]
+    tabla['escenario'] = 0
     tabla.to_csv(ruta/'comparacion.csv', index=False)
     if graficas:
         carpeta = ruta/'graficas'
@@ -138,7 +166,7 @@ def guardar_detalle_poligono(raiz, datos, fila, detalle, C, graficas=True):
             ('02_final.png', vis.mapa(U, y, datos.S, detalle['limites'],
                 f'P{p}: distribución optimizada', nf=nf)),
             ('03_comparacion.png', vis.comparacion(tabla,
-                f'P{p}: comparación de los tres métodos')),
+                f'P{p}: aleatoria frente a DSATUR + búsqueda local')),
         ]
         for nombre, fig in figuras:
             try:
@@ -162,7 +190,12 @@ def guardar_monte_carlo_por_poligono(raiz, lote, guardar_figuras=True):
                 ['count','mean','std','min','max']).T
             estadisticas['error_estandar_media'] = (
                 estadisticas['std']/np.sqrt(estadisticas['count']))
+            estadisticas['escenarios_solicitados'] = len(tabla)
+            estadisticas['escenarios_completados'] = len(ok)
+            estadisticas['escenarios_excluidos'] = len(tabla)-len(ok)
             estadisticas.to_csv(ruta/'estadisticas_mc.csv')
+        else:
+            pd.DataFrame(columns=['metrica','count','mean','std','min','max']).to_csv(ruta/'estadisticas_mc.csv',index=False)
         if guardar_figuras:
             figuras = ruta/'graficas'
             figuras.mkdir(exist_ok=True)
@@ -171,3 +204,4 @@ def guardar_monte_carlo_por_poligono(raiz, lote, guardar_figuras=True):
                 fig.savefig(figuras/'04_monte_carlo.png', dpi=140, bbox_inches='tight')
             finally:
                 plt.close(fig)
+
