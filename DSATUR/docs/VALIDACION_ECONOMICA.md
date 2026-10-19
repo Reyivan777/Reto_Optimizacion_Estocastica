@@ -31,7 +31,7 @@ Los totales se calculan solo con los 30 polígonos del mismo escenario. `resulta
 
 ## Tiempos y rendimiento
 
-Validación con seis procesos independientes y librerías fijadas en requirements:
+Validación con seis procesos independientes y librerías fijadas en `config/requirements.txt`:
 
 - Tiempo de pared hasta exportar tablas: **381.784 s**; la figura comparativa se genera después.
 - Economía, suma de los 30 problemas: **1.213 s**.
@@ -55,17 +55,17 @@ El notebook ejecutó por separado 30 pares con un escenario, con gráficos indiv
 
 ## Límites y pruebas pendientes
 
-El kernel externo Jupyter no pudo iniciarse: el entorno impidió abrir sus sockets. La ejecución en proceso sí terminó. Para verificar el kernel externo en un equipo sin esa restricción: `python -m jupyter nbconvert --execute --to notebook --inplace modelo_reforestacion.ipynb` desde DSATUR (el notebook guardado usa un escenario; cambiar ESCENARIOS_LOTE a 12 para repetir el completo en él).
+El kernel externo Jupyter no pudo iniciarse: el entorno impidió abrir sus sockets. La ejecución en proceso sí terminó. Para verificar el kernel externo en un equipo sin esa restricción: `python -m jupyter nbconvert --execute --to notebook --inplace modelo_reforestacion.ipynb` desde `DSATUR/` (el notebook guardado usa un escenario; cambiar ESCENARIOS_LOTE a 12 para repetir el completo en él).
 
 La banda ±10% sobre cuotas finales originales sigue pendiente de confirmación del socio. Los costos solo cubren adquisición. Geometría simulada, C provisional, restricciones ecológicas no calibradas y supervivencia no modelada. El MILP tiene certificación numérica de HiGHS; no se afirma optimalidad espacial. La imposibilidad de construir la malla se distingue de una prueba de inviabilidad en todo el terreno. No hay pruebas pendientes del lote de 360 pares solicitado.
 
 ## Archivos implementados
 
-`reforestacion/optimizacion_economica.py`: MILP, validación exacta y vista de cuotas.
-`reforestacion/dos_etapas.py`: ejecución, comparación, estados y exportación.
-`ejecutar_dos_etapas.py`: CLI de ambos modos y economía independiente.
-`verificar_economia.py`: pruebas económicas y de integración.
-`validar_lote_economico.py`: validación completa paralela y regresión histórica.
+`src/reforestacion/optimizacion_economica.py`: MILP, validación exacta y vista de cuotas.
+`src/reforestacion/dos_etapas.py`: ejecución, comparación, estados y exportación.
+`scripts/ejecutar_dos_etapas.py`: CLI de ambos modos y economía independiente.
+`tests/verificar_economia.py`: pruebas económicas y de integración.
+`scripts/validar_lote_economico.py`: validación completa paralela y regresión histórica.
 Notebook, README, comentario de dependencia MILP en requirements, referencia histórica y resultados nuevos.
 
 Los módulos espaciales originales y los datos permanecen intactos. No se modificó ningún archivo del algoritmo genético.

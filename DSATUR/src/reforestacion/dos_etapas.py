@@ -124,7 +124,7 @@ def ejecutar(datos, config, C, modo='economico', etapa='ambas', salida=None,
         resumen=resumen.merge(pares.groupby('poligono')[['cambio_J_final','cambio_J_final_pct']].mean().add_suffix('_media'),on='poligono',how='left')
     resumen.to_csv(ruta/'resumen_por_poligono.csv',index=False)
     fuentes={str(p.relative_to(datos.root)):hashlib.sha256(p.read_bytes()).hexdigest()
-             for sub in ('data','config','reforestacion') for p in (datos.root/sub).glob('*') if p.is_file()}
+             for sub in ('data','config','src/reforestacion') for p in (datos.root/sub).glob('*') if p.is_file()}
     manifiesto=dict(config=asdict(config),modo=modo,etapa=etapa,matriz_C=C.tolist(),
         orden_especies=datos.S,limite_solver_segundos=limite_solver,
         versiones={s:importlib.metadata.version(s) for s in ('numpy','pandas','scipy','networkx','matplotlib')},

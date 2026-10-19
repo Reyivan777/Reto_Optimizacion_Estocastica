@@ -2,8 +2,11 @@
 import itertools
 import tempfile
 import unittest
+import sys
 from unittest.mock import patch
 from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT/'src'))
 from dataclasses import replace
 import numpy as np
 from scipy.optimize import OptimizeResult
@@ -14,7 +17,6 @@ from reforestacion.optimizacion_economica import (optimizar_cuotas,planificar,
     validar_cuotas,DatosConCuotas,desviacion_exacta)
 from reforestacion.experimento import ejecutar_escenario
 from reforestacion.dos_etapas import ejecutar
-ROOT=Path(__file__).resolve().parent
 
 class PruebasEconomicas(unittest.TestCase):
     @classmethod

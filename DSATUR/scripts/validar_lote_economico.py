@@ -12,11 +12,12 @@ from time import perf_counter
 import json
 import numpy as np
 import pandas as pd
+import sys
+ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / 'src'))
 from reforestacion.config import perfil
 from reforestacion.datos import Datos,cargar_competencia
 from reforestacion.dos_etapas import ejecutar
-
-ROOT=Path(__file__).resolve().parent
 
 
 def trabajador(args):

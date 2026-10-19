@@ -1,6 +1,11 @@
 """Interfaz reproducible opcional; el notebook sigue siendo la interfaz didáctica."""
 import argparse
 from pathlib import Path
+import sys
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / 'src'))
+
 from reforestacion.config import perfil
 from reforestacion.datos import Datos,cargar_competencia
 from reforestacion.dos_etapas import ejecutar
@@ -14,7 +19,7 @@ if __name__=='__main__':
     parser.add_argument('--sin-comparacion',action='store_true')
     parser.add_argument('--sin-graficas',action='store_true')
     args=parser.parse_args()
-    root=Path(__file__).resolve().parent; datos=Datos(root)
+    root=ROOT; datos=Datos(root)
     ids='todos' if args.poligonos=='todos' else tuple(map(int,args.poligonos.split(',')))
     cfg=perfil('completo',poligonos=ids,escenarios=args.escenarios)
     C=cargar_competencia(root/'config/competencia.json',datos.S)

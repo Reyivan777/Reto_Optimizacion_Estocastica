@@ -4,7 +4,7 @@ from pathlib import Path
 from dataclasses import replace
 import numpy as np,pandas as pd
 from scipy.optimize import linprog
-ROOT=Path(__file__).resolve().parent;sys.path.insert(0,str(ROOT))
+ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'src'))
 from reforestacion.config import Config,perfil
 from reforestacion.datos import Datos,cargar_competencia
 from reforestacion.economia import presupuesto_poligono,presupuestos,diagnostico_flexibilidad
