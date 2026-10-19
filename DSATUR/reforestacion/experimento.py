@@ -146,3 +146,28 @@ def guardar_detalle_poligono(raiz, datos, fila, detalle, C, graficas=True):
             finally:
                 plt.close(fig)
     return ruta
+
+def guardar_monte_carlo_por_poligono(raiz, lote, guardar_figuras=True):
+    """Un CSV, resumen estadístico y figura por polígono para escenarios espaciales."""
+    from . import visualizacion as vis
+    import matplotlib.pyplot as plt
+    raiz = Path(raiz)
+    for poligono, tabla in lote.groupby('poligono', sort=True):
+        ruta = raiz/f'P{int(poligono)}'
+        ruta.mkdir(parents=True, exist_ok=True)
+        tabla.to_csv(ruta/'monte_carlo.csv', index=False)
+        ok = tabla.loc[tabla.estado.eq('ok')]
+        if not ok.empty:
+            estadisticas = ok[['J_base','J_dsatur','J_final','mejora_pct']].agg(
+                ['count','mean','std','min','max']).T
+            estadisticas['error_estandar_media'] = (
+                estadisticas['std']/np.sqrt(estadisticas['count']))
+            estadisticas.to_csv(ruta/'estadisticas_mc.csv')
+        if guardar_figuras:
+            figuras = ruta/'graficas'
+            figuras.mkdir(exist_ok=True)
+            fig = vis.monte_carlo(tabla, f'P{int(poligono)}: escenarios espaciales')
+            try:
+                fig.savefig(figuras/'04_monte_carlo.png', dpi=140, bbox_inches='tight')
+            finally:
+                plt.close(fig)
