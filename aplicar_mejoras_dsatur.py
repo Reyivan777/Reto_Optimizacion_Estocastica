@@ -22,10 +22,20 @@ def main():
     root = Path(git('rev-parse', '--show-toplevel')).resolve()
     if git('branch', '--show-current') != 'main':
         sys.exit('No se aplicó: debes estar en la rama main.')
-    if git('rev-parse', 'HEAD') != BASE:
-        sys.exit('No se aplicó: el commit actual difiere de la base validada. Revisa cambios recientes antes de fusionar.')
-    if git('status', '--porcelain'):
-        sys.exit('No se aplicó: existen cambios sin commit. Guarda o confirma los cambios primero.')
+    # Permitir commits nuevos únicamente si respetan el DSATUR validado.
+    if subprocess.run(['git', 'merge-base', '--is-ancestor', BASE, 'HEAD'],
+                      cwd=root).returncode:
+        sys.exit('No se aplicó: la versión local no desciende de la base validada.')
+    if subprocess.run(['git', 'diff', '--quiet', BASE, 'HEAD', '--', 'DSATUR'],
+                      cwd=root).returncode:
+        sys.exit('No se aplicó: DSATUR cambió desde la base validada; hay que revisar conflictos.')
+    # Ignorar archivos sin seguimiento fuera de DSATUR, pero no cambios de código.
+    if git('status', '--porcelain', '--untracked-files=no') or git('ls-files', '--others', '--exclude-standard', '--', 'DSATUR'):
+        sys.exit('No se aplicó: hay cambios locales o archivos nuevos en DSATUR sin commit.')
+    # No sobrescribir cambios remotos de main durante la publicación.
+    subprocess.run(['git', 'fetch', 'origin', 'main'], cwd=root, check=True)
+    if git('rev-parse', 'HEAD') != git('rev-parse', 'FETCH_HEAD'):
+        sys.exit('No se aplicó: main local no coincide con origin/main. Ejecuta git pull --ff-only.')
     with zipfile.ZipFile(zip_file) as z:
         if z.testzip():
             sys.exit('El ZIP contiene un archivo corrupto.')
