@@ -56,20 +56,23 @@ def seleccionar_poligonos(seleccion):
     return [int(p) for p in ids]
 
 
-def ejecutar_lote(datos, config, C):
+def ejecutar_lote(datos, config, C, salida_detalles=None, graficas=True):
     validar_C(C)
     ids = seleccionar_poligonos(config.poligonos)
     filas = []
     for p in ids:
         for e in range(config.escenarios):
+            detalle = None
             try:
                 if len(filas) >= config.max_corridas:
                     raise LimiteRecursos('Presupuesto máximo de corridas del lote agotado.')
-                fila,_ = ejecutar_escenario(p,e,datos,config,C)
+                fila,detalle = ejecutar_escenario(p,e,datos,config,C)
             except LimiteRecursos as error:
                 fila = dict(poligono=p,escenario=e,estado='omitido',detalle=str(error))
             except (ValueError, AssertionError) as error:
                 fila = dict(poligono=p,escenario=e,estado='fallo',detalle=f'{type(error).__name__}: {error}')
+            if detalle is not None and e == 0 and salida_detalles is not None:
+                guardar_detalle_poligono(salida_detalles, datos, fila, detalle, C, graficas=graficas)
             filas.append(fila)
     return pd.DataFrame(filas)
 
@@ -85,12 +88,61 @@ def agregar(lote):
     return out.reset_index()
 
 
-def guardar_ejecucion(carpeta, datos, config, C, lote):
+def guardar_ejecucion(carpeta, datos, config, C, lote, organizado=False):
     carpeta = Path(carpeta); carpeta.mkdir(parents=True,exist_ok=True)
-    lote.to_csv(carpeta/'escenarios.csv',index=False)
-    agregar(lote).to_csv(carpeta/'agregado.csv',index=False)
+    if organizado:
+        nombre = 'resumen_30_poligonos.csv' if len(seleccionar_poligonos(config.poligonos)) == 30 else 'resumen_seleccion.csv'
+        cols = ['poligono','escenario','estado','detalle','existentes','nuevas','total','J_base','J_dsatur','J_final','costo_um','mejora_pct']
+        lote.reindex(columns=cols).to_csv(carpeta/nombre,index=False)
+        agregar(lote).to_csv(carpeta/'resumen_global.csv',index=False)
+    else:
+        lote.to_csv(carpeta/'escenarios.csv',index=False)
+        agregar(lote).to_csv(carpeta/'agregado.csv',index=False)
     datos.resumen(config).to_csv(carpeta/'cuotas_30.csv',index=False)
     versiones = {x:importlib.metadata.version(x) for x in ['numpy','pandas','scipy','networkx','matplotlib','nbformat','nbclient']}
     (carpeta/'configuracion.json').write_text(json.dumps(dict(config=asdict(config),matriz_C=C.tolist(),
         versiones=versiones,python=platform.python_version(),solicitados=len(lote),
         estados=lote.estado.value_counts().to_dict()),ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+def guardar_detalle_poligono(raiz, datos, fila, detalle, C, graficas=True):
+    """Guarda especies y coordenadas simuladas del escenario 0."""
+    import matplotlib.pyplot as plt
+    from . import visualizacion as vis
+    p = int(fila['poligono'])
+    ruta = Path(raiz)/f'P{p}'
+    ruta.mkdir(parents=True, exist_ok=True)
+    g, F = detalle['g'], detalle['F']
+    U, nf = g['U'], len(F)
+    y = detalle['final']
+    pd.DataFrame({
+        'indice': np.arange(len(y)), 'x_m': U[:, 0], 'y_m': U[:, 1],
+        'existente': np.arange(len(y)) < nf,
+        'especie': [datos.S[int(s)] for s in y]
+    }).to_csv(ruta/'distribucion.csv', index=False)
+    tabla = pd.DataFrame([
+        {'metodo': nombre, 'J': objetivo(etiquetas, g, C),
+         **objetivo(etiquetas, g, C, True), 'segundos_asignacion': tiempo}
+        for nombre, etiquetas, tiempo in [
+            ('Aleatoria', detalle['base'], fila['seg_base']),
+            ('DSATUR', detalle['dsatur'], fila['seg_dsatur']),
+            ('DSATUR + local', y, fila['seg_dsatur'] + fila['seg_local'])
+        ]
+    ])
+    tabla.to_csv(ruta/'comparacion.csv', index=False)
+    if graficas:
+        carpeta = ruta/'graficas'
+        carpeta.mkdir(exist_ok=True)
+        figuras = [
+            ('01_existentes.png', vis.mapa(F, detalle['fijas'], datos.S,
+                detalle['limites'], f'P{p}: plantas existentes simuladas')),
+            ('02_final.png', vis.mapa(U, y, datos.S, detalle['limites'],
+                f'P{p}: distribución optimizada', nf=nf)),
+            ('03_comparacion.png', vis.comparacion(tabla,
+                f'P{p}: comparación de los tres métodos')),
+        ]
+        for nombre, fig in figuras:
+            try:
+                fig.savefig(carpeta/nombre, dpi=140, bbox_inches='tight')
+            finally:
+                plt.close(fig)
+    return ruta
