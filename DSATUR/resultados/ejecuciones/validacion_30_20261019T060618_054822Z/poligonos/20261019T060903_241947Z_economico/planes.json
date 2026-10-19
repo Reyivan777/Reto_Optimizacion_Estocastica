@@ -1,0 +1,75 @@
+{
+  "20": {
+    "estado": "factible_economicamente",
+    "detalle": "Óptimo certificado por solver (tolerancias numéricas estándar).",
+    "R_original": [
+      319,
+      1490,
+      319,
+      319,
+      372,
+      289,
+      555,
+      486,
+      654,
+      198
+    ],
+    "existentes": [
+      69,
+      285,
+      57,
+      75,
+      77,
+      74,
+      107,
+      103,
+      104,
+      25
+    ],
+    "presupuesto_um": 95000.0,
+    "costo_original_um": 94842.0,
+    "costo_minimo_um": 93549.5,
+    "certificado_desviacion": true,
+    "certificado_desempate": true,
+    "solver": [
+      {
+        "status": 0,
+        "mensaje": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "gap": 0.0
+      },
+      {
+        "status": 0,
+        "mensaje": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "gap": 0.0
+      }
+    ],
+    "R_ajustada": [
+      319,
+      1490,
+      319,
+      319,
+      372,
+      289,
+      555,
+      486,
+      654,
+      198
+    ],
+    "compras": [
+      250,
+      1205,
+      262,
+      244,
+      295,
+      215,
+      448,
+      383,
+      550,
+      173
+    ],
+    "costo_ajustado_um": 94842.0,
+    "ahorro_um": 0.0,
+    "desviacion_relativa": 0.0,
+    "seg_economia": 0.03236111399996844
+  }
+}

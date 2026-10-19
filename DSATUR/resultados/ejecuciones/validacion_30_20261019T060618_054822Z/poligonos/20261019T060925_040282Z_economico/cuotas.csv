@@ -1,0 +1,11 @@
+poligono,especie,R_original,existentes,R_ajustada,compras,diferencia,diferencia_absoluta,diferencia_pct
+23,Agave lechuguilla,322,44,322,278,0,0,0.0
+23,Agave salmiana,1503,288,1412,1124,-91,91,-6.05455755156354
+23,Agave scabra,322,69,322,253,0,0,0.0
+23,Agave striata,322,51,322,271,0,0,0.0
+23,Opuntia cantabrigiensis,376,69,376,307,0,0,0.0
+23,Opuntia engelmannii,292,60,292,232,0,0,0.0
+23,Opuntia robusta,560,122,616,494,56,56,10.0
+23,Opuntia streptacantha,491,100,526,426,35,35,7.128309572301426
+23,Prosopis laevigata,660,106,660,554,0,0,0.0
+23,Yucca filifera,199,39,199,160,0,0,0.0

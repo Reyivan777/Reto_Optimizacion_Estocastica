@@ -1,0 +1,2 @@
+poligono,presupuesto_um,costo_original_um,costo_ajustado_um,ahorro_um,estado_economia,seg_economia,costo_minimo_um,certificado_desviacion,certificado_desempate,detalle
+9,88875.0,88983.0,88871.0,112.0,factible_economicamente,0.04141554800003178,87777.5,True,True,Óptimo certificado por solver (tolerancias numéricas estándar).
