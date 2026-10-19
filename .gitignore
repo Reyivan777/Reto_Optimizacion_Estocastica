@@ -2,5 +2,8 @@ __pycache__/
 *.pyc
 .venv/
 .ipynb_checkpoints/
-resultados/ultima_ejecucion/
-resultados/ejecucion_notebook/
+# Experimentos adicionales: regenerables desde el notebook
+resultados/monte_carlo_p*/
+resultados/lote*/
+resultados/presupuesto_*/
+resultados/diagnostico_*.png
