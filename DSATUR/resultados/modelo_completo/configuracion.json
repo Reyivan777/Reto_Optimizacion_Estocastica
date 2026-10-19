@@ -191,7 +191,7 @@
       "busqueda local"
     ]
   },
-  "python": "3.12.14",
+  "python": "3.12.10",
   "versiones": {
     "numpy": "2.5.4",
     "pandas": "3.0.6",
@@ -202,10 +202,10 @@
     "nbclient": "0.11.0"
   },
   "datos_sha256": {
-    "inventario.csv": "21aa623c5c7f6de0ea3a7c1c7533c03c1029c81d98950efe80afae06339ba796",
-    "fuentes_sha256.json": "756f23ef4ce5c8fdb7f35a72e5c3769da5d821eb1c695efa57a5d64261a75278",
-    "especies.csv": "b00a9203999b8fa8fd3a8facd5e9502d279a986745c603de61db33d8c2bcc515",
-    "supervivencia_porcentajes.csv": "e6e51172a4477d8ab58d374a177edd36b398a13162dd97d0a450facd744390b1"
+    "especies.csv": "3ad11d0def80f190e4ecd305808aa06d1b05c4027c8d85e01b1ebf249d946967",
+    "fuentes_sha256.json": "93dd9fa3759c529b1a0feeb78e9fea676c9bacf5f8c5da630283b4b1a1ac8663",
+    "inventario.csv": "308daa43203fa8c683402a9cded94489b3b9c304d9978509c6a9dabfb69bc044",
+    "supervivencia_porcentajes.csv": "4f995a2de1ff567d84256683208f1ff583bf59a6b91414af047d0bf76f28aa7c"
   },
   "estados": {
     "ok": 360

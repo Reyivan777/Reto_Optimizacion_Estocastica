@@ -1,70 +1,10 @@
 {
-  "base_commit": "fa888eefea118c154f6ada52145c7fc5ee6298ec",
-  "experimentos_espaciales_completados": 360,
-  "poligonos": 30,
-  "escenarios_por_poligono": 12,
+  "origen": "validaciones integradas de ejecutar_escenario",
+  "escenarios_solicitados": 360,
+  "escenarios_ok": 360,
   "escenarios_globales_completos": 12,
-  "fallos": 0,
-  "omisiones": 0,
-  "regresion_historica_max_diferencia": 4.547473508864641e-13,
-  "archivos_individuales_verificados": 240,
-  "graficas_globales_verificadas": 5,
+  "restricciones": "cuotas, fijas, geometria y J_final <= J_dsatur verificadas para estado ok",
   "presupuesto_cumplen": 24,
-  "presupuesto_incumplen": [
-    5,
-    9,
-    10,
-    12,
-    18,
-    23
-  ],
-  "presupuesto_global_um": 2287625.0,
-  "costo_global_um": 2279608.0,
-  "mejora_global_media_pct": 16.938820535569384,
-  "mejora_global_std_pp": 0.07464004150440305,
-  "archivos_inmutables_verificados": [
-    "DSATUR/config/competencia.json",
-    "DSATUR/data/especies.csv",
-    "DSATUR/data/fuentes_sha256.json",
-    "DSATUR/data/inventario.csv",
-    "DSATUR/data/supervivencia_porcentajes.csv",
-    "DSATUR/reforestacion/algoritmos.py",
-    "DSATUR/reforestacion/geometria.py",
-    "DSATUR/reforestacion/validacion.py"
-  ],
-  "ejecucion_notebook": {
-    "celdas": 17,
-    "segundos": 976.040041405,
-    "modo": "IPython en proceso, sin sockets Jupyter"
-  },
-  "prueba_notebook_individual": {
-    "poligono": 1,
-    "escenarios": 2,
-    "celdas": 17,
-    "archivos": 8,
-    "genera_modelo_completo": false
-  },
-  "pruebas_rapidas": {
-    "casos": 9,
-    "estado": "correctas",
-    "registro": "test_fallo_exportacion_real_sin_obsoletos (__main__.Pruebas.test_fallo_exportacion_real_sin_obsoletos) ... ok\ntest_flexibilidad_solo_diagnostico_y_minimo (__main__.Pruebas.test_flexibilidad_solo_diagnostico_y_minimo) ... ok\ntest_graficas_dos_metodos (__main__.Pruebas.test_graficas_dos_metodos) ... ok\ntest_modelo_completo_rechaza_subconjuntos (__main__.Pruebas.test_modelo_completo_rechaza_subconjuntos) ... ok\ntest_no_agregar_faltantes_fallos_omitidos (__main__.Pruebas.test_no_agregar_faltantes_fallos_omitidos) ... ok\ntest_porcentaje_global_ratio_sumas (__main__.Pruebas.test_porcentaje_global_ratio_sumas) ... ok\ntest_presupuesto_individual_no_agregado (__main__.Pruebas.test_presupuesto_individual_no_agregado) ... ok\ntest_regresion_historica (__main__.Pruebas.test_regresion_historica) ... ok\ntest_restricciones_deltas_reproducibilidad (__main__.Pruebas.test_restricciones_deltas_reproducibilidad) ... ok\n\n----------------------------------------------------------------------\nRan 9 tests in 4.998s\n\nOK\n"
-  },
-  "comprobaciones": [
-    "cuotas",
-    "existentes fijas",
-    "geometria",
-    "delta frente a recálculo",
-    "J final <= J DSATUR",
-    "presupuesto individual",
-    "minimo flexible vs programacion lineal",
-    "porcentajes",
-    "agregados completos y faltantes",
-    "identidad historica 360 escenarios",
-    "archivos individuales y globales reales"
-  ],
-  "alcance_flexibilidad": "Solo diagnostico economico; no aplicado ni validado ecologicamente",
-  "limitaciones_ejecucion": "IPython en proceso; kernel externo Jupyter y revision HTML integral no verificados",
-  "distribuciones_escenario_0_identicas_a_base": 30,
-  "graficas_geometricas_previas_conservadas_en_git": 60,
-  "nota_graficas_geometricas": "Se conservan PNG existentes/finales de la base: distribucion.csv es byte a byte identico. Se actualizan comparaciones y Monte Carlo; se evita versionar cambios de render de mapas sin cambios de datos."
+  "pruebas_rapidas": "no ejecutadas por el exportador",
+  "regresion_historica": "no comparada automaticamente por el exportador"
 }
