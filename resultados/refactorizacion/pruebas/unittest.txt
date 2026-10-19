@@ -1,0 +1,20 @@
+test_conservacion (test_modelo.Modelo.test_conservacion) ... ok
+test_copiador_protegido (test_modelo.Modelo.test_copiador_protegido) ... ok
+test_cuotas_30 (test_modelo.Modelo.test_cuotas_30) ... ok
+test_datos_invalidos (test_modelo.Modelo.test_datos_invalidos) ... ok
+test_deltas (test_modelo.Modelo.test_deltas) ... ok
+test_estadisticas (test_modelo.Modelo.test_estadisticas) ... ok
+test_fallos_y_recursos (test_modelo.Modelo.test_fallos_y_recursos) ... ok
+test_matrices_invalidas (test_modelo.Modelo.test_matrices_invalidas) ... ok
+test_matriz_alternativa (test_modelo.Modelo.test_matriz_alternativa) ... ok
+test_objetivo_independiente (test_modelo.Modelo.test_objetivo_independiente) ... ok
+test_otros_poligonos (test_modelo.Modelo.test_otros_poligonos) ... ok
+test_regresion_p1 (test_modelo.Modelo.test_regresion_p1) ... ok
+test_reproducibilidad (test_modelo.Modelo.test_reproducibilidad) ... ok
+test_seleccion_presupuestos (test_modelo.Modelo.test_seleccion_presupuestos) ... ok
+test_sin_nuevas_sin_aristas (test_modelo.Modelo.test_sin_nuevas_sin_aristas) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 1.518s
+
+OK

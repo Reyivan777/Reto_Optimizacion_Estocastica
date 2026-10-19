@@ -1,89 +1,118 @@
 # Reto de Optimización Estocástica — Reforestación
 
-## Estado del proyecto (18 de octubre de 2026)
+## Estado implementado y validado
 
-**Fase:** prototipo funcional con resultados preliminares; en preparación una refactorización didáctica y extensible para el Entregable 2. **Este README documenta el estado actual, no funcionalidades futuras.** El prototipo está centrado en el polígono P1 de la tabla del socio formador. No es un plano georreferenciado ni demuestra mayor supervivencia real.
+Refactorización didáctica del prototipo de P1, basada en `main` **53c13a98636e77c51e77ed81110588b6df3f3a1d**. Se conserva la heurística, las cuotas y la simulación espacial; el código reusable ahora reside en módulos. El notebook contiene 16 secciones, tablas de símbolos, ejemplos P1 y cuatro figuras principales. No representa un plano georreferenciado ni demuestra mayor supervivencia.
 
-### Objetivo
-Planear la asignación de especies a posiciones dentro de polígonos de reforestación minimizando un índice de competencia, respetando el inventario de plantas existentes y las cantidades objetivo. El reto original también solicita estimar compras cuando se desconoce el inventario: **esa incertidumbre de adquisición no está implementada** en esta versión, que usa conteos conocidos y simula posiciones.
+**Resultados realmente ejecutados:**
 
-### Datos
-- `data/especies.csv`: 10 especies, metas por ha y costos unitarios.
-- `data/inventario.csv`: conteos de 10 especies para los 30 polígonos (300 registros) y áreas.
-- `data/supervivencia_porcentajes.csv`: porcentajes históricos usados como contexto, no como matriz de competencia ni predicción.
-- `data/fuentes_sha256.json`: huellas SHA-256 de documentos fuente, que sirven para identificar versiones; los documentos `sources/` **no están actualmente presentes en la rama main**.
-- La meta de referencia es 658 plantas/ha, incluyendo las ya existentes. Se redondea la meta total por polígono y se reparten cuotas por especie conciliando los restos.
+- Entorno virtual limpio, instalación desde `requirements.txt`, Python 3.12.10; 15 pruebas automatizadas correctas.
+- P1, escenario 0: **1089.006627 → 991.747705 → 874.525183** (aleatoria, DSATUR, DSATUR + local). Reducción de **19.6951%** frente a aleatoria. Coincide con el prototipo anterior.
+- P1: **12/12 escenarios**; reducción media **20.1518%**, rango **19.2457%–21.2434%**. Los índices de los doce escenarios coinciden con las tablas históricas dentro de `1e-8`.
+- Escala: primero P4 (908 plantas) y P25 (2757), un escenario cada uno. Después **30/30 polígonos** completados, **un escenario por polígono**, 6000 propuestas: J agregado **161430.286548 → 146407.918776 → 134245.194845**, reducción **16.8401%** frente a aleatoria. Aproximadamente 37.69 s sumados en esta máquina; no es garantía de rendimiento en otra.
+- Los 30 conservan **23,569 existentes + 96,850 nuevas = 120,419**; superficie tabulada **183.01 ha**. No se han ejecutado 12 escenarios para cada uno de los 30.
+- Comparación pareada P1, escenarios 0–2: 6000 propuestas frente a `10 × 677 = 6770`; el presupuesto proporcional redujo J en las tres corridas. No certifica superioridad general ni un óptimo.
 
-### Formulación matemática actual
-Para cada polígono `p`:
-- Conjuntos: `P={1,...,30}`; `S` (10 especies); `F_p` (posiciones de plantas existentes); `V_p` (posiciones nuevas seleccionadas); `U_p=F_p∪V_p`; `E_p` (pares de posiciones a distancia ≤ radio de interacción). **Las posiciones se almacenan como coordenadas (x,y)**, no vectores binarios de superficie.
-- Parámetros: `A_p` área; `D=658` plantas/ha; `T_p=round(A_p D)` meta total; `n_ps` existentes por especie; `R_ps` cuota final; `q_ps=R_ps-n_ps` nuevas; `d_pij` distancia; `d_min=3.4 m` distancia mínima supuesta; `r=6 m` radio supuesto; `C_st` matriz de competencia; `w_pij=max(0,1-d_pij/r)`; `a_pis` especie prefijada en posiciones existentes.
-- Variable binaria: `x_pis=1` si asignamos especie `s` a la posición nueva `i∈V_p`; `0` en otro caso. `y_pis=a_pis` para existentes y `y_pis=x_pis` para nuevas.
-- Objetivo: minimizar `J = Σ_p Σ_{(i,j)∈E_p} w_pij Σ_s Σ_t C_st y_pis y_pjt` (cada par no dirigido una sola vez).
-- Restricciones principales: una especie por posición nueva `Σ_s x_pis=1`; cuotas `n_ps+Σ_{i∈V_p} x_pis=R_ps`; total `Σ_s R_ps=T_p=|F_p|+|V_p|`; respetar especies y posiciones existentes; separación entre posiciones ocupadas ≥ `d_min`; `x_pis∈{0,1}`. La selección geométrica garantiza la distancia, antes de la optimización de especies.
-- Índice de competencia: `J=J_FF+J_FV+J_VV` (pares de existentes, mixtos, y nuevos). `J_FF` no cambia al reasignar especies nuevas.
+Detalle, comandos, limitaciones de ejecución y cambios: [docs/validacion.md](docs/validacion.md). Evidencia nueva: `resultados/refactorizacion/`. Los CSV y PNG directamente en `resultados/` conservan los resultados **históricos** del prototipo.
 
-**Matriz C provisional e intercambiable:** penalización 3 entre plantas de la misma especie, 2 entre especies distintas del mismo género y 1 entre géneros distintos. No es un resultado ecológico validado. En futuros trabajos podrán proponerse parámetros basados en agua y nutrientes sin cambiar la estructura del modelo; la prioridad indicada por el profesor es formular y verificar correctamente el modelo.
+## Datos y procedencia
 
-### Funcionamiento del prototipo
-1. Cargar inventario y metas y verificar integridad.
-2. Para P1, aproximar el área con un rectángulo de superficie equivalente; simular coordenadas de las 165 plantas existentes conservando sus especies y conteos.
-3. Crear una malla triangular de candidatas, descartar posiciones demasiado cercanas y seleccionar por dispersión geométrica las 677 posiciones nuevas. La selección de sitios **no optimiza la competencia conjuntamente con las especies**.
-4. Construir el grafo espacial, conectando posiciones a menos de 6 m y aplicando `C` y pesos por distancia.
-5. Comparar asignación aleatoria de especies (referencia), DSATUR adaptado (heurística de asignación que prioriza saturación de vecinos y menor incremento de competencia, respetando cuotas) y búsqueda local.
-6. Búsqueda local: desde DSATUR, muestrear dos posiciones **nuevas** distintas uniformemente al azar; omitir si tienen la misma especie; calcular `ΔJ=J_despues-J_antes` usando aristas incidentes; intercambiar especies **solo si ΔJ<0**. No se mueven plantas existentes ni cambian las cantidades por especie. Se prueban **6,000 propuestas** por defecto; no necesariamente son 6,000 intercambios aceptados. No certifica óptimo local ni global.
-7. Monte Carlo espacial: repetir el proceso en **12 escenarios de posiciones simuladas**, conservando las cantidades; en cada escenario comparar asignación aleatoria, DSATUR y DSATUR+búsqueda local. Esta simulación **no** estima incertidumbre de conteos ni compras.
+- `data/especies.csv`: diez especies, metas por ha y costos unitarios.
+- `data/inventario.csv`: 300 registros, diez especies para 30 polígonos, áreas y conteos conocidos.
+- `data/supervivencia_porcentajes.csv`: contexto histórico; no se usa como C ni para predecir supervivencia.
+- `data/fuentes_sha256.json`: huellas de documentos originales, no sus contenidos. **`sources/` no está en main ni es necesaria para ejecutar esta versión.** No se inventaron documentos ni se reextrajeron datos.
 
-### Resultados guardados (P1)
-- Área: **1.28 ha**; existentes: **165**; nuevas: **677**; meta final: **842**.
-- Índice escenario 0: aleatoria **1089.007**, DSATUR **991.748**, DSATUR + búsqueda local **874.525**; mejora frente a la referencia aleatoria **19.70%**.
-- Monte Carlo: **12/12 escenarios completados**, mejora media frente a referencia aleatoria **20.15%** (rango aprox. **19.25%–21.24%**). Solo corresponde a supuestos actuales.
-- Costo de adquisición P1: **15,903.5 unidades monetarias**; la fuente no especifica moneda.
-- Se calcularon cuotas para los **30 polígonos**: **183.01 ha**, **23,569 existentes**, **120,419 meta total**, **96,850 nuevas**. **No se han optimizado espacialmente los 30 polígonos; únicamente P1.**
-- `resultados/` contiene gráficos `01_poligono.png` (geometría), `02_existentes.png` (existentes simuladas), `03_candidatas.png` (posiciones posibles), `04_grafo.png` (vecindades), `05_especies.png` (matriz conceptual), `06_busqueda_local.png` (descensos al aceptar intercambios), `07_distribucion_final.png` (solo nuevas / todas), `08_comparacion.png` (métodos), `09_monte_carlo.png` (12 escenarios); y CSV de cuotas, distribución, comparación, estadísticas y configuración.
-- La gráfica de búsqueda local representa **propuestas** en eje X y **competencia J** en eje Y: tramos planos = ninguna mejora aceptada; descensos = intercambio aceptado.
+Se conservan las normalizaciones Opuntia engelmannii y Opuntia streptacantha, el orden del catálogo y P13=5.05 ha como interpretación editorial pendiente. Las etiquetas del mapa no necesariamente corresponden a los IDs P1–P30. El costo se expresa en unidades monetarias: la fuente no especifica moneda.
 
-### Límites y precauciones
-- Geometría rectangular, posiciones inventadas, `d_min=3.4m`, `r=6m`, pesos espaciales y matriz C son supuestos exploratorios. El contorno real, coordenadas, topografía, agua, nutrientes y separación específica por especie no se han incorporado.
-- El modelo usa cuotas fijas. La variación permitida de ±10% indicada en la presentación del socio formador aún no está implementada.
-- Los 12 escenarios son exploratorios y la variación mezcla posiciones simuladas, referencia aleatoria y propuestas aleatorias de mejora; no equivale a evidencia de supervivencia ni al objetivo original de compra bajo inventario incierto.
-- P13 = 5.05 ha es interpretación editorial pendiente de confirmar; las etiquetas del mapa no coinciden necesariamente con IDs de la tabla. Las superficies tabuladas suman 183.01 ha frente a la referencia aproximada de 183 ha.
-- La referencia presupuestal por hectárea no está impuesta como restricción. Los costos de adquisición no incluyen transporte, riego, mantenimiento ni reposición.
-- El archivo `sources/` es necesario para **regenerar** el notebook con `scripts/crear_notebook.py`, pero actualmente **no está subido**. El notebook existente sí usa `data/` para ejecutar cálculos. `resultados/modelo_reforestacion.html` puede generarse con el script de ejecución, pero **no está versionado actualmente**.
+## Formulación matemática preservada
 
-## Estructura y ejecución
-- `modelo_reforestacion.ipynb`: notebook con formulación, implementación y resultados guardados (17 secciones).
-- `scripts/crear_notebook.py`: regenera notebook y extracción de datos **solo si se restauran las fuentes**; **sobrescribe** el notebook y cualquier cambio manual.
-- `scripts/ejecutar_notebook.py`: ejecuta notebook con kernel limpio y exporta HTML.
-- `requirements.txt`: dependencias fijadas.
-- `data/`: datos de entrada.
-- `resultados/`: tablas, figuras y configuración.
+Para cada polígono p:
 
-En la raíz del repositorio, en Windows:
+- P contiene 30 polígonos; S diez especies; F_p son coordenadas existentes simuladas, V_p coordenadas nuevas seleccionadas, U_p su unión y E_p los pares no dirigidos a distancia ≤ r. Cada arista se cuenta una sola vez. Las posiciones se almacenan como **(x,y)** en metros.
+- A_p es el área; D=658 plantas/ha; T_p=floor(A_p D+0.5); n_ps es inventario, R_ps cuota final y q_ps=R_ps−n_ps adquisición conocida. Cuotas por restos mayores y desempate por orden del catálogo; se rechaza inventario superior a cuota.
+- x_pis es binaria: especie s en posición nueva i. Para existentes y_pis=a_pis fijo; para nuevas y_pis=x_pis. Python representa cada fila one-hot con una etiqueta entera de especie, sin crear vectores de ocupación del terreno.
+
+$$\min J=\sum_{p\in P}\sum_{\{i,j\}\in E_p}w_{pij}\sum_{s\in S}\sum_{t\in S}C_{st}y_{pis}y_{pjt},\qquad w_{pij}=\max(0,1-d_{pij}/r).$$
+
+Restricciones: **exactamente una** especie por sitio nuevo; `n_ps + sum_i x_pis = R_ps`; `sum_s R_ps = T_p = |F_p|+|V_p|`; existentes inmutables; sitios dentro del terreno simulado y separados al menos d_min; variables binarias. Se corrige la desigualdad `≤1` del texto antiguo porque V_p contiene únicamente sitios seleccionados y todos se ocupan.
+
+La selección geométrica ocurre **antes** de optimizar especies. Se usa rectángulo de área equivalente, separación 3.4 m, malla triangular y dispersión geométrica. Esos supuestos no son coordenadas medidas ni optimización conjunta. El radio supuesto de interacción es 6 m. J=J_FF+J_FV+J_VV; J_FF permanece constante en un escenario.
+
+## Matriz de competencia intercambiable
+
+`config/competencia.json` contiene una matriz explícita y el orden de especies. Se valida dimensión 10×10, simetría, finitud, no negatividad y correspondencia con el catálogo. Se conserva **3 misma especie / 2 especies distintas del mismo género / 1 distinto género** como criterio provisional. No son mediciones ecológicas.
+
+Para sustituirla, editar sus coeficientes o pasar otro JSON mediante `--matriz`; no se modifica DSATUR ni búsqueda local. En una futura calibración podrían normalizarse requerimientos de agua y nutrientes y justificarse pesos con evidencia de campo. Esa estimación científica queda pendiente.
+
+## Algoritmos y Monte Carlo
+
+1. **Aleatoria:** permutación del multiconjunto de nuevas especies; conserva cuotas y sitios.
+2. **DSATUR adaptado:** prioriza saturación, grado ponderado y menor índice. Elige especie por menor costo incremental, mayor cuota pendiente y menor índice. Repetir especie vecina está permitido y penalizado; no se minimiza el número de colores.
+3. **DSATUR + local:** propone dos posiciones nuevas distintas, omite especies iguales y acepta solo ΔJ negativo. Se conserva la tolerancia numérica histórica `ΔJ < −1e−10`, que evita aceptar empates de coma flotante. No mueve existentes ni cambia cantidades. No certifica óptimo local o global.
+
+Se registran propuestas, especies iguales, evaluados, aceptados, rechazados, J inicial/final, reducción porcentual y tiempo. `propuestas = iguales + evaluados`, `evaluados = aceptados + rechazados`. El diagnóstico de trayectoria tiene propuestas en X y J en Y; descensos son mejoras aceptadas y mesetas ausencia de mejora. Ahora incluye la meseta hasta la última propuesta.
+
+Monte Carlo usa escenarios espaciales **completos** y semillas separadas `(semilla, polígono, escenario)`. En P1 cada escenario conserva **165 existentes y 677 nuevas**. La variación mezcla posiciones, referencia aleatoria y propuestas locales; no modela cantidades de compra desconocidas. Las estadísticas se condicionan a los completados; fallos y omisiones permanecen en el reporte. Doce escenarios son exploratorios y no validación ecológica.
+
+## Estructura
+
+|Archivo o carpeta|Responsabilidad|
+|---|---|
+|`modelo_reforestacion.ipynb`|Documento canónico ejecutado, 16 secciones: formulación → geometría → algoritmos → validación → resultados|
+|`reforestacion/config.py`|Configuración, perfiles, selección y presupuestos|
+|`reforestacion/datos.py`|Carga, validación, cuotas, lectura de C|
+|`reforestacion/geometria.py`|Simular existentes, seleccionar sitios, construir grafo|
+|`reforestacion/algoritmos.py`|Objetivo, referencia, DSATUR y deltas/intercambios|
+|`reforestacion/validacion.py`|Restricciones de soluciones|
+|`reforestacion/experimento.py`|Escenarios, lotes, estados, agregados y manifiestos|
+|`reforestacion/visualizacion.py`|Cuatro figuras principales y cinco diagnósticos opcionales|
+|`scripts/ejecutar_modelo.py`|CLI para uno, varios o todos los polígonos|
+|`scripts/ejecutar_notebook.py`|Ejecuta una copia y exporta HTML sin sobrescribir el fuente|
+|`scripts/crear_notebook.py`|Copia segura del notebook canónico a un archivo nuevo; no regenera desde sources/|
+|`tests/test_modelo.py`|15 pruebas de propiedades y regresión|
+|`docs/validacion.md`|Evidencias, diferencias y pendientes|
+
+## Ejecución
+
+Desde la raíz, Windows:
+
 ```powershell
 python -m venv .venv
 .venv\Scripts\python -m pip install -r requirements.txt
 .venv\Scripts\python scripts/ejecutar_notebook.py
+.venv\Scripts\python -m unittest discover -s tests -v
 ```
-Alternativamente, abrir `modelo_reforestacion.ipynb` en VS Code/Jupyter y ejecutar las celdas con el entorno configurado. El notebook espera que el directorio de trabajo sea la raíz que contiene `data/`. El comando de ejecución sobrescribe el notebook con sus nuevas salidas y genera `resultados/modelo_reforestacion.html`; evitar ejecutarlo sobre trabajo no guardado.
 
-## Plan aprobado para el siguiente desarrollo (NO IMPLEMENTADO)
-1. **Refactorización didáctica:** secciones claras; tablas de conjuntos, índices, parámetros, variables, objetivo y restricciones; equivalencia entre notación matemática y Python; ejemplos P1.
-2. **Separación de matriz C:** configuración editable y validada, sin incrustar pesos en la heurística; mantener C=3/2/1 hasta recibir coeficientes fundamentados en agua/nutrientes.
-3. **Generalización a P1, varios o 30 polígonos:** configuración de selección, procesamiento independiente, diagnósticos de factibilidad, tablas agregadas, límites de rendimiento y pruebas de escala; no afirmar ejecuciones de polígonos no procesados.
-4. **Instrumentación de búsqueda local:** registrar propuestas, pares distintos, rechazados y aceptados, mejora y tiempos; comparar 6,000 intentos fijos con propuestas proporcionales a `|V_p|` (factor configurable). Conservar criterio `ΔJ<0`; no introducir cambios de heurística sin comparativas.
-5. **Gráficas simplificadas:** cuatro principales (existentes, final, comparación, Monte Carlo), las otras diagnósticas.
-6. **Validación:** entorno limpio, semillas, cuotas, posiciones fijas, distancia, identidad de objetivos, deltas de intercambios, reproducibilidad y al menos un polígono adicional de tamaño razonable. Registrar errores y limitaciones.
-7. **Documentación:** actualizar README y reporte de resultados solo con datos efectivamente obtenidos. Si falta `sources/`, resolver esa dependencia sin inventar fuentes; proteger el notebook contra sobreescritura accidental.
+En Linux/macOS usar `.venv/bin/python`. El notebook espera la raíz del proyecto. Puede abrirse directamente en Jupyter/VS Code y ejecutar todas las celdas.
 
-## Extensiones posteriores (FUERA DEL SIGUIENTE COMMIT)
-- Optimizar simultáneamente **sitios y especies** (actualmente los sitios se eligen antes).
-- Permitir cuotas finales por especie en margen ±10% manteniendo la meta total.
-- Modelar probabilísticamente **inventarios desconocidos** y compras/risgo de faltantes usando datos apropiados, separado de Monte Carlo espacial.
-- Justificar/calibrar la matriz de competencia con agua y nutrientes, añadir condiciones geográficas reales y comparar más heurísticas.
+El ejecutor guarda `resultados/ejecucion_notebook/modelo_reforestacion_ejecutado.ipynb` y HTML; conserva el notebook fuente. Las celdas actualizan sus tablas/figuras en `resultados/refactorizacion/`, por lo que conviene usar una rama de trabajo. Si no se permiten sockets de kernel, existe `python scripts/ejecutar_notebook.py --sin-kernel`: ejecución secuencial en IPython dentro del mismo proceso. Fue el modo efectivamente validado aquí.
 
-## Historial conceptual
-- Primera entrega: investigación, formalización conceptual, grafos y Monte Carlo de adquisición propuesto.
-- Tras junta con socio formador: datos de 10 especies, 30 polígonos, supervivencia y costos; prototipo con inventarios conocidos.
-- 15 oct 2026: archivos CSV, scripts y salidas guardadas en GitHub.
-- 18 oct 2026: actualización de README con explicación explícita del modelo, resultados, limitaciones y plan del próximo commit. **Esta actualización es documentación; no cambia el algoritmo.**
+Sin abrir Jupyter:
+
+```bash
+python scripts/ejecutar_modelo.py --poligonos 1 --escenarios 2
+python scripts/ejecutar_modelo.py --poligonos 4,25 --escenarios 1
+python scripts/ejecutar_modelo.py --poligonos 1 --presupuesto proporcional --factor 10
+python scripts/ejecutar_modelo.py --perfil completo --poligonos todos --escenarios 1 --salida resultados/prueba_30
+```
+
+En Python, `Config(poligonos=1)`, `Config(poligonos=(4,))`, `Config(poligonos=(1,4,25))` o `Config(poligonos='todos')`. `Config()` conserva 12 escenarios P1 y 6000 propuestas. `perfil('rapido')`: 2 escenarios, máximo 4000 plantas por polígono y 24 corridas; `perfil('completo')`: 12 escenarios, 20000 plantas y 360 corridas. No se ejecuta un lote completo sin solicitarlo. Los límites generan estado **omitido**, distinto de **fallo** de construcción/validación; el CLI devuelve código 1 si hay alguno. No se relajan restricciones ni se reemplazan escenarios fallidos.
+
+Para una copia editable adicional: `python scripts/crear_notebook.py --destino copia_modelo.ipynb`. Rechaza destinos existentes y no reconstruye el notebook con un generador. Los dos scripts mencionados en el README anterior no estaban realmente presentes en la rama inspeccionada: estos son implementaciones nuevas y autocontenidas.
+
+## Pendiente y fuera de alcance
+
+- Calibración ecológica de C, contornos/coordenadas reales, topografía, suelo y distancias por especie.
+- Confirmar P13 y correspondencia mapa-tabla. Las áreas suman 183.01 frente a 183 ha aproximadas.
+- Cuotas flexibles ±10%, selección conjunta de sitios/especies, inventario desconocido y compras probabilísticas.
+- Supervivencia y cadenas de Markov. Menor J no demuestra más supervivencia.
+- Óptimos certificados y comparación estadística amplia de presupuestos. Solo P1 tiene 12 escenarios; los demás tienen un escenario probado.
+- Costo solo de adquisición: no transporte, riego, mantenimiento ni reposición; presupuesto por ha no impuesto.
+- Kernel Jupyter externo y revisión visual del HTML completo pendientes en un entorno que permita sockets y disponga de navegador. Las 17 celdas de código sí se ejecutaron en orden con IPython, y las cuatro figuras PNG fueron inspeccionadas visualmente.
+
+## Historial
+
+- Primera entrega: investigación y propuesta conceptual de compras bajo incertidumbre.
+- Prototipo: inventarios conocidos, simulación espacial P1, DSATUR e intercambios.
+- 18 oct 2026: README describe estado y plan de refactorización.
+- Refactorización actual: módulos, notebook didáctico, C independiente, perfiles/lotes y evidencia de P1 y 30 polígonos. La incertidumbre original de compra sigue pendiente y separada del Monte Carlo espacial.
