@@ -16,7 +16,7 @@ def git(*args):
 
 
 def main():
-    zip_file = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path(__file__).with_name('DSATUR_mejoras_validadas(1).zip')
+    zip_file = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path(__file__).with_name('DSATUR_mejoras_validadas.zip')
     if not zip_file.is_file():
         sys.exit(f'ZIP no encontrado: {zip_file}')
     root = Path(git('rev-parse', '--show-toplevel')).resolve()
