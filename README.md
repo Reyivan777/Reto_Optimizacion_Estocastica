@@ -10,12 +10,13 @@ Proyecto universitario de distribución de diez especies para reforestación, a 
 
 Configuración central:
 
-- `p = 1`: polígono de ejemplo; P1 reproduce los resultados históricos.
+- `POLIGONOS = 1`: resuelve ese polígono; puedes cambiar el entero por cualquier ID de 1 a 30 (por ejemplo, `25`).
+- `POLIGONOS = "todos"`: resuelve automáticamente los 30 en la sección 15, sin editar más celdas. El detalle paso a paso y las gráficas corresponden al primero de la selección (P1 en este modo).
 - `ESCENARIOS_MC = 12`: escenarios Monte Carlo espaciales (usar 2 para una corrida más rápida).
 - `EJECUTAR_COMPARACION_PRESUPUESTOS = False`: comparación opcional de propuestas fijas/proporcionales.
-- `EJECUTAR_LOTE_ADICIONAL = False`: ejecución opcional de P4 y P25 (ampliable a otros polígonos).
+- `ESCENARIOS_LOTE = 1`: escenarios por polígono cuando se selecciona `"todos"`; independiente del Monte Carlo detallado. Se mantienen límites de 20000 plantas por polígono y 360 corridas por lote; excesos o fallos se reportan.
 
-Las gráficas y tablas de P1 se encuentran en [resultados/](resultados/). Las ejecuciones generan allí sus salidas, sin necesidad de otros programas. El notebook deja los experimentos extras desactivados para que no se ejecuten accidentalmente.
+Las gráficas y tablas de P1 se encuentran en [resultados/](resultados/). Las ejecuciones generan allí sus salidas, sin necesidad de otros programas. La comparación de presupuestos queda desactivada por defecto. La ejecución de todos depende únicamente de `POLIGONOS = "todos"`. Las figuras de otras selecciones se guardan en subcarpetas para conservar la referencia P1.
 
 ## Estructura simplificada
 
@@ -59,3 +60,4 @@ El Monte Carlo del notebook repite escenarios **espaciales** con conteos existen
 La menor competencia *del índice provisional* no prueba una mayor supervivencia real. Faltan coordenadas de campo, una matriz de competencia calibrada, topografía y suelo, cuota flexible por especie (±10 %), compras bajo inventario desconocido y evaluación económica integral. Los costos del catálogo son unidades monetarias sin moneda especificada por la fuente. La interpretación de P13 = 5.05 ha y la correspondencia entre IDs de polígonos y el mapa requieren confirmación.
 
 **Nota:** el notebook principal no está diseñado para ejecutarse aislado de las carpetas `data/`, `config/` y `reforestacion/`.
+
