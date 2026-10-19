@@ -1,0 +1,12 @@
+{
+  "base_commit": "53c13a98636e77c51e77ed81110588b6df3f3a1d",
+  "p1_identidades": {
+    "base": true,
+    "dsatur": true,
+    "final": true,
+    "coordenadas": true,
+    "historia_prefijo": true
+  },
+  "mc_12_max_diferencia": 0.0,
+  "nota": "Historia agrega solo el punto final de presupuesto; asignaciones y coordenadas idénticas."
+}

@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+resultados/ultima_ejecucion/
+resultados/ejecucion_notebook/
