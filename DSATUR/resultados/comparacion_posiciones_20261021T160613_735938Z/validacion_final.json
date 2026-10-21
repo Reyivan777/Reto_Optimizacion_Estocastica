@@ -1,0 +1,55 @@
+{
+  "pruebas_pasadas": 31,
+  "pruebas_fallidas": 0,
+  "notebooks": [
+    {
+      "motor": "cpp",
+      "metodo": "IPython en proceso",
+      "celdas_ejecutadas": 17,
+      "errores": 0,
+      "segundos": 9.264613000035752,
+      "optimizar_posiciones": true,
+      "poligonos": "1,13,5"
+    },
+    {
+      "motor": "cpp",
+      "metodo": "IPython en proceso",
+      "celdas_ejecutadas": 17,
+      "errores": 0,
+      "segundos": 4.966347299981862,
+      "optimizar_posiciones": false,
+      "poligonos": "1"
+    }
+  ],
+  "historicos_preservados": 1076,
+  "fuentes_finales_sha256": {
+    "src\\reforestacion\\algoritmos.py": "1ea3ea455e3b47e8eebc738212a9ef3b5f151a7659c53eeabb5228a87271deaa",
+    "src\\reforestacion\\config.py": "a5b7c70c4a40974b16dcd242ecc01e2fd67f132f44a4894903d560989202d5e7",
+    "src\\reforestacion\\datos.py": "031eff1e7bffdc798eb0fd9ae19de423e228b54df44fa5c730950e6e35130e85",
+    "src\\reforestacion\\dos_etapas.py": "1dd52468d62e1cf46dae17d257bfc9c3be4364a10d5846d3ee4b405d20be4953",
+    "src\\reforestacion\\economia.py": "347dddc5259a3a10ab7a7e5304848965152173fe4f8adda4ffc47885de3622b7",
+    "src\\reforestacion\\experimento.py": "f3cd35c574a18b26562c61b9082f225d3ffd8d9b9f3a76cd7cfbde02900352ac",
+    "src\\reforestacion\\geometria.py": "a29a331209f8d5414b5add6180a841deca90239d21afb0dde06df50ac2e64792",
+    "src\\reforestacion\\motores.py": "d0449db7bc96b38f26b79a7c681314d8867d9498033d8a09046344c13058331b",
+    "src\\reforestacion\\motor_cpp.py": "dd8d7d13f02031e42547fbd9bdb9425cab3b30faaaf4c76b14d0ca0a2be61541",
+    "src\\reforestacion\\optimizacion_economica.py": "cbd2618491a012c64fc4f60ffa0b35d61f67cbe041b2c0d7d0f0b49e72ba3b19",
+    "src\\reforestacion\\posiciones.py": "192b9d5085f68d0fa780fd784436df7ca6a6d1c3594e0c8163ff5d392c61315e",
+    "src\\reforestacion\\reportes.py": "64dcb16bfe0aec8574dda13796773a20ad7cb8b1f562c12496e7766d4b3170a7",
+    "src\\reforestacion\\validacion.py": "4f2971fcec145e60705b17ff15f4e82020342a2420af15daa0a559f0a57341d6",
+    "src\\reforestacion\\visualizacion.py": "27bda49588002c59cb72aade9f98a38f838d6c920dd38074af4f820c4eba9c9b",
+    "src\\reforestacion\\__init__.py": "e6b27f0ea45d72efbeb93abf5ddfaa980cc15c30cb7647dc159423e99d445fbe",
+    "cpp\\motor.cpp": "64db0a37087d0cc372a0c23f6a07685864a5c764c459c8b92b506bddb74941e9",
+    "scripts\\benchmark_motores.py": "6e28623b949079265296c4ea05348acc6c92af901bb402c7eeeabe095dfce0a6",
+    "scripts\\comparar_posiciones.py": "9cc70d550e3e4c5af018f948929a4df55d7791addf47b90be4e47666b566e024",
+    "scripts\\compilar_cpp.py": "fd619fc69ff4129e7e5b45b591ea673f54f3ed6e1ba09355ea8f6c704f2b698c",
+    "scripts\\ejecutar_dos_etapas.py": "acc6a937285159f08f1c2e17a66e5db632243fe7aa8182d0efe282c2eb61529f",
+    "scripts\\perfilar_python.py": "470646072844f58146bca3beddcfe8a368e6c362e95d273a3dc739e42d97bc3b",
+    "scripts\\validar_historico_cpp.py": "3e0e3b9641a90139672be2f6b65ed24821d0bb07800f2e27d94a75fe015d5c19",
+    "scripts\\validar_lote_economico.py": "f26b0078a6e4badcec08086b09d52e22175e75c9725f65156c061ea52d364ef3",
+    "scripts\\verificar_notebook_cpp.py": "e787c043b0ee1be28e10aefd8891d645843b0d709d12bccb100aa44f53f8479b",
+    "tests\\verificar_cpp.py": "731c00b23938be0a653d5fc9d2f13078bc5d75a5d9f891d646c5f92b0945254e",
+    "tests\\verificar_economia.py": "a190a426a5d4f444ec887efaa69310ad0353f07289d75940eaf81a6ded8f4b1d",
+    "tests\\verificar_modelo.py": "013ceba89c2490c37dd5709dbae0bbb4f1f08a183db1aa74371a6c8d7e062866",
+    "tests\\verificar_posiciones.py": "3340e9abf6fc79e14592abfbba845e4e588bde4d82fe42ad4119c6a6f183a17a"
+  }
+}

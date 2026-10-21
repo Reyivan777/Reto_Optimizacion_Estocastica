@@ -83,3 +83,37 @@ API int intercambiar(I K, I intentos, const I* off, const I* adj, const double* 
     contadores[0]=iguales; contadores[1]=aceptados;
     return 0;
 }
+
+// Static candidate-neighbour CSR, dynamic occupancy. Only incident terms change.
+API int sustituir(I K, I nf, I m, const I* off, const I* adj, const double* w,
+                 const I* bloquea, const I* validos, const double* C, const I* y,
+                 const I* propuestas, I* sitios, I* ocupantes, I* pasos,
+                 double* deltas, I* counts) noexcept {
+    I aceptados=0, factibles=0;
+    for(I k=0;k<m;++k) {
+        I a=propuestas[2*k], c=propuestas[2*k+1], destino=nf+c;
+        if(!validos[c] || ocupantes[destino]>=0) continue;
+        bool viable=true;
+        double nuevo=0, previo=0;
+        for(I e=off[destino];e<off[destino+1];++e) {
+            I j=ocupantes[adj[e]];
+            if(j<0 || j==a) continue;
+            if(bloquea[e]) { viable=false; break; }
+            nuevo+=w[e]*C[y[a]*K+y[j]];
+        }
+        if(!viable) continue;
+        ++factibles;
+        I origen=sitios[a];
+        for(I e=off[origen];e<off[origen+1];++e) {
+            I j=ocupantes[adj[e]];
+            if(j>=0) previo+=w[e]*C[y[a]*K+y[j]];
+        }
+        double delta=nuevo-previo;
+        if(delta < -1e-10) {
+            ocupantes[origen]=-1; ocupantes[destino]=a; sitios[a]=destino;
+            pasos[aceptados]=k; deltas[aceptados]=delta; ++aceptados;
+        }
+    }
+    counts[0]=factibles; counts[1]=aceptados;
+    return 0;
+}

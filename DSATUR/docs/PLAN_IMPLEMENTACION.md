@@ -2,18 +2,28 @@
 
 Una fase por solicitud. Leer este documento, ESTADO_IMPLEMENTACION.md, Git y las dependencias antes de continuar. No modificar Algoritmo Genético, datos sincronizados ni evidencia histórica. Python sigue disponible como referencia. No se afirma optimalidad global espacial.
 
+## Prioridad vigente: sustitución de posiciones candidatas
+
+La migración C++17 está **completada y validada**. Las geometrías aproximadas son responsabilidad de otro integrante; no editar sus archivos ni implementar contornos. Los mapas HTML quedan **pospuestos** hasta integrar ese trabajo. La siguiente fase activa es la optimización de posiciones (fase 4 adelantada), exclusivamente sustitución discreta de candidatas; no requiere esperar las geometrías nuevas.
+
+Base reproducible: `d29c169`, rama independiente `optimizacion-posiciones-candidatas`. Conservar DSATUR y el objetivo original; etapa adicional apagada por defecto. Implementar interfaz `Terreno.contiene`, rectángulo actual, vecindades dispersas estáticas y ocupación dinámica, deltas incidentes Python/C++, propuestas NumPy separadas y reconstrucción final del grafo. No mover existentes ni cambiar etiquetas, cuotas, costos, presupuesto o C.
+
+Aceptación: pruebas de invariantes/deltas/semillas/ambos motores/sin movimientos, regresión desactivada contra referencia previa y tres métodos pareados en P1/P13/P5 × 12 escenarios. Medir reducciones, intentos/factibles/aceptados, tiempo adicional y total; guardar evidencia nueva. Actualizar notebook, CLI y documentación; pruebas finales, commit y detenerse. Desplazamientos continuos, alternancia, nuevos modelos Monte Carlo y supervivencia quedan fuera de esta solicitud.
+
+Alcance de sustituciones completado: 31/31 pruebas, 72/72 regresiones desactivadas y 36/36 escenarios con mejora adicional, igualdad exacta Python/C++. Evidencia, tiempos y límites en [OPTIMIZACION_POSICIONES.md](OPTIMIZACION_POSICIONES.md). Tras el commit, esperar autorización; no avanzar a los otros movimientos de fase 4.
+
 |Fase|Objetivo y alcance|Dependencias|Aceptación|
 |---|---|---|---|
-|1|Perfilar Python; migrar selección dispersa, DSATUR y deltas/intercambios a C++17; selector de motor, notebook, compilación y mediciones.|Código actual, compilador C++17, NumPy/SciPy.|Entradas y propuestas comunes, invariantes y regresiones verificadas, benchmarks por etapa/pared/memoria, notebook ejecutable.|
-|2|Importar geometrías reales GeoJSON, CRS proyectado, contornos/agujeros y existentes georreferenciadas; conservar modo simulado.|Geometrías verificadas, CRS y origen del inventario.|Geometrías irregulares reales verificadas, áreas contrastadas y separación válida. Imágenes no sustituyen datos.|
-|3|Mapas HTML individuales/global real, leyendas, filtros y comparación inicial/final; exportar PNG.|Fase 2 para mapa global geográfico; evaluar renderizado masivo.|Mapas reproducibles desde resultados, legibles y fluidos sin posiciones geográficas inventadas.|
-|4|Explorar movimientos de nuevas plantas, sustituciones de candidatas y actualización incremental de grafo.|Motor validado y límites de fase 2.|Existentes fijas, cuotas exactas, pertenencia y distancia; medir beneficio y costo frente a posiciones fijas.|
+|1 — completada|Migración C++17 y benchmarks validados.|Código actual, compilador C++17, NumPy/SciPy.|Evidencia en MOTOR_CPP.md y BENCHMARKS_CPP.md.|
+|2 — otro integrante|Geometrías aproximadas; integración futura mediante adaptador.|Trabajo y geometrías verificadas del compañero.|No implementar ni modificar sus archivos en esta fase.|
+|3 — pospuesta|Mapas HTML individuales/global.|Geometrías integradas.|Esperar una solicitud posterior.|
+|4 — activa|Sustitución discreta de candidatas para plantas nuevas, opcional tras DSATUR/local de especies.|Motor validado, interfaz de pertenencia; rectángulo actual.|Existentes fijas, etiquetas/cuotas exactas, pertenencia y distancia; medir beneficio y costo frente a posiciones fijas.|
 |5|Escalar Monte Carlo espacial, convergencia, error estándar, IC y percentiles; evaluar paralelismo/agregación.|Motor y benchmarks; inventario conocido documentado.|Número de escenarios justificado estadísticamente, semillas y denominadores; sin compras aleatorias automáticas.|
 |6|Supervivencia esperada y escenarios exploratorios de mortalidad, reposición, precios y presupuesto.|Auditar CSV histórico y disponibilidad de costos reales.|Separar observaciones, proyecciones e hipótesis; sin causalidad competencia-supervivencia no validada.|
 |7|Matriz alternativa configurable y sensibilidad; revisar agua, nutrientes y raíces con fuentes.|Documentar supuestos y evidencia; conservar C original.|Coeficientes heurísticos identificados y comparación reproducible; no inventar mediciones.|
 |8|Mejoras DSATUR/local, reinicios y decisiones económicas conjuntas; interfaz, exportaciones e informe.|Fases anteriores, datos suficientes y baselines.|Proyecto reproducible, pruebas finales, documentación matemática y presentación comprensible.|
 
-## Diseño de fase 1
+## Diseño histórico de fase 1 (completado; prioridad sustituida arriba)
 
 Base Git: 49b17fa, main, checkout inicialmente limpio. Referencia económica: docs/VALIDACION_ECONOMICA.md; referencia espacial: docs/MODELO_CUOTAS_FIJAS_HISTORICO.md y resultados guardados.
 

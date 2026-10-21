@@ -121,3 +121,23 @@ def busqueda_local(inicial,g,C,rng,intentos):
     y,h,stats=busqueda_con_propuestas(inicial,g,C,propuestas)
     stats['segundos']=perf_counter()-inicio
     return y,h,stats
+
+
+def sustituir(y, estado, propuestas):
+    """Internal bridge; posiciones.optimizar_posiciones validates every buffer."""
+    lib=biblioteca()
+    try:
+        fn=lib.sustituir
+    except AttributeError as error:
+        raise RuntimeError('Recompilar C++ para sustituciones: python scripts/compilar_cpp.py') from error
+    fn.argtypes=[ct.c_int64,ct.c_int64,ct.c_int64,_I,_I,_D,_I,_I,_D,_I,_I,_I,_I,_I,_D,_I]
+    fn.restype=ct.c_int
+    m=len(propuestas); pasos=np.empty(m,dtype=np.int64); deltas=np.empty(m)
+    counts=np.zeros(2,dtype=np.int64)
+    _check(fn(len(estado['C']),estado['nf'],m,estado['off'],estado['adj'],estado['pesos'],
+        estado['bloquea'],np.ascontiguousarray(estado['validos'],dtype=np.int64),estado['C'],
+        y,propuestas,estado['sitios'],estado['ocupantes'],pasos,deltas,counts))
+    factibles,aceptados=map(int,counts)
+    historia=[(int(k)+1,int(propuestas[k,0]),int(propuestas[k,1]),float(d))
+              for k,d in zip(pasos[:aceptados],deltas[:aceptados])]
+    return historia,factibles

@@ -1,6 +1,19 @@
 # Estado persistente
 
-## Fase actual: 1 — completada
+## Fase actual: sustitución de posiciones candidatas (fase 4 adelantada)
+
+- Migración C++17 completada y validada. Geometrías aproximadas a cargo de otro integrante; no modificar sus archivos. Mapas HTML pospuestos hasta integrarlas.
+- Base `d29c169`, checkout inicialmente limpio; rama independiente `optimizacion-posiciones-candidatas`. Leídos README, plan/estado, motor y benchmarks, geometría/algoritmos/experimento/C++, pruebas y evidencia histórica/económica.
+- Implementada etapa opcional en `posiciones.py`: protocolo de pertenencia, rectángulo actual, sustitución discreta con especie fija, CSR estático de sitios/ocupación dinámica, deltas incidentes Python/C++ y reconstrucción final. Apagada por defecto; RNG separado preserva flujos previos. No se modifican `geometria.py`, `algoritmos.py`, economía, datos, C, `sources/` ni `Algoritmo Genético/`.
+- Integrados Config, CLI, notebook, exportación por grafo inicial/final y comparación económica sobre geometrías iniciales. Tres métodos pareados y ambos motores en `scripts/comparar_posiciones.py`; formulación y resultados en `docs/OPTIMIZACION_POSICIONES.md`.
+- Referencia capturada antes de implementar: `resultados/posiciones_20261021T155856_224722Z/`, 36 escenarios P1/P13/P5 × 12 por motor. Regresión final desactivada: 72/72 entradas y asignaciones idénticas, diferencia máxima J=0. Preservados 1076 archivos históricos por SHA-256.
+- Comparación nueva: `resultados/comparacion_posiciones_20261021T160613_735938Z/`, 216 pipelines (36 escenarios × tres métodos × ambos motores), cuotas económicas factibles y semillas idénticas. Reducción adicional media sobre búsqueda de especies: P1 2.581397%, P13 1.803905%, P5 1.984649%; 36/36 mejoraron, cero empeoramientos y soluciones Python/C++ exactamente iguales. 216000 propuestas/4216 aceptaciones por motor.
+- Tiempo adicional medio C++: P1 0.016877 s, P13 0.072014 s, P5 0.086131 s; acumulado 2.100265 s. Los tiempos totales y Python están en el informe. No extrapolar ni usar diferencias de totales como tiempo del paso. Pared del comparador: 121.689107 s, sin la regresión previa ni compilación/importaciones.
+- Pruebas finales: 31/31 (9 modelo, 6 economía, 5 C++, 11 posiciones), cero errores. Verifican deltas/aristas, restricciones, costos, semillas, salida sin mejora y etapa desactivada; logs en la comparación. Notebook C++ activado P1/P13/P5: `resultados/notebook_cpp_20261021T161130_292588Z/`; desactivado P1: `resultados/notebook_cpp_20261021T161220_024102Z/`. Ambos 17 celdas, cero errores y seis PNG; nbformat validado y comparación PNG inspeccionada.
+- Estado del alcance: sustituciones implementadas y validadas. Limitaciones: rectángulos simulados, C provisional, búsqueda aleatoria acotada al pool; no óptimo local/global certificado. Núcleo C++ probado en Windows; Linux y kernel externo Jupyter conservan los límites documentados de fase 1.
+- Límite de esta solicitud: solo sustituciones candidatas. Al validar, documentar y crear commit, detenerse y esperar autorización. Sin desplazamientos continuos, alternancia, nuevos modelos Monte Carlo ni supervivencia.
+
+## Historial: fase 1 — completada
 
 - Checkout main limpio en 49b17fa. Clonado dentro del espacio local porque el espejo del proyecto no contenía DSATUR ni .git. No se modifican sources ni Algoritmo Genético.
 - Leídos README completo, notebook, módulos, configuración, datos, pruebas, validación económica y referencias históricas. Objetivo: suma de competencia ponderada por distancias; inventario y cuotas exactas, existentes fijas, separación 3.4 m. Economía ±10% y adquisición 12500 u.m./ha se preservan.
@@ -18,5 +31,5 @@
 - Problemas resueltos: permisos temporales (TMP/TEMP dentro de build/tmp); diferencia inicial de desempate por sum(float) de CPython 3.12 (grados calculados en Python y entregados idénticos a C++); prueba nueva de presupuesto corregida para usar el importe decimal del plan; configuración inline de IPython corregida. Los intentos fallidos del notebook tienen registros explícitos independientes.
 - Límites: kernel externo Jupyter no logró iniciar celdas en este sandbox y fue interrumpido; validación pendiente fuera de él. Linux documentado pero no probado. Un grupo cronometrado por carga, orden Python→C++; factores medidos sujetos a carga/caché/temperatura. Propuestas NumPy y NetworkX siguen consumiendo tiempo; el perfil no justificó migrar MILP, generación existente o grafo. No hay datos externos faltantes que bloqueen el motor de fase 1.
 - Commit de implementación, documentación y evidencia: 5e49b10 (Integrar motor espacial C++17 con equivalencia y benchmarks de fase 1), creado tras 20/20 pruebas y git diff --check. Este registro de su identificador se guarda en un commit documental posterior. Commits locales sobre main; sin push. La única limpieza posterior a las pruebas fue quitar la línea vacía final del perfil de texto y ajustar su exportador para no repetirla.
-- Siguiente fase: 2; no iniciar hasta completar fase 1 y recibir una nueva solicitud.
+- Siguiente fase prevista al cerrar fase 1: 2; sustituida por la prioridad actual de posiciones indicada arriba.
 - Decisiones externas heredadas: confirmar con socio ±10% sobre cuota final, moneda y P13; geometrías georreferenciadas necesarias para fase 2. No bloquean fase 1.

@@ -22,9 +22,12 @@ def mapa(puntos, etiquetas, especies, limites, titulo, nf=0):
 
 def comparacion(tabla, titulo):
     fig,ax = plt.subplots(figsize=(8,5),layout='constrained')
-    tabla = tabla.loc[tabla.metodo.isin(['Aleatoria','DSATUR + local'])].copy()
+    espacial=tabla.metodo.eq('DSATUR + local + posiciones').any()
+    tabla = tabla.copy() if espacial else tabla.loc[tabla.metodo.isin(['Aleatoria','DSATUR + local'])].copy()
     tabla['metodo'] = tabla.metodo.replace({'DSATUR + local':'DSATUR + búsqueda local'})
-    ax.bar(tabla.metodo,tabla.J,color=['#999999','#2166ac'])
+    ax.bar(tabla.metodo,tabla.J,color=['#999999','#67a9cf','#2166ac','#1b7837'] if espacial else ['#999999','#2166ac'])
+    if espacial:
+        ax.tick_params(axis='x',labelrotation=15)
     for i,v in enumerate(tabla.J):
         ax.text(i,v,f'{v:.3f}',ha='center',va='bottom')
     ax.set(ylim=(0,tabla.J.max()*1.13),ylabel='Competencia J (índice adimensional)',title=titulo)
