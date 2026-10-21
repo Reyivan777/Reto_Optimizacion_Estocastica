@@ -1,0 +1,25 @@
+test_economia_30_y_compras_asignacion (verificar_cpp.PruebasCPP.test_economia_30_y_compras_asignacion) ... ok
+test_empates_sin_aristas_sin_fijas_y_sin_nuevas (verificar_cpp.PruebasCPP.test_empates_sin_aristas_sin_fijas_y_sin_nuevas) ... ok
+test_fallos_controlados_antes_del_abi (verificar_cpp.PruebasCPP.test_fallos_controlados_antes_del_abi) ... ok
+test_pequeno_mediano_grande_entradas_identicas (verificar_cpp.PruebasCPP.test_pequeno_mediano_grande_entradas_identicas) ... ok
+test_propuestas_precalculadas_y_deltas (verificar_cpp.PruebasCPP.test_propuestas_precalculadas_y_deltas) ... ok
+test_30_economicos_y_diagnostico (verificar_economia.PruebasEconomicas.test_30_economicos_y_diagnostico) ... ok
+test_enumeracion_lexicografica (verificar_economia.PruebasEconomicas.test_enumeracion_lexicografica) ... ok
+test_estados_y_salidas_sin_sobrescribir (verificar_economia.PruebasEconomicas.test_estados_y_salidas_sin_sobrescribir) ... ok
+test_integracion_cuotas_compras_fijas_geometria (verificar_economia.PruebasEconomicas.test_integracion_cuotas_compras_fijas_geometria) ... ok
+test_inviables_ceros_y_bordes (verificar_economia.PruebasEconomicas.test_inviables_ceros_y_bordes) ... ok
+test_limite_solver_no_es_inviabilidad (verificar_economia.PruebasEconomicas.test_limite_solver_no_es_inviabilidad) ... ok
+test_fallo_exportacion_real_sin_obsoletos (verificar_modelo.Pruebas.test_fallo_exportacion_real_sin_obsoletos) ... ok
+test_flexibilidad_solo_diagnostico_y_minimo (verificar_modelo.Pruebas.test_flexibilidad_solo_diagnostico_y_minimo) ... ok
+test_graficas_dos_metodos (verificar_modelo.Pruebas.test_graficas_dos_metodos) ... ok
+test_modelo_completo_rechaza_subconjuntos (verificar_modelo.Pruebas.test_modelo_completo_rechaza_subconjuntos) ... ok
+test_no_agregar_faltantes_fallos_omitidos (verificar_modelo.Pruebas.test_no_agregar_faltantes_fallos_omitidos) ... ok
+test_porcentaje_global_ratio_sumas (verificar_modelo.Pruebas.test_porcentaje_global_ratio_sumas) ... ok
+test_presupuesto_individual_no_agregado (verificar_modelo.Pruebas.test_presupuesto_individual_no_agregado) ... ok
+test_regresion_historica (verificar_modelo.Pruebas.test_regresion_historica) ... ok
+test_restricciones_deltas_reproducibilidad (verificar_modelo.Pruebas.test_restricciones_deltas_reproducibilidad) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 18.699s
+
+OK

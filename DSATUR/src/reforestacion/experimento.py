@@ -10,38 +10,45 @@ from .geometria import (dimensiones, flujos, simular_existentes, candidatas,
 from .algoritmos import validar_C, base_aleatoria, dsatur, busqueda_local, objetivo
 from .validacion import validar_solucion
 from .economia import presupuesto_poligono
+from .motores import obtener_motor, informacion_motor
 
 class LimiteRecursos(ValueError):
     pass
 
 def ejecutar_escenario(p, escenario, datos, config, C):
     validar_C(C)
+    motor=obtener_motor(config.motor)
     inicio=perf_counter()
     area,n,R,q=datos.poligono(p,config)
     if R.sum() > config.max_plantas:
         raise LimiteRecursos(f'{R.sum()} plantas exceden límite {config.max_plantas}.')
     limites=dimensiones(area,config)
     rp,rb,rl=flujos(p,escenario,config)
+    t=perf_counter()
     F,fijas=simular_existentes(n,limites,config,rp)
-    pool,V=candidatas(F,limites,int(q.sum()),config)
+    te=perf_counter()-t; t=perf_counter()
+    pool,V=motor.candidatas(F,limites,int(q.sum()),config)
+    tc=perf_counter()-t; t=perf_counter()
     g=construir_grafo(p,F,V,config)
+    tg=perf_counter()-t
     tiempo_geometria=perf_counter()-inicio
     t=perf_counter(); base=base_aleatoria(fijas,q,rb); tb=perf_counter()-t
-    t=perf_counter(); ds=dsatur(fijas,q,g,C); td=perf_counter()-t
-    t=perf_counter(); final,h,stats=busqueda_local(ds,g,C,rl,config.intentos(int(q.sum()))); tl=perf_counter()-t
+    t=perf_counter(); ds=motor.dsatur(fijas,q,g,C); td=perf_counter()-t
+    t=perf_counter(); final,h,stats=motor.busqueda_local(ds,g,C,rl,config.intentos(int(q.sum()))); tl=perf_counter()-t
     for y in [base,ds,final]:
         validar_solucion(y,g,fijas,n,R,limites,config)
     assert np.array_equal(g['U'][:len(F)],F)
     jb,jd,jf=[objetivo(y,g,C) for y in [base,ds,final]]
     fijo=objetivo(final,g,C,True)['FF']
     assert jf<=jd+1e-8
-    fila={'poligono':p,'escenario':escenario,'estado':'ok','detalle':'',
+    fila={'poligono':p,'escenario':escenario,'motor':config.motor,'estado':'ok','detalle':'',
         'existentes':int(n.sum()),'nuevas':int(q.sum()),'total':int(R.sum()),
         'candidatas':len(pool),'J_base':jb,'J_dsatur':jd,'J_final':jf,'J_fijo':fijo,
         'mejora_pct':100*(jb-jf)/jb if jb else np.nan,
         'mejora_modificable_pct':100*(jb-jf)/(jb-fijo) if jb>fijo else np.nan,
         'costo_um':float(q@datos.especies.costo_unitario.to_numpy()),
         'seg_geometria':tiempo_geometria,'seg_base':tb,'seg_dsatur':td,'seg_local':tl,
+        'seg_existentes':te,'seg_candidatas':tc,'seg_grafo':tg,
         'seg_total':perf_counter()-inicio, **{'local_'+k:v for k,v in stats.items()}}
     fila.update(presupuesto_poligono(datos,p,config))
     return fila,{'g':g,'base':base,'dsatur':ds,'final':final,'historia':h,'F':F,'fijas':fijas,'V':V,'limites':limites,'n':n,'R':R,'q':q,'stats':stats}
@@ -125,7 +132,7 @@ def guardar_ejecucion(carpeta, datos, config, C, lote, organizado=False):
         agregar(lote, seleccionar_poligonos(config.poligonos), config.escenarios).to_csv(carpeta/'agregado.csv',index=False)
     datos.resumen(config).to_csv(carpeta/'cuotas_30.csv',index=False)
     versiones = {x:importlib.metadata.version(x) for x in ['numpy','pandas','scipy','networkx','matplotlib','nbformat','nbclient']}
-    (carpeta/'configuracion.json').write_text(json.dumps(dict(config=asdict(config),matriz_C=C.tolist(),
+    (carpeta/'configuracion.json').write_text(json.dumps(dict(config=asdict(config),motor=informacion_motor(config.motor),matriz_C=C.tolist(),
         versiones=versiones,python=platform.python_version(),solicitados=len(lote),
         estados=lote.estado.value_counts().to_dict()),ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 

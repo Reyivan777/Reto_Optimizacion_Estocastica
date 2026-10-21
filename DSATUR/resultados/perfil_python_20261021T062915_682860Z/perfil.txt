@@ -1,0 +1,66 @@
+         1724894 function calls (1711017 primitive calls) in 2.130 seconds
+
+   Ordered by: cumulative time
+   List reduced from 2660 to 60 due to restriction <60>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    1.532    1.532 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\Reto_Optimizacion_Estocastica\DSATUR\src\reforestacion\experimento.py:18(ejecutar_escenario)
+        1    0.573    0.573    0.777    0.777 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\Reto_Optimizacion_Estocastica\DSATUR\src\reforestacion\algoritmos.py:25(dsatur)
+        1    0.001    0.001    0.618    0.618 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\Reto_Optimizacion_Estocastica\DSATUR\src\reforestacion\experimento.py:139(guardar_detalle_poligono)
+    160/3    0.001    0.000    0.594    0.198 <frozen importlib._bootstrap>:1349(_find_and_load)
+    155/3    0.001    0.000    0.594    0.198 <frozen importlib._bootstrap>:1304(_find_and_load_unlocked)
+    373/6    0.000    0.000    0.592    0.099 <frozen importlib._bootstrap>:480(_call_with_frames_removed)
+    155/4    0.000    0.000    0.592    0.148 <frozen importlib._bootstrap>:911(_load_unlocked)
+    147/4    0.000    0.000    0.592    0.148 <frozen importlib._bootstrap_external>:993(exec_module)
+    172/5    0.003    0.000    0.589    0.118 {built-in method builtins.exec}
+    59/10    0.000    0.000    0.550    0.055 {built-in method builtins.__import__}
+   203/50    0.000    0.000    0.520    0.010 <frozen importlib._bootstrap>:1390(_handle_fromlist)
+        1    0.331    0.331    0.502    0.502 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\Reto_Optimizacion_Estocastica\DSATUR\src\reforestacion\geometria.py:40(candidatas)
+        1    0.000    0.000    0.443    0.443 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\matplotlib\pyplot.py:1(<module>)
+  793/704    0.009    0.000    0.316    0.000 {built-in method builtins.__build_class__}
+        1    0.000    0.000    0.254    0.254 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\matplotlib\figure.py:1(<module>)
+        1    0.000    0.000    0.241    0.241 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\matplotlib\projections\__init__.py:1(<module>)
+      106    0.003    0.000    0.240    0.002 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\matplotlib\artist.py:152(_update_set_signature_and_docstring)
+      105    0.000    0.000    0.238    0.002 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\matplotlib\artist.py:119(__init_subclass__)
+    18578    0.230    0.000    0.230    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+      120    0.000    0.000    0.196    0.002 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\matplotlib\artist.py:1915(kwdoc)
+      120    0.004    0.000    0.168    0.001 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\matplotlib\artist.py:1676(pprint_setters)
+     5065    0.033    0.000    0.158    0.000 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\numpy\linalg\_linalg.py:2615(norm)
+        1    0.000    0.000    0.155    0.155 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\matplotlib\image.py:1(<module>)
+        1    0.000    0.000    0.146    0.146 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\matplotlib\__init__.py:1(<module>)
+        1    0.000    0.000    0.145    0.145 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\matplotlib\backend_bases.py:1(<module>)
+        1    0.000    0.000    0.143    0.143 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\matplotlib\axes\__init__.py:1(<module>)
+     4524    0.011    0.000    0.137    0.000 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\matplotlib\artist.py:1544(get_valid_values)
+     7698    0.060    0.000    0.112    0.000 C:\Users\reyiv\AppData\Local\Programs\Python\Python312\Lib\inspect.py:882(cleandoc)
+        1    0.029    0.029    0.109    0.109 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\Reto_Optimizacion_Estocastica\DSATUR\src\reforestacion\geometria.py:62(construir_grafo)
+     5607    0.003    0.000    0.106    0.000 {method 'sum' of 'numpy.ndarray' objects}
+     5607    0.001    0.000    0.103    0.000 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\numpy\_core\_methods.py:47(_sum)
+        1    0.000    0.000    0.102    0.102 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\matplotlib\text.py:1(<module>)
+        1    0.000    0.000    0.101    0.101 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\matplotlib\rcsetup.py:1(<module>)
+        1    0.021    0.021    0.101    0.101 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\Reto_Optimizacion_Estocastica\DSATUR\src\reforestacion\algoritmos.py:62(busqueda_local)
+     7669    0.005    0.000    0.094    0.000 C:\Users\reyiv\AppData\Local\Programs\Python\Python312\Lib\inspect.py:863(getdoc)
+        1    0.000    0.000    0.093    0.093 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\matplotlib\axes\_axes.py:1(<module>)
+        1    0.000    0.000    0.064    0.064 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\networkx\classes\graph.py:1066(add_weighted_edges_from)
+        1    0.022    0.022    0.064    0.064 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\networkx\classes\graph.py:985(add_edges_from)
+      227    0.001    0.000    0.064    0.000 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\matplotlib\artist.py:1496(__init__)
+      227    0.020    0.000    0.063    0.000 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\matplotlib\artist.py:1516(get_aliases)
+      147    0.001    0.000    0.062    0.000 <frozen importlib._bootstrap_external>:1066(get_code)
+        1    0.000    0.000    0.058    0.058 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\mpl_toolkits\mplot3d\__init__.py:1(<module>)
+    15444    0.015    0.000    0.057    0.000 {built-in method builtins.sum}
+      155    0.001    0.000    0.057    0.000 <frozen importlib._bootstrap>:1240(_find_spec)
+        1    0.000    0.000    0.056    0.056 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\mpl_toolkits\mplot3d\axes3d.py:1(<module>)
+      154    0.000    0.000    0.055    0.000 <frozen importlib._bootstrap_external>:1524(find_spec)
+      154    0.000    0.000    0.055    0.000 <frozen importlib._bootstrap_external>:1495(_get_spec)
+     5050    0.005    0.000    0.055    0.000 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\Reto_Optimizacion_Estocastica\DSATUR\src\reforestacion\algoritmos.py:57(delta_intercambio)
+      605    0.054    0.000    0.055    0.000 {built-in method nt.stat}
+      592    0.000    0.000    0.053    0.000 <frozen importlib._bootstrap_external>:140(_path_stat)
+        1    0.000    0.000    0.053    0.053 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\matplotlib\_fontconfig_pattern.py:1(<module>)
+        1    0.000    0.000    0.053    0.053 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\matplotlib\patches.py:1(<module>)
+        1    0.000    0.000    0.051    0.051 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\pyparsing\__init__.py:1(<module>)
+      220    0.002    0.000    0.051    0.000 <frozen importlib._bootstrap_external>:1597(find_spec)
+        9    0.000    0.000    0.048    0.005 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\matplotlib\axes\_base.py:802(__init_subclass__)
+        1    0.000    0.000    0.046    0.046 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\matplotlib\axes\_base.py:1(<module>)
+      227    0.013    0.000    0.042    0.000 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\matplotlib\artist.py:1594(get_setters)
+        1    0.000    0.000    0.040    0.040 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\matplotlib\colors.py:1(<module>)
+  128/117    0.001    0.000    0.038    0.000 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\matplotlib\_docstring.py:122(__call__)
+     8522    0.009    0.000    0.037    0.000 C:\Users\reyiv\.codex\.chatgpt-projects\g-p-6ab5f00007588191bcf4828156a4de02\.venv\Lib\site-packages\numpy\_core\numeric.py:675(flatnonzero)

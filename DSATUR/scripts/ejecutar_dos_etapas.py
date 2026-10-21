@@ -16,12 +16,13 @@ if __name__=='__main__':
     parser.add_argument('--etapa',choices=['economica','ambas'],default='ambas')
     parser.add_argument('--poligonos',default='todos',help='todos o IDs separados por coma')
     parser.add_argument('--escenarios',type=int,default=1)
+    parser.add_argument('--motor',choices=['python','cpp'],default='python')
     parser.add_argument('--sin-comparacion',action='store_true')
     parser.add_argument('--sin-graficas',action='store_true')
     args=parser.parse_args()
     root=ROOT; datos=Datos(root)
     ids='todos' if args.poligonos=='todos' else tuple(map(int,args.poligonos.split(',')))
-    cfg=perfil('completo',poligonos=ids,escenarios=args.escenarios)
+    cfg=perfil('completo',poligonos=ids,escenarios=args.escenarios,motor=args.motor)
     C=cargar_competencia(root/'config/competencia.json',datos.S)
     ruta,_,_,_=ejecutar(datos,cfg,C,modo=args.modo,etapa=args.etapa,
         comparar=not args.sin_comparacion,graficas=not args.sin_graficas,

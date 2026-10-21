@@ -1,0 +1,7 @@
+{
+  "estado": "interrumpido_sin_iniciar_celdas",
+  "metodo": "kernel Jupyter externo",
+  "errores_modelo_observados": 0,
+  "notebook_verificado": false,
+  "detalle": "El inicio del kernel externo no completó en el sandbox; se interrumpió y se validó por separado mediante IPython en proceso. No se afirma ejecución exitosa de este intento."
+}

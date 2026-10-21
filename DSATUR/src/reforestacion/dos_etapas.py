@@ -12,6 +12,7 @@ from .optimizacion_economica import planificar, DatosConCuotas, validar_cuotas
 from .experimento import (ejecutar_escenario, seleccionar_poligonos, LimiteRecursos,
                           guardar_detalle_poligono, guardar_monte_carlo_por_poligono)
 from .geometria import EscenarioNoConstruido
+from .motores import informacion_motor
 
 
 def ejecutar(datos, config, C, modo='economico', etapa='ambas', salida=None,
@@ -125,7 +126,7 @@ def ejecutar(datos, config, C, modo='economico', etapa='ambas', salida=None,
     resumen.to_csv(ruta/'resumen_por_poligono.csv',index=False)
     fuentes={str(p.relative_to(datos.root)):hashlib.sha256(p.read_bytes()).hexdigest()
              for sub in ('data','config','src/reforestacion') for p in (datos.root/sub).glob('*') if p.is_file()}
-    manifiesto=dict(config=asdict(config),modo=modo,etapa=etapa,matriz_C=C.tolist(),
+    manifiesto=dict(config=asdict(config),motor=informacion_motor(config.motor),modo=modo,etapa=etapa,matriz_C=C.tolist(),
         orden_especies=datos.S,limite_solver_segundos=limite_solver,
         versiones={s:importlib.metadata.version(s) for s in ('numpy','pandas','scipy','networkx','matplotlib')},
         fuentes_sha256=fuentes,semillas='SeedSequence([semilla,p,escenario]).spawn(3)',

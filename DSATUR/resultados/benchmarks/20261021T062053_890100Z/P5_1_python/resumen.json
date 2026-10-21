@@ -1,0 +1,53 @@
+{
+  "motor": "python",
+  "poligono": 5,
+  "escenarios": 1,
+  "config": {
+    "motor": "python",
+    "densidad": 658.0,
+    "aspecto": 1.0,
+    "paso_malla": 3.4,
+    "separacion_min": 3.4,
+    "radio": 6.0,
+    "semilla": 20261014,
+    "escenarios": 1,
+    "intentos_local": 6000,
+    "max_propuestas_posicion": 200000,
+    "presupuesto": "fijo",
+    "intentos_por_nueva": 10,
+    "poligonos": [
+      5
+    ],
+    "max_plantas": 20000,
+    "max_corridas": 360,
+    "diagnosticos": false,
+    "presupuesto_por_ha": 12500.0
+  },
+  "pared_s": 1.373787300020922,
+  "etapas_acumuladas_s": {
+    "seg_geometria": 0.553695099952165,
+    "seg_base": 0.00013990001752972603,
+    "seg_dsatur": 0.7176745000178926,
+    "seg_local": 0.07590150000760332,
+    "seg_existentes": 0.018255799950566143,
+    "seg_candidatas": 0.46593020000727847,
+    "seg_grafo": 0.06846649997169152,
+    "seg_total": 1.359498099947814,
+    "seg_exportacion": 0.008119600010104477
+  },
+  "memoria_inicial": {
+    "rss_bytes": 100708352,
+    "peak_rss_bytes": 100708352
+  },
+  "memoria_final": {
+    "rss_bytes": 119111680,
+    "peak_rss_bytes": 125693952
+  },
+  "entradas_sha256": "b613b1c5cc530b03d53b81282553f2fd7e809b2d5e59501babc6cf4c53fcde1b",
+  "asignaciones_sha256": "ab8168aad7df9567f6a9f7397b1148b28b308c0f69073b730ca1a59120c91105",
+  "max_diferencia_historica": 0.0,
+  "retencion": "Solo una distribuci\u00f3n; filas JSONL en disco; no se acumulan grafos",
+  "motor_info": {
+    "nombre": "python"
+  }
+}

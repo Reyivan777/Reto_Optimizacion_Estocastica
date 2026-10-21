@@ -2,6 +2,12 @@
 
 La interfaz didáctica es **modelo_reforestacion.ipynb**. Trabajar desde `DSATUR/` e instalar `python -m pip install -r config/requirements.txt`. No se modifica `Algoritmo Genético/`.
 
+## Motor C++17 opcional — fase 1
+
+Python permanece como referencia predeterminada. Compilar con `python scripts/compilar_cpp.py` (GCC/Clang C++17) y seleccionar `MOTOR = "cpp"` en el notebook o `--motor cpp` en `scripts/ejecutar_dos_etapas.py`. La selección de candidatas, DSATUR y los intercambios se ejecutan en C++; NumPy conserva los flujos aleatorios y SciPy/HiGHS la economía. No hay fallback silencioso.
+
+Consultar [compilación, arquitectura y tolerancias](docs/MOTOR_CPP.md), [plan por fases](docs/PLAN_IMPLEMENTACION.md), [estado persistente](docs/ESTADO_IMPLEMENTACION.md) y [benchmarks medidos](docs/BENCHMARKS_CPP.md). Ejecutar `python tests/verificar_cpp.py` además de las dos baterías originales. Los módulos Python originales y los resultados históricos se conservan.
+
 ## Estructura
 
 ```text

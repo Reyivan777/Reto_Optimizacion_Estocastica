@@ -40,9 +40,10 @@ def resultados_por_poligono(lote, presupuesto, config):
 
 
 def guardar_configuracion(ruta, datos, config, C, lote):
+    from .motores import informacion_motor
     versiones={x:importlib.metadata.version(x) for x in ('numpy','pandas','scipy','networkx','matplotlib','nbformat','nbclient')}
     fuentes={f.name:hashlib.sha256(f.read_bytes()).hexdigest() for f in (datos.root/'data').glob('*') if f.is_file()}
-    contenido=dict(config=asdict(config), matriz_C=C.tolist(), orden_especies=datos.S,
+    contenido=dict(config=asdict(config), motor=informacion_motor(config.motor), matriz_C=C.tolist(), orden_especies=datos.S,
         semillas=dict(base=config.semilla,esquema='SeedSequence([semilla, poligono, escenario]).spawn(3)',
             flujos=['posiciones y etiquetas fijas simuladas','asignacion aleatoria','busqueda local']),
         python=platform.python_version(), versiones=versiones, datos_sha256=fuentes,

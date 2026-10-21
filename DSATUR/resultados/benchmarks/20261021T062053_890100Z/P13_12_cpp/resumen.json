@@ -1,0 +1,74 @@
+{
+  "motor": "cpp",
+  "poligono": 13,
+  "escenarios": 12,
+  "config": {
+    "motor": "cpp",
+    "densidad": 658.0,
+    "aspecto": 1.0,
+    "paso_malla": 3.4,
+    "separacion_min": 3.4,
+    "radio": 6.0,
+    "semilla": 20261014,
+    "escenarios": 12,
+    "intentos_local": 6000,
+    "max_propuestas_posicion": 200000,
+    "presupuesto": "fijo",
+    "intentos_por_nueva": 10,
+    "poligonos": [
+      13
+    ],
+    "max_plantas": 20000,
+    "max_corridas": 360,
+    "diagnosticos": false,
+    "presupuesto_por_ha": 12500.0
+  },
+  "pared_s": 1.4544758999836631,
+  "etapas_acumuladas_s": {
+    "seg_geometria": 0.7678773000370711,
+    "seg_base": 0.0012243000091984868,
+    "seg_dsatur": 0.11617590003879741,
+    "seg_local": 0.37278009991860017,
+    "seg_existentes": 0.12246849987423047,
+    "seg_candidatas": 0.20724079990759492,
+    "seg_grafo": 0.42679019999923185,
+    "seg_total": 1.3444452000549063,
+    "seg_exportacion": 0.06270599988056347
+  },
+  "memoria_inicial": {
+    "rss_bytes": 100593664,
+    "peak_rss_bytes": 100593664
+  },
+  "memoria_final": {
+    "rss_bytes": 116940800,
+    "peak_rss_bytes": 117854208
+  },
+  "entradas_sha256": "d93e21eaa8f0a10a5426a162bd007a3112b6c30c7aab2e88a3a2229ada4c1e8c",
+  "asignaciones_sha256": "cb6629b1da7002da9738a619ffc8a11ff83322ea86a7202f5fef99262af26573",
+  "max_diferencia_historica": 9.094947017729282e-13,
+  "retencion": "Solo una distribuci\u00f3n; filas JSONL en disco; no se acumulan grafos",
+  "motor_info": {
+    "nombre": "cpp",
+    "abi": 1,
+    "binario_sha256": "702107cc9cdd93033a86140221370780ea0feb78de681ee684a62a5663ba5b82",
+    "fuente_sha256": "54ceac9101324174e23db157e466553af5a494983dde403f8d6d8f2f83584ace",
+    "compilacion": {
+      "command": [
+        "g++",
+        "-std=c++17",
+        "-O3",
+        "-ffp-contract=off",
+        "-shared",
+        "C:\\Users\\reyiv\\.codex\\.chatgpt-projects\\g-p-6ab5f00007588191bcf4828156a4de02\\Reto_Optimizacion_Estocastica\\DSATUR\\cpp\\motor.cpp",
+        "-o",
+        "C:\\Users\\reyiv\\.codex\\.chatgpt-projects\\g-p-6ab5f00007588191bcf4828156a4de02\\Reto_Optimizacion_Estocastica\\DSATUR\\build\\reforestacion.dll",
+        "-static-libgcc",
+        "-static-libstdc++"
+      ],
+      "compiler": "g++ (tdm64-1) 10.3.0\nCopyright (C) 2020 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "source_sha256": "54ceac9101324174e23db157e466553af5a494983dde403f8d6d8f2f83584ace",
+      "binary_sha256": "702107cc9cdd93033a86140221370780ea0feb78de681ee684a62a5663ba5b82"
+    }
+  }
+}

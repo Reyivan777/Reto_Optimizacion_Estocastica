@@ -1,0 +1,5 @@
+{
+  "estado": "fallo_configuracion_IPython_antes_de_celdas",
+  "notebook_verificado": false,
+  "detalle": "InteractiveShell no implementa enable_gui invocado por la magia matplotlib inline. Se corrigió el verificador configurando directamente el backend inline; el intento posterior completó 17 celdas."
+}

@@ -19,8 +19,11 @@ class Config:
     max_corridas: int = 24
     diagnosticos: bool = False
     presupuesto_por_ha: float = 12500.0  # referencia; se valida, no altera cuotas
+    motor: str = 'python'      # al final para conservar argumentos posicionales
 
     def __post_init__(self):
+        if self.motor not in ('python', 'cpp'):
+            raise ValueError('Motor debe ser python o cpp.')
         positivos = [self.presupuesto_por_ha, self.densidad, self.aspecto, self.paso_malla, self.separacion_min, self.radio]
         if not np.isfinite(positivos).all() or min(positivos) <= 0:
             raise ValueError('Parámetros geométricos finitos y positivos requeridos.')

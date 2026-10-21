@@ -1,0 +1,82 @@
+[
+  {
+    "poligono": 1,
+    "escenarios": 1,
+    "python_s": 0.1455104000051506,
+    "cpp_s": 0.05943780002417043,
+    "aceleracion": 2.4481121432149013,
+    "entradas_y_asignaciones_identicas": true,
+    "python_peak_rss": 104685568,
+    "cpp_peak_rss": 105705472
+  },
+  {
+    "poligono": 13,
+    "escenarios": 1,
+    "python_s": 0.676301900006365,
+    "cpp_s": 0.1456463999929838,
+    "aceleracion": 4.643450851095149,
+    "entradas_y_asignaciones_identicas": true,
+    "python_peak_rss": 116269056,
+    "cpp_peak_rss": 115523584
+  },
+  {
+    "poligono": 5,
+    "escenarios": 1,
+    "python_s": 1.373787300020922,
+    "cpp_s": 0.22437180002452806,
+    "aceleracion": 6.1228162356888935,
+    "entradas_y_asignaciones_identicas": true,
+    "python_peak_rss": 125693952,
+    "cpp_peak_rss": 124993536
+  },
+  {
+    "poligono": 1,
+    "escenarios": 12,
+    "python_s": 1.6682371000060812,
+    "cpp_s": 0.626227300032042,
+    "aceleracion": 2.663948218036363,
+    "entradas_y_asignaciones_identicas": true,
+    "python_peak_rss": 105676800,
+    "cpp_peak_rss": 106565632
+  },
+  {
+    "poligono": 13,
+    "escenarios": 12,
+    "python_s": 9.678549100004602,
+    "cpp_s": 1.4544758999836631,
+    "aceleracion": 6.6543207076262405,
+    "entradas_y_asignaciones_identicas": true,
+    "python_peak_rss": 118652928,
+    "cpp_peak_rss": 117854208
+  },
+  {
+    "poligono": 5,
+    "escenarios": 12,
+    "python_s": 23.031820200034417,
+    "cpp_s": 2.741055899998173,
+    "aceleracion": 8.402535752754902,
+    "entradas_y_asignaciones_identicas": true,
+    "python_peak_rss": 127959040,
+    "cpp_peak_rss": 126754816
+  },
+  {
+    "poligono": 1,
+    "escenarios": 100,
+    "python_s": 17.9012901999522,
+    "cpp_s": 7.628124400041997,
+    "aceleracion": 2.346748592596844,
+    "entradas_y_asignaciones_identicas": true,
+    "python_peak_rss": 106688512,
+    "cpp_peak_rss": 107356160
+  },
+  {
+    "poligono": 1,
+    "escenarios": 1000,
+    "python_s": 187.37342270003865,
+    "cpp_s": 75.01057139999466,
+    "aceleracion": 2.4979602101798144,
+    "entradas_y_asignaciones_identicas": true,
+    "python_peak_rss": 114900992,
+    "cpp_peak_rss": 116305920
+  }
+]
