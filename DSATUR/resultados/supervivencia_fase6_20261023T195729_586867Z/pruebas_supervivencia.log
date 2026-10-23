@@ -1,0 +1,17 @@
+test_auditoria_real_y_alineacion_por_especie (__main__.PruebasSupervivencia.test_auditoria_real_y_alineacion_por_especie) ... ok
+test_auditoria_rechaza_faltantes_duplicados_rangos_y_esquema (__main__.PruebasSupervivencia.test_auditoria_rechaza_faltantes_duplicados_rangos_y_esquema) ... ok
+test_cli_modos_exportacion_y_suma_por_indice (__main__.PruebasSupervivencia.test_cli_modos_exportacion_y_suma_por_indice) ... ok
+test_comparacion_monetaria_decimal_sin_tolerancia (__main__.PruebasSupervivencia.test_comparacion_monetaria_decimal_sin_tolerancia) ... ok
+test_configuracion_explicita_y_nombres_unicos (__main__.PruebasSupervivencia.test_configuracion_explicita_y_nombres_unicos) ... ok
+test_esperanza_conocida_y_conservacion_por_especie (__main__.PruebasSupervivencia.test_esperanza_conocida_y_conservacion_por_especie) ... ok
+test_extremos_mortalidad_total_y_reposicion_no_iterativa (__main__.PruebasSupervivencia.test_extremos_mortalidad_total_y_reposicion_no_iterativa) ... ok
+test_media_y_varianza_con_reposicion_contra_distribucion_analitica (__main__.PruebasSupervivencia.test_media_y_varianza_con_reposicion_contra_distribucion_analitica) ... ok
+test_semillas_orden_no_mutacion_y_estres_solo_economico (__main__.PruebasSupervivencia.test_semillas_orden_no_mutacion_y_estres_solo_economico) ... ok
+test_stocks_vacios_y_cero_presupuesto (__main__.PruebasSupervivencia.test_stocks_vacios_y_cero_presupuesto) ... ok
+test_validacion_hipotesis_y_probabilidades_sin_recorte (__main__.PruebasSupervivencia.test_validacion_hipotesis_y_probabilidades_sin_recorte) ... ok
+test_vectores_conteos_presupuestos_e_indices_invalidos (__main__.PruebasSupervivencia.test_vectores_conteos_presupuestos_e_indices_invalidos) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 5.131s
+
+OK

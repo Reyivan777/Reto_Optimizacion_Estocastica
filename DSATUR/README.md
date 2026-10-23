@@ -4,7 +4,7 @@ La interfaz didáctica es **modelo_reforestacion.ipynb**. Trabajar desde `DSATUR
 
 ## Motor C++17 opcional — fase 1
 
-La migración C++17 está completada. La fase 4 incorpora sustituciones e intercambios de posiciones candidatas y la fase 5 añade Monte Carlo con precisión estadística y procesos opcionales. Las geometrías aproximadas aportadas todavía no están integradas en el ejecutor; los experimentos usan el rectángulo simulado y los mapas HTML siguen pospuestos.
+La migración C++17 está completada. La fase 4 incorpora sustituciones e intercambios de posiciones candidatas, la fase 5 añade Monte Carlo espacial y la fase 6 incorpora un ejecutor independiente de supervivencia bajo hipótesis. Las geometrías aproximadas aportadas todavía no están integradas en el ejecutor; los experimentos espaciales usan el rectángulo simulado y los mapas HTML siguen pospuestos.
 
 Python permanece como referencia predeterminada. Compilar con `python scripts/compilar_cpp.py` (GCC/Clang C++17) y seleccionar `MOTOR = "cpp"` en el notebook o `--motor cpp` en `scripts/ejecutar_dos_etapas.py`. La selección de candidatas, DSATUR y los intercambios se ejecutan en C++; NumPy conserva los flujos aleatorios y SciPy/HiGHS la economía. No hay fallback silencioso.
 
@@ -61,7 +61,34 @@ los tres alcanzaron la precisión objetivo. Los IC son aproximados y describen
 la media bajo los supuestos del modelo. No representan supervivencia.
 Resultados, límites y benchmark serie/procesos en
 [MONTE_CARLO_FASE5.md](docs/MONTE_CARLO_FASE5.md).
-La fase 6 requiere otra solicitud.
+La fase 6 se documenta a continuación; no modifica este Monte Carlo espacial.
+
+## Supervivencia y escenarios exploratorios — fase 6
+
+```shell
+python scripts/explorar_supervivencia.py --poligonos todos --escenarios 1000
+python scripts/explorar_supervivencia.py --modo fijo --poligonos 1,5 --escenarios 1000
+python tests/verificar_supervivencia.py
+```
+
+Audita los porcentajes históricos 2021–2023 y calcula supervivencia esperada,
+déficits, necesidades de reposición de un solo ciclo y estrés de precios y
+presupuesto. Usa compras conocidas del plan económico por defecto; `--modo fijo`
+usa las cuotas históricas. Cada ejecución crea evidencia nueva. Interpretación,
+horizonte y factores explícitos en
+[escenarios_supervivencia.json](config/escenarios_supervivencia.json).
+
+Los porcentajes no tienen denominadores calibrables ni definición temporal
+confirmada. Transportar 2023/100 a nuevas plantas y usar binomiales independientes
+son **hipótesis**, sin relación calibrada entre J y supervivencia. Existentes
+p=1 en la referencia es otro supuesto. La reposición no constituye un plan
+espacial ni una compra financiada; los costos solo cubren adquisición en u.m.
+
+Validación: **54/54 pruebas**, 144 regresiones espaciales y 1461 archivos
+previos preservados por SHA-256. Experimento exploratorio: 30 polígonos ×
+1000 índices × seis hipótesis. Resultados, fórmulas, auditoría, denominadores
+y límites en [SUPERVIVENCIA_FASE6.md](docs/SUPERVIVENCIA_FASE6.md).
+La fase 7 requiere una nueva solicitud.
 
 ## Estructura
 

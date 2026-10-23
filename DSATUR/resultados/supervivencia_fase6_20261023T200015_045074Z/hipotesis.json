@@ -1,0 +1,37 @@
+{
+  "interpretacion": "Usar columna 2023/100 como probabilidad de nuevas y reposiciones en un periodo hipotético, sin calibración temporal. Existentes sobreviven con probabilidad explícita. No multiplicar los años.",
+  "columna_historica": "2023",
+  "horizonte": "Una etapa de mortalidad y, si se activa, una etapa adicional solo para reposiciones. Los supervivientes de la primera etapa permanecen vivos por supuesto.",
+  "hipotesis": [
+    {
+      "nombre": "referencia_transportada",
+      "justificacion": "Transportar porcentajes históricos a plantas nuevas es una hipótesis; existentes p=1, sin reposición."
+    },
+    {
+      "nombre": "mortalidad_alta",
+      "justificacion": "Sensibilidad arbitraria: probabilidades nuevas por 0.8; no es una predicción climática.",
+      "factor_supervivencia_nuevas": 0.8
+    },
+    {
+      "nombre": "mortalidad_existentes",
+      "justificacion": "Sensibilidad arbitraria de existentes p=0.9; no estimada a partir del inventario.",
+      "supervivencia_existentes": 0.9
+    },
+    {
+      "nombre": "reposicion_un_ciclo",
+      "justificacion": "Reponer todas las muertes una sola vez con la misma especie; no garantiza meta, espacio ni financiamiento.",
+      "fraccion_reposicion": 1.0
+    },
+    {
+      "nombre": "precios_altos",
+      "justificacion": "Estrés arbitrario de adquisición +25%, con las compras originales fijas; no reoptimiza cuotas.",
+      "factor_precio_inicial": 1.25,
+      "factor_precio_reposicion": 1.25
+    },
+    {
+      "nombre": "presupuesto_reducido",
+      "justificacion": "Estrés arbitrario del presupuesto -20%; sin transferencias entre polígonos.",
+      "factor_presupuesto": 0.8
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "commit_base": "41006085befe05fcb03c0ff893f4a3a68116424f",
+  "argumentos": {
+    "poligonos": "1,5",
+    "escenarios": 3,
+    "semilla": 20261014,
+    "modo": "economico",
+    "hipotesis": "C:\\Users\\reyiv\\.codex\\.chatgpt-projects\\g-p-6ab5f00007588191bcf4828156a4de02\\Reto_Optimizacion_Estocastica\\DSATUR\\config\\escenarios_supervivencia.json"
+  },
+  "configuracion_base": {
+    "densidad": 658.0,
+    "aspecto": 1.0,
+    "paso_malla": 3.4,
+    "separacion_min": 3.4,
+    "radio": 6.0,
+    "semilla": 20261014,
+    "escenarios": 12,
+    "intentos_local": 6000,
+    "max_propuestas_posicion": 200000,
+    "presupuesto": "fijo",
+    "intentos_por_nueva": 10,
+    "poligonos": [
+      1,
+      5
+    ],
+    "max_plantas": 20000,
+    "max_corridas": 360,
+    "diagnosticos": false,
+    "presupuesto_por_ha": 12500.0,
+    "motor": "python",
+    "optimizar_posiciones": false,
+    "intentos_posiciones": 6000,
+    "vecindad_posiciones": "sustituciones"
+  },
+  "poligonos": [
+    1,
+    5
+  ],
+  "escenarios_por_hipotesis_poligono": 3,
+  "semilla": 20261014,
+  "rng": "SeedSequence([semilla,6,poligono,indice]).spawn(4); PCG64; orden existentes/nuevas/reposición/supervivencia reposición",
+  "clasificacion": "Observaciones: CSV; proyecciones: esperanzas; hipótesis: todos los parámetros futuros y binomiales independientes.",
+  "horizonte": "Una etapa de mortalidad y, si se activa, una etapa adicional solo para reposiciones. Los supervivientes de la primera etapa permanecen vivos por supuesto.",
+  "interpretacion": "Usar columna 2023/100 como probabilidad de nuevas y reposiciones en un periodo hipotético, sin calibración temporal. Existentes sobreviven con probabilidad explícita. No multiplicar los años.",
+  "costos_reales_integrales_disponibles": false,
+  "moneda": "u.m. no identificada",
+  "supuestos": "Stocks y especies independientes; sin clima común ni incertidumbre de parámetros. Reposición por misma especie sin reoptimización. No garantiza ejecución de compras sin presupuesto.",
+  "ic": "IC95% puntual de la media Monte Carlo; percentiles predictivos bajo hipótesis, no IC de supervivencia histórica.",
+  "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "plataforma": "Windows-11-10.0.26200-SP0",
+  "versiones": {
+    "numpy": "2.5.4",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1"
+  },
+  "fuentes_sha256": {
+    "data/especies.csv": "3ad11d0def80f190e4ecd305808aa06d1b05c4027c8d85e01b1ebf249d946967",
+    "data/inventario.csv": "308daa43203fa8c683402a9cded94489b3b9c304d9978509c6a9dabfb69bc044",
+    "data/poligonos_aproximados.csv": "7cf19abd3fb9d4cd39e3b3cc2f24c3c714e5bbd71e6736b1da4df00b3d707fb8",
+    "data/supervivencia_porcentajes.csv": "4f995a2de1ff567d84256683208f1ff583bf59a6b91414af047d0bf76f28aa7c",
+    "config/competencia.json": "9cd7ea7238bfe2bc8de09c446360871aafd13ad148ea004cea526003fc8e54ea",
+    "src/reforestacion/supervivencia.py": "f8c8e2deb64cea7c2530035b99952de6d7a348d279f1975de5d3b41a049869ef",
+    "scripts/explorar_supervivencia.py": "6464f082fa1bcff80b4a8deb1eb5fadaaa47d39f4d0258a57455ab2f8903acb1",
+    "src/reforestacion/optimizacion_economica.py": "cbd2618491a012c64fc4f60ffa0b35d61f67cbe041b2c0d7d0f0b49e72ba3b19"
+  },
+  "hipotesis_sha256": "2045f8d8dcfb1681ac1ee6e349c385f5670850e3973d75797d6d967b0909056f",
+  "segundos_simulacion_y_exportacion": 0.48242909999680705
+}

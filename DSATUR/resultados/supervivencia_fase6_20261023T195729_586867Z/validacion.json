@@ -1,0 +1,11 @@
+{
+  "baterias_ok": 6,
+  "regresiones": 144,
+  "max_diferencia_J": 9.094947017729282e-13,
+  "archivos_preservados_sha256": 1461,
+  "realizaciones": 180000,
+  "comprobaciones_mc_contra_esperanza": 720,
+  "agregados_completos": 6000,
+  "celdas_previas_intactas": 35,
+  "fuentes_manifiesto_verificadas": true
+}

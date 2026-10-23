@@ -1,0 +1,23 @@
+{
+  "fuentes": [
+    {
+      "nombre": "Presentacion_Socio_Formador.md",
+      "sha256": "fd41176a11d285a45a9cc59c9769ab8b8228ff00b8bdee08e8c95e7bf0530fb0",
+      "coincide_fuentes_sha256": true,
+      "acceso": "solo lectura"
+    },
+    {
+      "nombre": "Presentación-socio-formador.txt",
+      "sha256": "77adabea8f04c6fe5cee4ffdb95af29eb0817d69892f80c1be8e58a25630e711",
+      "coincide_fuentes_sha256": true,
+      "acceso": "solo lectura"
+    }
+  ],
+  "observaciones": [
+    "Diapositiva 15: porcentajes 2021/2022/2023; monitoreo del 5% de superficie.",
+    "Diapositiva 17: magnitudes decimales por ha, no conteos enteros individuales; definición temporal por confirmar.",
+    "Diapositiva 18: precios de adquisición, sin fecha de vigencia ni moneda explícita.",
+    "Conversación: costos integrales y obligaciones de reposición dependen del proyecto y contrato; no hay tabla utilizable por especie/polígono."
+  ],
+  "decision": "No estimar denominadores, IC históricos, tasas anuales ni costos integrales. Usar solo hipótesis explícitas para explorar."
+}

@@ -1,0 +1,21 @@
+{
+  "filas": 10,
+  "columnas": [
+    "especie",
+    "2021",
+    "2022",
+    "2023"
+  ],
+  "faltantes": 0,
+  "duplicados": 0,
+  "especies_completas": true,
+  "minimo_pct": 72.63,
+  "maximo_pct": 100.0,
+  "base_2021_100": true,
+  "especies_con_aumento": 0,
+  "ultimo_periodo_observado": 2023,
+  "denominadores_disponibles": false,
+  "interpretacion_temporal": "No confirmada: no multiplicar ni dividir años automáticamente.",
+  "calibracion_estadistica": false,
+  "causalidad_competencia_supervivencia": false
+}

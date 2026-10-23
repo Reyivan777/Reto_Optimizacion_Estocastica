@@ -2,7 +2,31 @@
 
 Una fase por solicitud. Leer este documento, ESTADO_IMPLEMENTACION.md, Git y las dependencias antes de continuar. No modificar Algoritmo Genético, datos sincronizados ni evidencia histórica. Python sigue disponible como referencia. No se afirma optimalidad global espacial.
 
-## Solicitud vigente: fase 5 — completada; detenerse al crear commit
+## Solicitud vigente: fase 6 — completada; detenerse al crear commit
+
+Solicitud explícita del 23 de octubre de 2026, sobre `4100608`, main limpio.
+Implementar exclusivamente supervivencia esperada y escenarios exploratorios
+de mortalidad, reposición, precios y presupuesto. Se auditan el CSV histórico
+y los costos disponibles antes de proyectar; no se inventan denominadores ni
+una relación causal entre competencia y supervivencia. Los inventarios y
+compras iniciales son conocidos; no cambiar motores, geometrías ni economía.
+
+Implementación independiente: `src/reforestacion/supervivencia.py`,
+`scripts/explorar_supervivencia.py`, configuración explícita de hipótesis,
+pruebas y `scripts/validar_fase6.py`. Referencia: probabilidad hipotética de
+un periodo tomada de 2023/100 sin calibración temporal; existentes p=1 por
+supuesto. Mortalidad, reposición de un ciclo y estrés de precios/B son opciones
+exploratorias sin reoptimizar cuotas ni certificar factibilidad de reposición.
+
+Aceptación: distinguir porcentajes observados, esperanzas condicionales e
+hipótesis; límites de costos/denominadores; dinero decimal por polígono;
+semillas separadas de fase 5 y agregados completos. Cumplida con 54/54 pruebas,
+144 regresiones espaciales, 1461 archivos previos preservados y 180000
+realizaciones sin exclusión. Fórmulas/resultados/límites en
+[SUPERVIVENCIA_FASE6.md](SUPERVIVENCIA_FASE6.md).
+Al documentar y crear commit, detenerse. No implementar fases 7/8.
+
+## Historial: solicitud de fase 5 completada
 
 Solicitud explícita del 23 de octubre de 2026, sobre `a323ddf`, checkout limpio.
 Implementar exclusivamente Monte Carlo espacial: escalamiento con tamaño
@@ -53,7 +77,7 @@ Alcance de sustituciones completado: 31/31 pruebas, 72/72 regresiones desactivad
 |3 — pospuesta|Mapas HTML individuales/global.|Geometrías integradas.|Esperar una solicitud posterior.|
 |4 — completada|Sustituciones e intercambios discretos de candidatas para plantas nuevas, opcionales tras DSATUR/local de especies.|Motor validado, interfaz de pertenencia; rectángulo actual.|36/36 pruebas; 72 regresiones apagadas, 216 comparaciones previas, 36/36 escenarios mejorados y equivalencia exacta Python/C++; evidencia en OPTIMIZACION_POSICIONES.md.|
 |5 — completada|Escalar Monte Carlo espacial, convergencia, error estándar, IC y percentiles; evaluar paralelismo/agregación.|Motor y benchmarks; inventario conocido documentado.|Piloto 30 y confirmación independiente 100 por P1/P13/P5; precisión verificada, semillas/denominadores, procesos equivalentes y compras fijas. Evidencia en MONTE_CARLO_FASE5.md.|
-|6|Supervivencia esperada y escenarios exploratorios de mortalidad, reposición, precios y presupuesto.|Auditar CSV histórico y disponibilidad de costos reales.|Separar observaciones, proyecciones e hipótesis; sin causalidad competencia-supervivencia no validada.|
+|6 — completada|Supervivencia esperada y escenarios exploratorios de mortalidad, reposición de un ciclo, precios y presupuesto.|CSV auditado; costos disponibles solo de adquisición, sin denominadores históricos calibrables.|Observaciones, proyecciones e hipótesis separadas; 54/54 pruebas, 144 regresiones y evidencia en SUPERVIVENCIA_FASE6.md. Sin causalidad competencia-supervivencia no validada.|
 |7|Matriz alternativa configurable y sensibilidad; revisar agua, nutrientes y raíces con fuentes.|Documentar supuestos y evidencia; conservar C original.|Coeficientes heurísticos identificados y comparación reproducible; no inventar mediciones.|
 |8|Mejoras DSATUR/local, reinicios y decisiones económicas conjuntas; interfaz, exportaciones e informe.|Fases anteriores, datos suficientes y baselines.|Proyecto reproducible, pruebas finales, documentación matemática y presentación comprensible.|
 
