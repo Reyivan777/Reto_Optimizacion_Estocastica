@@ -1,0 +1,56 @@
+[
+  {
+    "bateria": "verificar_cpp.py",
+    "pruebas": 5,
+    "segundos": 12.544,
+    "exit_code": 0
+  },
+  {
+    "bateria": "verificar_economia.py",
+    "pruebas": 6,
+    "segundos": 3.592,
+    "exit_code": 0
+  },
+  {
+    "bateria": "verificar_mapa.py",
+    "pruebas": 13,
+    "segundos": 17.165,
+    "exit_code": 0
+  },
+  {
+    "bateria": "verificar_mejoras.py",
+    "pruebas": 12,
+    "segundos": 5.196,
+    "exit_code": 0
+  },
+  {
+    "bateria": "verificar_modelo.py",
+    "pruebas": 9,
+    "segundos": 2.484,
+    "exit_code": 0
+  },
+  {
+    "bateria": "verificar_monte_carlo.py",
+    "pruebas": 6,
+    "segundos": 2.851,
+    "exit_code": 0
+  },
+  {
+    "bateria": "verificar_posiciones.py",
+    "pruebas": 16,
+    "segundos": 23.082,
+    "exit_code": 0
+  },
+  {
+    "bateria": "verificar_sensibilidad.py",
+    "pruebas": 12,
+    "segundos": 12.014,
+    "exit_code": 0
+  },
+  {
+    "bateria": "verificar_supervivencia.py",
+    "pruebas": 12,
+    "segundos": 5.475,
+    "exit_code": 0
+  }
+]

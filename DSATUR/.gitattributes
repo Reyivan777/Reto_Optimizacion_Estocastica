@@ -1,0 +1,5 @@
+mapa_interactivo_tresbolillo.html text eol=lf
+visualizacion/*.html text eol=lf
+visualizacion/*.css text eol=lf
+visualizacion/*.js text eol=lf
+visualizacion/*.png binary

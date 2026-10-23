@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DSATUR · Distribuciones verificadas P1–P30</title><style>/*__ESTILO__*/</style></head>
+<body><header><p>OPTIMIZACIÓN ESTOCÁSTICA · REFORESTACIÓN</p><h1>Distribuciones por polígono</h1>
+<p>Resultados y coordenadas originales · escenario exportado · J adimensional</p></header>
+<main><aside class="aviso">Las posiciones existentes históricas son <b>simuladas</b>. La vista global presenta paneles independientes: no muestra colindancias ni ubicación geográfica. Los contornos aproximados del plano son esquemas y no un levantamiento topográfico. Una menor competencia J no demuestra mayor supervivencia.</aside>
+<section class="barra" aria-label="Controles del mapa">
+<label>Polígono <select id="poligono"><option value="todos">Todos</option></select></label>
+<label>Especie <select id="especie"><option value="-1">Todas</option></select></label>
+<label>Plantas <select id="tipo"><option value="todas">Todas</option><option value="existentes">Existentes</option><option value="nuevas">Nuevas</option></select></label>
+<label>Distribución <select id="etapa"><option value="final">Final</option><option value="inicial">Inicial aleatoria</option></select></label>
+<button id="restablecer">Restablecer vista</button><button id="acercar" aria-label="Acercar">+</button><button id="alejar" aria-label="Alejar">−</button>
+<button id="exportar">Exportar PNG</button><button id="csv">Exportar CSV visible</button></section>
+<p id="estado" role="status"></p><div id="leyenda"></div>
+<div class="disposicion"><section class="tarjeta lienzo"><canvas id="mapa" aria-label="Distribuciones de plantas. Seleccione un polígono con el menú o haciendo clic en su panel."></canvas>
+<p class="ayuda">Seleccione un panel para explorar. En vista individual: rueda para zoom y arrastre para navegar. Escalas locales independientes; coordenadas en metros.</p></section>
+<section class="tarjeta"><h2 id="titulo">Resumen</h2><div id="detalle"></div></section></div>
+<section class="tarjeta"><h2>Fuentes, geometrías y reproducción</h2><p>El generador asocia archivos mediante P{id}; conserva coordenadas sin ajuste al plano. El reporte de validación y sus hashes se generan junto al HTML. La comparación inicial se habilita únicamente cuando existe el CSV inicial, sin reconstruir ni inventar datos.</p>
+<pre>python scripts/generar_mapa.py
+python scripts/generar_mapa.py --resultados resultados/ejecuciones/CARPETA --salida resultados/mapas/ejecucion.html --poligonos 1,5</pre>
+<details><summary>Referencia de malla tresbolillo</summary><svg class="diagram" viewBox="0 0 400 180" role="img" aria-label="Plantas en hileras alternadas con separación de 3.4 metros"><defs><marker id="flecha" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto-start-reverse"><path d="M0 0L7 3.5L0 7Z" fill="#45564c"/></marker></defs><g fill="#27734e" stroke="white" stroke-width="2"><circle cx="50" cy="48" r="8"/><circle cx="125" cy="48" r="8"/><circle cx="200" cy="48" r="8"/><circle cx="275" cy="48" r="8"/><circle cx="350" cy="48" r="8"/><circle cx="87.5" cy="94" r="8"/><circle cx="162.5" cy="94" r="8"/><circle cx="237.5" cy="94" r="8"/><circle cx="312.5" cy="94" r="8"/><circle cx="50" cy="140" r="8"/><circle cx="125" cy="140" r="8"/><circle cx="200" cy="140" r="8"/><circle cx="275" cy="140" r="8"/><circle cx="350" cy="140" r="8"/></g><path d="M55 20H120" fill="none" stroke="#45564c" stroke-width="1.5" marker-start="url(#flecha)" marker-end="url(#flecha)"/><text x="73" y="15" font-size="12">3.4 m</text></svg><p>Esquema ilustrativo del compañero: la separación entre hileras de la malla computacional es 3.4 × √3/2 m.</p></details>
+<details><summary>Matriz de competencia del polígono seleccionado</summary><div id="matriz"></div></details>
+<p>El plano original de referencia se conserva en <code>visualizacion/plano_referencia.png</code>. No se utiliza como sistema de coordenadas de estas distribuciones.</p></section></main>
+<script id="datos-mapa" type="application/json">__DATOS__</script><script>/*__LOGICA__*/</script></body></html>

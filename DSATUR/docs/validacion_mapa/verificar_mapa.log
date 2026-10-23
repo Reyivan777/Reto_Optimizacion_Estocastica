@@ -1,0 +1,18 @@
+test_30_ids_areas_cuotas_existentes_competencia (__main__.PruebasMapa.test_30_ids_areas_cuotas_existentes_competencia) ... ok
+test_carpeta_equivocada_y_metricas_se_rechazan (__main__.PruebasMapa.test_carpeta_equivocada_y_metricas_se_rechazan) ... ok
+test_configuracion_faltante_no_se_infiere (__main__.PruebasMapa.test_configuracion_faltante_no_se_infiere) ... ok
+test_economico_exportado_integrado (__main__.PruebasMapa.test_economico_exportado_integrado) ... ok
+test_especie_cambiada_distancia_y_limites (__main__.PruebasMapa.test_especie_cambiada_distancia_y_limites) ... ok
+test_generador_geometrias_fuente_correcta_reproducible (__main__.PruebasMapa.test_generador_geometrias_fuente_correcta_reproducible) ... ok
+test_geojson_duplicado_area_invalida_y_crs (__main__.PruebasMapa.test_geojson_duplicado_area_invalida_y_crs) ... ok
+test_geojson_por_id_areas_dimensiones_y_huecos (__main__.PruebasMapa.test_geojson_por_id_areas_dimensiones_y_huecos) ... ok
+test_html_reproducible_y_csv_identicos (__main__.PruebasMapa.test_html_reproducible_y_csv_identicos) ... ok
+test_ids_sin_orden_lexicografico_y_seleccion (__main__.PruebasMapa.test_ids_sin_orden_lexicografico_y_seleccion) ... ok
+test_inicial_historica_no_se_inventa (__main__.PruebasMapa.test_inicial_historica_no_se_inventa) ... ok
+test_pipeline_aproximado_motores_existentes_y_exportacion (__main__.PruebasMapa.test_pipeline_aproximado_motores_existentes_y_exportacion) ... ok
+test_total_igual_no_basta (__main__.PruebasMapa.test_total_igual_no_basta) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 17.165s
+
+OK

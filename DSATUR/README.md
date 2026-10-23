@@ -4,11 +4,49 @@ La interfaz didáctica es **modelo_reforestacion.ipynb**. Trabajar desde `DSATUR
 
 ## Motor C++17 opcional — fase 1
 
-La migración C++17 está completada. La fase 4 incorpora sustituciones e intercambios de posiciones candidatas, la fase 5 añade Monte Carlo espacial y la fase 6 incorpora un ejecutor independiente de supervivencia bajo hipótesis. Las geometrías aproximadas aportadas todavía no están integradas en el ejecutor; los experimentos espaciales usan el rectángulo simulado y los mapas HTML siguen pospuestos.
+La migración C++17 está completada. La fase 4 incorpora sustituciones e intercambios de posiciones candidatas, la fase 5 añade Monte Carlo espacial y la fase 6 incorpora un ejecutor independiente de supervivencia bajo hipótesis. Las geometrías aproximadas se integran de forma opcional y los mapas HTML se generan desde resultados validados (fases 2/3, sección siguiente). El rectángulo simulado sigue siendo la referencia predeterminada.
 
 Python permanece como referencia predeterminada. Compilar con `python scripts/compilar_cpp.py` (GCC/Clang C++17) y seleccionar `MOTOR = "cpp"` en el notebook o `--motor cpp` en `scripts/ejecutar_dos_etapas.py`. La selección de candidatas, DSATUR y los intercambios se ejecutan en C++; NumPy conserva los flujos aleatorios y SciPy/HiGHS la economía. No hay fallback silencioso.
 
 Consultar [compilación, arquitectura y tolerancias](docs/MOTOR_CPP.md), [plan por fases](docs/PLAN_IMPLEMENTACION.md), [estado persistente](docs/ESTADO_IMPLEMENTACION.md) y [benchmarks medidos](docs/BENCHMARKS_CPP.md). Ejecutar `python tests/verificar_cpp.py` además de las dos baterías originales. Los módulos Python originales y los resultados históricos se conservan.
+
+
+## Geometrías y mapa reproducible — fases 2/3
+
+La corrección conserva los archivos históricos `resultados/P1`–`P30` y sus coordenadas. El HTML anterior mezclaba áreas ajenas con el inventario del ID mostrado: 29/30 áreas incorrectas y 30/30 composiciones distintas. No bastaba renombrar polígonos. El generador une **por ID explícito** CSV, inventario, geometría, cuotas y métricas; bloquea una salida inconsistente. El mapa corregido contiene **120,419 plantas**, P1=842 y P2=4369. La vista global usa paneles independientes sin inventar colindancias ni transformar los históricos para encajarlos en el plano.
+
+Desde la raíz del repositorio:
+
+```shell
+cd DSATUR
+python -m pip install -r config/requirements.txt
+# Geometrías esquemáticas; --salida permite verificar sin sobrescribir el archivo aportado
+python scripts/crear_geometrias.py --salida build/poligonos_reproducidos.geojson
+# Histórico: conserva la ruta pública del mapa; no ejecuta DSATUR
+python scripts/generar_mapa.py
+# Modelo económico + exportación inicial/final + mapa de ESA ejecución
+python scripts/ejecutar_dos_etapas.py --poligonos 1,5 --escenarios 1 --mapa --sin-graficas
+# Contornos aproximados opcionales; existentes simuladas, semilla trazable
+python scripts/ejecutar_dos_etapas.py --poligonos 1,5 --geometria aproximada --motor cpp --mapa --sin-graficas
+# Mapa de resultados ya exportados (selección explícita)
+python scripts/generar_mapa.py --resultados resultados/ejecuciones/CARPETA --poligonos 1,5 --salida resultados/mapas/ejecucion.html
+python tests/verificar_mapa.py
+python scripts/validar_integracion_mapa.py
+```
+
+Compilar C++ antes de seleccionarlo: `python scripts/compilar_cpp.py`. Los nueve scripts `tests/verificar_*.py` son las baterías completas. En Windows restringido, establecer `TMP` y `TEMP` en `DSATUR/build/tmp` antes de probar.
+
+El notebook principal sigue siendo `modelo_reforestacion.ipynb`: `POLIGONOS`, `MOTOR`, `MODO`, `GEOMETRIA_LOTE` y `GENERAR_MAPA` controlan el lote. El tutorial paso a paso conserva el rectángulo de referencia. La celda nueva genera y muestra el mapa de `ruta_integrada`, con semillas, cuotas y fuentes de esa ejecución.
+
+Fuentes por ID: `data/inventario.csv` y `poligonos_aproximados.csv` para área; `P{id}/distribucion.csv` para coordenadas finales y especies; `comparacion.csv`/`monte_carlo.csv` para competencia; `cuotas.csv` para un plan económico. Nuevas exportaciones añaden `distribucion_inicial.csv` (aleatoria y columna DSATUR) y `metadatos.json` (ID, escenario, geometría utilizada, origen, parámetros, matriz C, orden de especies y hashes). Los históricos carecen de CSV inicial: esa comparación aparece deshabilitada, sin inventar posiciones.
+
+El HTML autónomo usa Canvas con trazados agrupados por especie y condición; no crea un elemento DOM por planta ni carga bibliotecas de red. Permite seleccionar los 30 IDs, filtrar especie/existentes/nuevas, consultar composición/J, comparar inicial/final disponible, navegar con zoom/arrastre y exportar PNG o CSV visible. `visualizacion/` contiene plantilla, estilo, interacción y el plano original extraído sin alteración. No se incrusta un HTML grande en `src/`.
+
+Se distinguen **simulada** (rectángulo histórico), **aproximada** (esquemas locales escalados a las áreas, con centros/aspectos/ángulos del plano) y **georreferenciada aportada** (requiere verificación externa). Los esquemas de seis vértices no son límites topográficos trazados. No tienen CRS terrestre. En el pipeline opcional solo se resta el mínimo x/y para trabajar en coordenadas locales: traslación rígida, sin escalar, rotar ni mover existentes. Se guarda el origen para invertirla. La selección de candidatas poligonales usa Python en ambos motores; DSATUR/local usan el motor elegido.
+
+Para GeoJSON real: `--geometria georreferenciada --archivo-geometrias ARCHIVO --crs-origen EPSG:XXXX --crs-destino EPSG:YYYY --archivo-existentes EXISTENTES.csv`. El destino debe ser proyectado en metros; el CSV de existentes contiene `poligono,x_m,y_m,especie` **ya en ese destino**. Se preservan orden/especie/posición; se rechazan inventarios, superficies, separación o pertenencia incompatibles. No se reescala una medición para hacerla coincidir con el inventario. No hay levantamiento ni CRS verificables aportados: **la integración geográfica real no se declara completa**.
+
+Reporte detallado, límites y evidencia: [GEOMETRIAS_MAPA.md](docs/GEOMETRIAS_MAPA.md), [validación por polígono](docs/validacion_mapa/historicos.csv), [auditoría del HTML recibido](docs/validacion_mapa/html_recibido.csv). El generador escribe JSON/CSV comparativos junto a la salida y elimina una salida anterior designada si falla su validación. Mismos archivos y plantilla producen los mismos bytes; no hay fechas ni rutas absolutas dentro del HTML generado.
 
 ## Sustitución opcional de posiciones
 
@@ -128,8 +166,7 @@ costo mínimo del desempate económico. El margen predeterminado es cero.
 Exporta informe legible, diferencias pareadas con IC/denominadores, tiempos,
 trayectorias, cuotas, coordenadas y soluciones NPZ auditables. **78/78 pruebas**
 y **144 regresiones históricas** verificadas; resultados, formulación y límites
-en [MEJORAS_FASE8.md](docs/MEJORAS_FASE8.md). Las fases 2/3 permanecen pendientes;
-no se avanza automáticamente a ellas.
+en [MEJORAS_FASE8.md](docs/MEJORAS_FASE8.md). La integración posterior de fases 2/3 se documenta al inicio de este README; los resultados de fase 8 conservan sus geometrías originales.
 
 ## Estructura
 

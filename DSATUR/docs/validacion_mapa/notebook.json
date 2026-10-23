@@ -1,0 +1,16 @@
+[
+  {
+    "motor": "python",
+    "geometria_lote": "simulada",
+    "celdas": 18,
+    "errores": 0,
+    "metodo": "IPython en proceso; no kernel externo"
+  },
+  {
+    "motor": "cpp",
+    "geometria_lote": "aproximada",
+    "celdas": 18,
+    "errores": 0,
+    "metodo": "IPython en proceso; no kernel externo"
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "navegador": "Chromium integrado, servidor localhost",
+  "resultado": "pasa",
+  "comprobaciones": [
+    "Vista global: 30 polígonos, 120419 plantas",
+    "P1: 1.28 ha, 842 plantas; filtro Agave salmiana existente: 46",
+    "CSV P1 descargado: 842 filas idénticas a distribucion.csv (sin columna adicional poligono)",
+    "P27: 8 ha y 5264 plantas; PNG descargado válido",
+    "Mapa aproximado: P1 inicial aleatoria habilitada, zoom funcional",
+    "Sin errores de JavaScript en ambas páginas"
+  ],
+  "png_exportado_sha256": "11a3dc3563d8f63b52b46243110b13a7480a800d57ab3689406e90d7f3a7cc77",
+  "png_dimensiones": [
+    1012,
+    800
+  ]
+}

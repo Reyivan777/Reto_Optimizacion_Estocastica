@@ -2,7 +2,17 @@
 
 Una fase por solicitud. Leer este documento, ESTADO_IMPLEMENTACION.md, Git y las dependencias antes de continuar. No modificar Algoritmo Genético, datos sincronizados ni evidencia histórica. Python sigue disponible como referencia. No se afirma optimalidad global espacial.
 
-## Solicitud vigente: fase 8 — mejoras y decisión conjunta
+## Solicitud vigente: fases 2/3 — correspondencia, geometrías y mapas
+
+Solicitud explícita del 23 de octubre de 2026. Sustituye las restricciones históricas que posponían fases 2/3. Base local `de825f0`, limpia; remoto `c175c0d` incorporado mediante merge seguro antes de editar. Los siete commits locales anteriores se conservan. Trabajar exclusivamente en DSATUR; sin ampliar fases 4–8 ni cambiar históricos.
+
+Secciones verificables: auditar HTML recibido y asociación por ID; corregir ruta geométrica y validar áreas/contornos; exportar procedencia e inicial/final; generar HTML Canvas con claves P{id}; integrar opción geométrica y mapa en CLI/notebook; probar regresión, economía, motores, contornos y reproducción; documentar y publicar main sin force push.
+
+Fase 2: integración opcional de esquemas aproximados, pertenencia, separación y existentes. Rectángulo histórico preservado por defecto. Soporte técnico GeoJSON/CRS proyectados/posiciones aportadas, sin afirmar georreferenciación verificada ante la ausencia de datos reales. Fase 3: generador autónomo, selección/filtros, cantidades/J, inicial/final disponible, zoom y exportación. Resultados históricos conservan su geometría simulada; paneles globales independientes, sin ajuste artificial al plano.
+
+Aceptación y evidencia en [GEOMETRIAS_MAPA.md](GEOMETRIAS_MAPA.md) y `validacion_mapa/`. Pendientes externos: levantamiento, CRS, posiciones existentes medidas, reconciliación de áreas y confirmación del socio. No avanzar a fases 4–8.
+
+## Historial: fase 8 — mejoras y decisión conjunta
 
 Solicitud explícita del 23 de octubre de 2026 sobre `1da57a7`, main limpio.
 Ejecutor opcional independiente: DSATUR con tolerancia de casi empates,
@@ -115,8 +125,8 @@ Alcance de sustituciones completado: 31/31 pruebas, 72/72 regresiones desactivad
 |Fase|Objetivo y alcance|Dependencias|Aceptación|
 |---|---|---|---|
 |1 — completada|Migración C++17 y benchmarks validados.|Código actual, compilador C++17, NumPy/SciPy.|Evidencia en MOTOR_CPP.md y BENCHMARKS_CPP.md.|
-|2 — otro integrante|Geometrías aproximadas; integración futura mediante adaptador.|Trabajo y geometrías verificadas del compañero.|No implementar ni modificar sus archivos en esta fase.|
-|3 — pospuesta|Mapas HTML individuales/global.|Geometrías integradas.|Esperar una solicitud posterior.|
+|2 — integración aproximada verificada|Adaptador geométrico opcional; simulada conserva referencia.|CSV/GeoJSON aportados, Shapely y pyproj.|Áreas, IDs, contornos, existentes y separación; georreferenciación real pendiente de datos.|
+|3 — implementada|HTML reproducible individual/global en paneles con filtros y exportación.|Resultados exportados y validación por ID.|CSV, métricas, geometría y HTML consistentes; comparación inicial solo si disponible.|
 |4 — completada|Sustituciones e intercambios discretos de candidatas para plantas nuevas, opcionales tras DSATUR/local de especies.|Motor validado, interfaz de pertenencia; rectángulo actual.|36/36 pruebas; 72 regresiones apagadas, 216 comparaciones previas, 36/36 escenarios mejorados y equivalencia exacta Python/C++; evidencia en OPTIMIZACION_POSICIONES.md.|
 |5 — completada|Escalar Monte Carlo espacial, convergencia, error estándar, IC y percentiles; evaluar paralelismo/agregación.|Motor y benchmarks; inventario conocido documentado.|Piloto 30 y confirmación independiente 100 por P1/P13/P5; precisión verificada, semillas/denominadores, procesos equivalentes y compras fijas. Evidencia en MONTE_CARLO_FASE5.md.|
 |6 — completada|Supervivencia esperada y escenarios exploratorios de mortalidad, reposición de un ciclo, precios y presupuesto.|CSV auditado; costos disponibles solo de adquisición, sin denominadores históricos calibrables.|Observaciones, proyecciones e hipótesis separadas; 54/54 pruebas, 144 regresiones y evidencia en SUPERVIVENCIA_FASE6.md. Sin causalidad competencia-supervivencia no validada.|

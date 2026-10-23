@@ -1,0 +1,21 @@
+test_cada_aceptacion_no_empeora_y_separacion (__main__.PruebasPosiciones.test_cada_aceptacion_no_empeora_y_separacion) ... ok
+test_cada_delta_factible_contra_recalculo (__main__.PruebasPosiciones.test_cada_delta_factible_contra_recalculo) ... ok
+test_deltas_aristas_aparecen_desaparecen_y_radio (__main__.PruebasPosiciones.test_deltas_aristas_aparecen_desaparecen_y_radio) ... ok
+test_deltas_intercambio_exhaustivos_matriz_simetrica_general (__main__.PruebasPosiciones.test_deltas_intercambio_exhaustivos_matriz_simetrica_general) ... ok
+test_desactivada_no_invoca_optimizador_y_regresion (__main__.PruebasPosiciones.test_desactivada_no_invoca_optimizador_y_regresion) ... ok
+test_exportacion_usa_grafo_correspondiente_y_economia_comparada (__main__.PruebasPosiciones.test_exportacion_usa_grafo_correspondiente_y_economia_comparada) ... ok
+test_integracion_restricciones_economia_y_semillas (__main__.PruebasPosiciones.test_integracion_restricciones_economia_y_semillas) ... ok
+test_intercambio_sin_sitios_libres_conserva_identidades_y_entradas (__main__.PruebasPosiciones.test_intercambio_sin_sitios_libres_conserva_identidades_y_entradas) ... ok
+test_interfaz_terreno_y_errores_controlados (__main__.PruebasPosiciones.test_interfaz_terreno_y_errores_controlados) ... ok
+test_liberacion_del_sitio_y_motor_con_propuestas_comunes (__main__.PruebasPosiciones.test_liberacion_del_sitio_y_motor_con_propuestas_comunes) ... ok
+test_mixta_cada_paso_y_ocupacion_dinamica (__main__.PruebasPosiciones.test_mixta_cada_paso_y_ocupacion_dinamica) ... ok
+test_mixta_empates_incrementos_vacios_y_filtro_terreno (__main__.PruebasPosiciones.test_mixta_empates_incrementos_vacios_y_filtro_terreno) ... ok
+test_mixta_integracion_economia_semillas_motores_y_exportacion (__main__.PruebasPosiciones.test_mixta_integracion_economia_semillas_motores_y_exportacion) ... ok
+test_ocupada_fuera_distancia_y_empate_no_cambian_solucion (__main__.PruebasPosiciones.test_ocupada_fuera_distancia_y_empate_no_cambian_solucion) ... ok
+test_sin_nuevas_sin_candidatas_sin_intentos (__main__.PruebasPosiciones.test_sin_nuevas_sin_candidatas_sin_intentos) ... ok
+test_un_movimiento_conserva_todo_y_no_muta_entradas (__main__.PruebasPosiciones.test_un_movimiento_conserva_todo_y_no_muta_entradas) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 23.082s
+
+OK

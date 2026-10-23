@@ -1,0 +1,17 @@
+test_cli_exportaciones_fijo_y_economico (__main__.PruebasSensibilidad.test_cli_exportaciones_fijo_y_economico) ... ok
+test_cli_rechaza_lote_excesivo_y_parametros (__main__.PruebasSensibilidad.test_cli_rechaza_lote_excesivo_y_parametros) ... ok
+test_config_orden_version_nombres_metadatos (__main__.PruebasSensibilidad.test_config_orden_version_nombres_metadatos) ... ok
+test_escala_no_es_mejora_y_denominador_cero (__main__.PruebasSensibilidad.test_escala_no_es_mejora_y_denominador_cero) ... ok
+test_evaluacion_cruzada_contra_suma_independiente (__main__.PruebasSensibilidad.test_evaluacion_cruzada_contra_suma_independiente) ... ok
+test_fallos_sin_imputar_y_errores_propagan (__main__.PruebasSensibilidad.test_fallos_sin_imputar_y_errores_propagan) ... ok
+test_matriz_explicita_general_y_ceros (__main__.PruebasSensibilidad.test_matriz_explicita_general_y_ceros) ... ok
+test_matriz_invalida_y_especificacion_ambigua (__main__.PruebasSensibilidad.test_matriz_invalida_y_especificacion_ambigua) ... ok
+test_motores_equivalentes_y_posiciones (__main__.PruebasSensibilidad.test_motores_equivalentes_y_posiciones) ... ok
+test_pesos_y_catalogo_invalidos (__main__.PruebasSensibilidad.test_pesos_y_catalogo_invalidos) ... ok
+test_reconstruye_original_y_no_muta (__main__.PruebasSensibilidad.test_reconstruye_original_y_no_muta) ... ok
+test_referencia_ausente_sin_diferencias_inventadas (__main__.PruebasSensibilidad.test_referencia_ausente_sin_diferencias_inventadas) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 12.014s
+
+OK

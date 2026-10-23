@@ -23,8 +23,17 @@ class Config:
     optimizar_posiciones: bool = False
     intentos_posiciones: int = 6000
     vecindad_posiciones: str = 'sustituciones'  # 'mixta' habilita destinos ocupados
+    geometria: str = 'simulada'
+    archivo_geometrias: str = ''
+    archivo_existentes: str = ''
+    crs_origen: str = ''
+    crs_destino: str = ''
 
     def __post_init__(self):
+        if self.geometria not in ('simulada','aproximada','georreferenciada'):
+            raise ValueError('geometria debe ser simulada, aproximada o georreferenciada.')
+        if self.geometria == 'georreferenciada' and not (self.archivo_geometrias and self.crs_origen and self.crs_destino):
+            raise ValueError('Georreferenciación requiere archivo y CRS explícitos.')
         if not isinstance(self.optimizar_posiciones, bool):
             raise ValueError('optimizar_posiciones debe ser booleano.')
         if self.vecindad_posiciones not in ('sustituciones', 'mixta'):

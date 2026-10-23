@@ -22,14 +22,25 @@ if __name__=='__main__':
     parser.add_argument('--vecindad-posiciones',choices=['sustituciones','mixta'],default='sustituciones')
     parser.add_argument('--sin-comparacion',action='store_true')
     parser.add_argument('--sin-graficas',action='store_true')
+    parser.add_argument('--geometria',choices=['simulada','aproximada','georreferenciada'],default='simulada')
+    parser.add_argument('--archivo-geometrias',default='')
+    parser.add_argument('--archivo-existentes',default='')
+    parser.add_argument('--crs-origen',default='')
+    parser.add_argument('--crs-destino',default='')
+    parser.add_argument('--mapa',action='store_true',help='Generar mapa validado de esta ejecución')
     args=parser.parse_args()
     root=ROOT; datos=Datos(root)
     ids='todos' if args.poligonos=='todos' else tuple(map(int,args.poligonos.split(',')))
     cfg=perfil('completo',poligonos=ids,escenarios=args.escenarios,motor=args.motor,
         optimizar_posiciones=args.optimizar_posiciones,intentos_posiciones=args.intentos_posiciones,
-        vecindad_posiciones=args.vecindad_posiciones)
+        vecindad_posiciones=args.vecindad_posiciones,geometria=args.geometria,
+        archivo_geometrias=args.archivo_geometrias,archivo_existentes=args.archivo_existentes,
+        crs_origen=args.crs_origen,crs_destino=args.crs_destino)
     C=cargar_competencia(root/'config/competencia.json',datos.S)
     ruta,_,_,_=ejecutar(datos,cfg,C,modo=args.modo,etapa=args.etapa,
         comparar=not args.sin_comparacion,graficas=not args.sin_graficas,
         progreso=lambda f:print(f"P{f['poligono']} e={f['escenario']}: {f['estado_factibilidad']}",flush=True))
     print(ruta)
+    if args.mapa:
+        from reforestacion.mapa_interactivo import generar_mapa
+        print(generar_mapa(root,ruta,ruta/'mapa.html',ids=None if ids=='todos' else ids))

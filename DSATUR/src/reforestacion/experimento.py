@@ -25,9 +25,18 @@ def ejecutar_escenario(p, escenario, datos, config, C):
     limites=dimensiones(area,config)
     rp,rb,rl=flujos(p,escenario,config)
     t=perf_counter()
-    F,fijas=simular_existentes(n,limites,config,rp)
-    te=perf_counter()-t; t=perf_counter()
-    pool,V=motor.candidatas(F,limites,int(q.sum()),config)
+    terreno=None
+    geometria=dict(tipo='simulada',origen_m=[0,0],existentes='simuladas',
+                   geometria={'type':'Polygon','coordinates':[[[0,0],[float(limites[0]),0],
+                       limites.tolist(),[0,float(limites[1])],[0,0]]]})
+    if config.geometria == 'simulada':
+        F,fijas=simular_existentes(n,limites,config,rp)
+        te=perf_counter()-t; t=perf_counter()
+        pool,V=motor.candidatas(F,limites,int(q.sum()),config)
+    else:
+        from .terrenos import construir_espacio
+        F,fijas,pool,V,terreno,limites,geometria=construir_espacio(p,area,n,int(q.sum()),datos,config,rp)
+        te=0.  # construcción conjunta registrada en candidatas/geometría
     tc=perf_counter()-t; t=perf_counter()
     g=construir_grafo(p,F,V,config)
     tg=perf_counter()-t
@@ -36,7 +45,7 @@ def ejecutar_escenario(p, escenario, datos, config, C):
     t=perf_counter(); ds=motor.dsatur(fijas,q,g,C); td=perf_counter()-t
     t=perf_counter(); final,h,stats=motor.busqueda_local(ds,g,C,rl,config.intentos(int(q.sum()))); tl=perf_counter()-t
     for y in [base,ds,final]:
-        validar_solucion(y,g,fijas,n,R,limites,config)
+        validar_solucion(y,g,fijas,n,R,limites,config,terreno)
     assert np.array_equal(g['U'][:len(F)],F)
     jb,jd,jf=[objetivo(y,g,C) for y in [base,ds,final]]
     fijo=objetivo(final,g,C,True)['FF']
@@ -48,12 +57,12 @@ def ejecutar_escenario(p, escenario, datos, config, C):
         # Independent stream: existing positions/base/species swaps stay identical.
         rng_pos=np.random.default_rng(np.random.SeedSequence([config.semilla,p,escenario,104729]))
         t=perf_counter()
-        g,h_pos,stats_pos=optimizar_posiciones(final,g,pool,C,Rectangulo(tuple(limites)),config,rng_pos)
+        g,h_pos,stats_pos=optimizar_posiciones(final,g,pool,C,terreno or Rectangulo(tuple(limites)),config,rng_pos)
         tp=perf_counter()-t
-        validar_solucion(final,g,fijas,n,R,limites,config)
+        validar_solucion(final,g,fijas,n,R,limites,config,terreno)
         jf=objetivo(final,g,C)
         assert jf<=j_especies
-    fila={'poligono':p,'escenario':escenario,'motor':config.motor,'estado':'ok','detalle':'',
+    fila={'poligono':p,'escenario':escenario,'motor':config.motor,'geometria':config.geometria,'estado':'ok','detalle':'',
         'existentes':int(n.sum()),'nuevas':int(q.sum()),'total':int(R.sum()),
         'candidatas':len(pool),'J_base':jb,'J_dsatur':jd,'J_final':jf,'J_fijo':fijo,
         'mejora_pct':100*(jb-jf)/jb if jb else np.nan,
@@ -67,7 +76,8 @@ def ejecutar_escenario(p, escenario, datos, config, C):
     fila.update(presupuesto_poligono(datos,p,config))
     return fila,{'g':g,'g_inicial':g_inicial,'pool':pool,'base':base,'dsatur':ds,'final':final,'historia':h,
                 'historia_posiciones':h_pos,'stats_posiciones':stats_pos,
-                'F':F,'fijas':fijas,'V':V,'limites':limites,'n':n,'R':R,'q':q,'stats':stats}
+                'F':F,'fijas':fijas,'V':V,'limites':limites,'n':n,'R':R,'q':q,'stats':stats,
+                'geometria':geometria,'config':asdict(config)}
 
 
 def seleccionar_poligonos(seleccion):
@@ -100,7 +110,7 @@ def ejecutar_lote(datos, config, C, salida_detalles=None, graficas=True, progres
                 guardar_detalle_poligono(salida_detalles, datos, fila, detalle, C, graficas=graficas)
             if e == 0 and detalle is None and salida_detalles is not None:
                 ruta = Path(salida_detalles)/f'P{p}'
-                for nombre in ('distribucion.csv','comparacion.csv','graficas/01_existentes.png','graficas/02_final.png','graficas/03_comparacion.png'):
+                for nombre in ('distribucion.csv','distribucion_inicial.csv','metadatos.json','comparacion.csv','graficas/01_existentes.png','graficas/02_final.png','graficas/03_comparacion.png'):
                     (ruta/nombre).unlink(missing_ok=True)
             filas.append(fila)
             if progreso is not None:
@@ -168,6 +178,16 @@ def guardar_detalle_poligono(raiz, datos, fila, detalle, C, graficas=True):
         'existente': np.arange(len(y)) < nf,
         'especie': [datos.S[int(s)] for s in y]
     }).to_csv(ruta/'distribucion.csv', index=False)
+    pd.DataFrame({'indice':np.arange(len(y)), 'x_m':gi['U'][:,0], 'y_m':gi['U'][:,1],
+        'existente':np.arange(len(y))<nf,
+        'especie':[datos.S[int(s)] for s in detalle['base']],
+        'especie_dsatur':[datos.S[int(s)] for s in detalle['dsatur']]}).to_csv(ruta/'distribucion_inicial.csv',index=False)
+    import hashlib
+    meta=dict(poligono=p,escenario=int(fila['escenario']),area_ha=float(datos.areas.loc[p]),
+        geometria=detalle.get('geometria'),config=detalle.get('config'),matriz_C=C.tolist(),
+        orden_especies=datos.S,motor=fila['motor'],
+        archivos_sha256={nombre:hashlib.sha256((ruta/nombre).read_bytes()).hexdigest()
+            for nombre in ('distribucion.csv','distribucion_inicial.csv')})
     tabla = pd.DataFrame([
         {'metodo': nombre, 'J': objetivo(etiquetas, grafo, C),
          **objetivo(etiquetas, grafo, C, True), 'segundos_asignacion': tiempo}
@@ -180,8 +200,10 @@ def guardar_detalle_poligono(raiz, datos, fila, detalle, C, graficas=True):
     ])
     for clave in ('presupuesto_um','costo_um','saldo_um','presupuesto_utilizado_pct','cumple_presupuesto'):
         tabla[clave] = fila[clave]
-    tabla['escenario'] = 0
+    tabla['escenario'] = fila['escenario']
     tabla.to_csv(ruta/'comparacion.csv', index=False)
+    meta['archivos_sha256']['comparacion.csv']=hashlib.sha256((ruta/'comparacion.csv').read_bytes()).hexdigest()
+    (ruta/'metadatos.json').write_text(json.dumps(meta,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     if graficas:
         carpeta = ruta/'graficas'
         carpeta.mkdir(exist_ok=True)
