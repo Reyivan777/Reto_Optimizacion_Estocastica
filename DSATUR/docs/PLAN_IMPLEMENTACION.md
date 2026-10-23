@@ -2,7 +2,25 @@
 
 Una fase por solicitud. Leer este documento, ESTADO_IMPLEMENTACION.md, Git y las dependencias antes de continuar. No modificar Algoritmo Genético, datos sincronizados ni evidencia histórica. Python sigue disponible como referencia. No se afirma optimalidad global espacial.
 
-## Solicitud vigente: fase 4 completada — detenerse
+## Solicitud vigente: fase 5 — completada; detenerse al crear commit
+
+Solicitud explícita del 23 de octubre de 2026, sobre `a323ddf`, checkout limpio.
+Implementar exclusivamente Monte Carlo espacial: escalamiento con tamaño
+justificado por piloto independiente, convergencia, error estándar, IC y
+percentiles; evaluar procesos y agregación pareada. Inventario, compras y
+cuotas económicas permanecen conocidos, sin aleatorizarlos. No modificar
+geometrías aportadas, algoritmos previos, históricos ni Algoritmo Genético.
+
+Implementación: ejecutor independiente `scripts/escalar_monte_carlo.py`,
+módulo `monte_carlo.py`, pruebas, celda documental de notebook y documentación.
+Piloto 30, confirmación fija 100–1000, objetivo configurable de precisión de
+la media J final; los límites no equivalen a precisión alcanzada. Semillas
+por índice independientes del proceso, agregados solo con todos los polígonos
+solicitados y conteos explícitos; sin parada opcional ni reemplazo de fallos.
+Aceptación y resultados medidos en [MONTE_CARLO_FASE5.md](MONTE_CARLO_FASE5.md).
+Al validar y registrar commit, detenerse: no implementar fase 6.
+
+## Historial: solicitud de fase 4 completada
 
 Base remota verificada: `484f01f` de main (23 de octubre de 2026). Integrar la
 rama previa `36046d7` de sustituciones, preservando geometrías aportadas e
@@ -34,7 +52,7 @@ Alcance de sustituciones completado: 31/31 pruebas, 72/72 regresiones desactivad
 |2 — otro integrante|Geometrías aproximadas; integración futura mediante adaptador.|Trabajo y geometrías verificadas del compañero.|No implementar ni modificar sus archivos en esta fase.|
 |3 — pospuesta|Mapas HTML individuales/global.|Geometrías integradas.|Esperar una solicitud posterior.|
 |4 — completada|Sustituciones e intercambios discretos de candidatas para plantas nuevas, opcionales tras DSATUR/local de especies.|Motor validado, interfaz de pertenencia; rectángulo actual.|36/36 pruebas; 72 regresiones apagadas, 216 comparaciones previas, 36/36 escenarios mejorados y equivalencia exacta Python/C++; evidencia en OPTIMIZACION_POSICIONES.md.|
-|5|Escalar Monte Carlo espacial, convergencia, error estándar, IC y percentiles; evaluar paralelismo/agregación.|Motor y benchmarks; inventario conocido documentado.|Número de escenarios justificado estadísticamente, semillas y denominadores; sin compras aleatorias automáticas.|
+|5 — completada|Escalar Monte Carlo espacial, convergencia, error estándar, IC y percentiles; evaluar paralelismo/agregación.|Motor y benchmarks; inventario conocido documentado.|Piloto 30 y confirmación independiente 100 por P1/P13/P5; precisión verificada, semillas/denominadores, procesos equivalentes y compras fijas. Evidencia en MONTE_CARLO_FASE5.md.|
 |6|Supervivencia esperada y escenarios exploratorios de mortalidad, reposición, precios y presupuesto.|Auditar CSV histórico y disponibilidad de costos reales.|Separar observaciones, proyecciones e hipótesis; sin causalidad competencia-supervivencia no validada.|
 |7|Matriz alternativa configurable y sensibilidad; revisar agua, nutrientes y raíces con fuentes.|Documentar supuestos y evidencia; conservar C original.|Coeficientes heurísticos identificados y comparación reproducible; no inventar mediciones.|
 |8|Mejoras DSATUR/local, reinicios y decisiones económicas conjuntas; interfaz, exportaciones e informe.|Fases anteriores, datos suficientes y baselines.|Proyecto reproducible, pruebas finales, documentación matemática y presentación comprensible.|

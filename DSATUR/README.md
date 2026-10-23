@@ -4,7 +4,7 @@ La interfaz didáctica es **modelo_reforestacion.ipynb**. Trabajar desde `DSATUR
 
 ## Motor C++17 opcional — fase 1
 
-La migración C++17 está completada. La fase 4 incorpora sustituciones e intercambios de posiciones candidatas. Las geometrías aproximadas aportadas todavía no están integradas en el ejecutor; los experimentos usan el rectángulo simulado y los mapas HTML siguen pospuestos.
+La migración C++17 está completada. La fase 4 incorpora sustituciones e intercambios de posiciones candidatas y la fase 5 añade Monte Carlo con precisión estadística y procesos opcionales. Las geometrías aproximadas aportadas todavía no están integradas en el ejecutor; los experimentos usan el rectángulo simulado y los mapas HTML siguen pospuestos.
 
 Python permanece como referencia predeterminada. Compilar con `python scripts/compilar_cpp.py` (GCC/Clang C++17) y seleccionar `MOTOR = "cpp"` en el notebook o `--motor cpp` en `scripts/ejecutar_dos_etapas.py`. La selección de candidatas, DSATUR y los intercambios se ejecutan en C++; NumPy conserva los flujos aleatorios y SciPy/HiGHS la economía. No hay fallback silencioso.
 
@@ -39,7 +39,29 @@ Referencia previa de **solo sustituciones** (21 de octubre): 12 escenarios por p
 
 En esa referencia 36/36 escenarios mejoraron, Python/C++ produjeron soluciones idénticas y 31/31 pruebas pasaron. Son resultados sobre rectángulos simulados, sin garantía de optimalidad espacial. La comparación actual de cuatro métodos, pruebas y límites se documenta en [OPTIMIZACION_POSICIONES.md](docs/OPTIMIZACION_POSICIONES.md); el diagnóstico de diferencias entre ramas está en [DIAGNOSTICO_FASE4.md](docs/DIAGNOSTICO_FASE4.md).
 
-**Fase 4, validación del 23 de octubre:** vecindad mixta con reducción adicional media frente a posiciones fijas de **4.19% (P1), 3.44% (P13) y 3.50% (P5)**; mejoró los 36/36 escenarios y coincidió exactamente entre motores. La etapa C++ adicional promedió 0.0135/0.0781/0.1450 s respectivamente. Pasaron 36/36 pruebas, 72 regresiones apagadas y 216 comparaciones con los tres métodos previos; se preservaron 1217 archivos por SHA-256. Ver [resumen medido](resultados/comparacion_posiciones_20261023T192716_901247Z/resumen_fase4.csv). Se conserva el costo computacional adicional; no se certifica optimalidad ni supervivencia. La fase 5 requiere una nueva solicitud.
+**Fase 4, validación del 23 de octubre:** vecindad mixta con reducción adicional media frente a posiciones fijas de **4.19% (P1), 3.44% (P13) y 3.50% (P5)**; mejoró los 36/36 escenarios y coincidió exactamente entre motores. La etapa C++ adicional promedió 0.0135/0.0781/0.1450 s respectivamente. Pasaron 36/36 pruebas, 72 regresiones apagadas y 216 comparaciones con los tres métodos previos; se preservaron 1217 archivos por SHA-256. Ver [resumen medido](resultados/comparacion_posiciones_20261023T192716_901247Z/resumen_fase4.csv). Se conserva el costo computacional adicional; no se certifica optimalidad ni supervivencia. La fase 5 se documenta en la sección siguiente.
+
+## Monte Carlo espacial — fase 5
+
+```shell
+python scripts/escalar_monte_carlo.py --motor cpp --workers 2 --optimizar-posiciones --vecindad-posiciones mixta
+python tests/verificar_monte_carlo.py
+```
+
+Ejecutor independiente: piloto de 30 escenarios y confirmación de tamaño fijo
+estimado antes de observarla, entre 100 y 1000 escenarios por polígono.
+Objetivo configurable: semiancho del IC de la media J final de hasta
+`max(1, 0.25% de la media piloto)`. Publica error estándar, IC puntual del 95%,
+percentiles, convergencia y agregación por escenarios completos. No cambia
+compras, inventario ni las semillas anteriores. Posiciones sigue apagada por
+defecto; sin opciones usa Python y un proceso.
+
+Validación P1/P13/P5: 100 confirmaciones válidas por polígono, sin exclusiones;
+los tres alcanzaron la precisión objetivo. Los IC son aproximados y describen
+la media bajo los supuestos del modelo. No representan supervivencia.
+Resultados, límites y benchmark serie/procesos en
+[MONTE_CARLO_FASE5.md](docs/MONTE_CARLO_FASE5.md).
+La fase 6 requiere otra solicitud.
 
 ## Estructura
 

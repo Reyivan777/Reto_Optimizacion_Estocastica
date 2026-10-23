@@ -1,0 +1,15 @@
+{
+  "escenarios_por_poligono": 12,
+  "poligonos": [
+    1,
+    13,
+    5
+  ],
+  "workers_serial": 1,
+  "workers_paralelo": 2,
+  "serial_s": 9.459318400011398,
+  "paralelo_s": 6.337599099992076,
+  "razon_serial_paralelo": 1.4925712798752488,
+  "hashes_y_objetivos_identicos": true,
+  "alcance": "Una repetición; serial seguido de paralelo. Incluye arranque spawn, validación y exportación; excluye economía. No garantiza aceleración."
+}

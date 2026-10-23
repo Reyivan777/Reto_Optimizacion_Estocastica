@@ -1,0 +1,94 @@
+{
+  "por_poligono": {
+    "1": {
+      "n_estimado": 100,
+      "n_confirmacion": 100,
+      "limitado": false,
+      "tolerancia_absoluta": 2.1128930001570576,
+      "relativo": 0.0025,
+      "absoluto": 1.0,
+      "piloto": {
+        "solicitados": 30,
+        "validos": 30,
+        "excluidos": 0,
+        "media": 845.1572000628231,
+        "desviacion": 5.8999568940155385,
+        "error_estandar": 1.077179826386809,
+        "confianza": 0.95,
+        "semiancho_ic": 2.2030801108336617,
+        "ic_inferior": 842.9541199519895,
+        "ic_superior": 847.3602801736567,
+        "semiancho_relativo": 0.0026067104565516332,
+        "p05": 836.8104897615065,
+        "p25": 840.5116542604053,
+        "p50": 845.1115517750222,
+        "p75": 849.4252400144603,
+        "p95": 854.4056996901808
+      }
+    },
+    "13": {
+      "n_estimado": 100,
+      "n_confirmacion": 100,
+      "limitado": false,
+      "tolerancia_absoluta": 8.873773303444597,
+      "relativo": 0.0025,
+      "absoluto": 1.0,
+      "piloto": {
+        "solicitados": 30,
+        "validos": 30,
+        "excluidos": 0,
+        "media": 3549.509321377839,
+        "desviacion": 14.744190000413514,
+        "error_estandar": 2.691908485122862,
+        "confianza": 0.95,
+        "semiancho_ic": 5.50557102768182,
+        "ic_inferior": 3544.003750350157,
+        "ic_superior": 3555.014892405521,
+        "semiancho_relativo": 0.0015510794673852786,
+        "p05": 3530.265329091523,
+        "p25": 3539.388048498753,
+        "p50": 3550.130533444819,
+        "p75": 3557.2167087065845,
+        "p95": 3572.275385795354
+      }
+    },
+    "5": {
+      "n_estimado": 100,
+      "n_confirmacion": 100,
+      "limitado": false,
+      "tolerancia_absoluta": 14.138603579076923,
+      "relativo": 0.0025,
+      "absoluto": 1.0,
+      "piloto": {
+        "solicitados": 30,
+        "validos": 30,
+        "excluidos": 0,
+        "media": 5655.441431630769,
+        "desviacion": 18.013790454373854,
+        "error_estandar": 3.2888531260105984,
+        "confianza": 0.95,
+        "semiancho_ic": 6.72645990193768,
+        "ic_inferior": 5648.714971728832,
+        "ic_superior": 5662.167891532707,
+        "semiancho_relativo": 0.0011893784036585944,
+        "p05": 5625.152753738762,
+        "p25": 5644.181025565454,
+        "p50": 5657.387644888864,
+        "p75": 5666.734748550567,
+        "p95": 5683.213230887479
+      }
+    }
+  },
+  "n_comun": 100,
+  "piloto_indices": [
+    0,
+    29
+  ],
+  "confirmacion_indices": [
+    30,
+    129
+  ],
+  "confianza": 0.95,
+  "regla": "Tamaño fijado por piloto; sin parada opcional; IC finales puntuales.",
+  "objetivo_precision": "Media J_final; tolerancia max(absoluto, relativo*abs(media piloto))."
+}

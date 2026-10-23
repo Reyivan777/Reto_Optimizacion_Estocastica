@@ -1,0 +1,13 @@
+{
+  "regresiones": 144,
+  "apagadas": 72,
+  "mixtas": 72,
+  "max_diferencia_J": 9.094947017729282e-13,
+  "segundos_regresion": 94.18569809998735,
+  "archivos_preservados": 1407,
+  "confirmaciones": 300,
+  "agregados_completos": 100,
+  "ic_y_denominadores_recalculados": true,
+  "celdas_previas_intactas": 34,
+  "fuentes_manifiesto_verificadas": true
+}

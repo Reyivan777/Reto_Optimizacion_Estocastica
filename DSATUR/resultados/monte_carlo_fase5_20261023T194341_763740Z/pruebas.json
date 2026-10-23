@@ -1,0 +1,27 @@
+[
+  {
+    "bateria": "modelo",
+    "exit_code": 0,
+    "segundos": 3.493792900000699
+  },
+  {
+    "bateria": "economia",
+    "exit_code": 0,
+    "segundos": 5.551380799995968
+  },
+  {
+    "bateria": "cpp",
+    "exit_code": 0,
+    "segundos": 15.256168199994136
+  },
+  {
+    "bateria": "posiciones",
+    "exit_code": 0,
+    "segundos": 28.39404889999423
+  },
+  {
+    "bateria": "monte_carlo",
+    "exit_code": 0,
+    "segundos": 5.12251099999412
+  }
+]

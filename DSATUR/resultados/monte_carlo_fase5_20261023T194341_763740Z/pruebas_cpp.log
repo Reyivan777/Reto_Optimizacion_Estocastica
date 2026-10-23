@@ -1,0 +1,10 @@
+test_economia_30_y_compras_asignacion (__main__.PruebasCPP.test_economia_30_y_compras_asignacion) ... ok
+test_empates_sin_aristas_sin_fijas_y_sin_nuevas (__main__.PruebasCPP.test_empates_sin_aristas_sin_fijas_y_sin_nuevas) ... ok
+test_fallos_controlados_antes_del_abi (__main__.PruebasCPP.test_fallos_controlados_antes_del_abi) ... ok
+test_pequeno_mediano_grande_entradas_identicas (__main__.PruebasCPP.test_pequeno_mediano_grande_entradas_identicas) ... ok
+test_propuestas_precalculadas_y_deltas (__main__.PruebasCPP.test_propuestas_precalculadas_y_deltas) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 13.569s
+
+OK
