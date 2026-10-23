@@ -1,0 +1,42 @@
+[
+  {
+    "bateria": "modelo",
+    "exit_code": 0,
+    "segundos": 3.734868900006404
+  },
+  {
+    "bateria": "economia",
+    "exit_code": 0,
+    "segundos": 6.81089890000294
+  },
+  {
+    "bateria": "cpp",
+    "exit_code": 0,
+    "segundos": 18.938529700011713
+  },
+  {
+    "bateria": "posiciones",
+    "exit_code": 0,
+    "segundos": 33.91156750000664
+  },
+  {
+    "bateria": "monte_carlo",
+    "exit_code": 0,
+    "segundos": 5.38484939999762
+  },
+  {
+    "bateria": "supervivencia",
+    "exit_code": 0,
+    "segundos": 7.842568799998844
+  },
+  {
+    "bateria": "sensibilidad",
+    "exit_code": 0,
+    "segundos": 15.505881799996132
+  },
+  {
+    "bateria": "mejoras",
+    "exit_code": 0,
+    "segundos": 7.5716633000120055
+  }
+]

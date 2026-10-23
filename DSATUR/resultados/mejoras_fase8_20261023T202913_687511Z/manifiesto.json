@@ -1,0 +1,92 @@
+{
+  "argumentos": {
+    "poligonos": "1,13,5",
+    "escenarios": 12,
+    "semilla": 20261014,
+    "motor": "python",
+    "reinicios": 3,
+    "intentos_local": 6000,
+    "intentos_conjuntos": 6000,
+    "margen_desviacion": "0.02",
+    "optimizar_posiciones": false,
+    "max_corridas": 1000
+  },
+  "config": {
+    "densidad": 658.0,
+    "aspecto": 1.0,
+    "paso_malla": 3.4,
+    "separacion_min": 3.4,
+    "radio": 6.0,
+    "semilla": 20261014,
+    "escenarios": 12,
+    "intentos_local": 6000,
+    "max_propuestas_posicion": 200000,
+    "presupuesto": "fijo",
+    "intentos_por_nueva": 10,
+    "poligonos": [
+      1,
+      13,
+      5
+    ],
+    "max_plantas": 20000,
+    "max_corridas": 360,
+    "diagnosticos": false,
+    "presupuesto_por_ha": 12500.0,
+    "motor": "python",
+    "optimizar_posiciones": false,
+    "intentos_posiciones": 6000,
+    "vecindad_posiciones": "mixta"
+  },
+  "opciones": {
+    "reinicios": 3,
+    "intentos_local": 6000,
+    "intentos_conjuntos": 6000,
+    "margen_desviacion": "0.02",
+    "tolerancia": 1e-10
+  },
+  "motor": {
+    "nombre": "python"
+  },
+  "python": "3.12.10",
+  "versiones": {
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "pandas": "3.0.6"
+  },
+  "base_git": "1da57a7631b67785ed22f26e39fd40fe603cc175",
+  "fuentes_sha256": {
+    "src/reforestacion/__init__.py": "e6b27f0ea45d72efbeb93abf5ddfaa980cc15c30cb7647dc159423e99d445fbe",
+    "src/reforestacion/algoritmos.py": "1ea3ea455e3b47e8eebc738212a9ef3b5f151a7659c53eeabb5228a87271deaa",
+    "src/reforestacion/config.py": "012339c92d376cdb0c83f5a1e2da68fb5bb37d4668c2bf4efe75e233c5228f37",
+    "src/reforestacion/datos.py": "031eff1e7bffdc798eb0fd9ae19de423e228b54df44fa5c730950e6e35130e85",
+    "src/reforestacion/dos_etapas.py": "1dd52468d62e1cf46dae17d257bfc9c3be4364a10d5846d3ee4b405d20be4953",
+    "src/reforestacion/economia.py": "347dddc5259a3a10ab7a7e5304848965152173fe4f8adda4ffc47885de3622b7",
+    "src/reforestacion/experimento.py": "f3cd35c574a18b26562c61b9082f225d3ffd8d9b9f3a76cd7cfbde02900352ac",
+    "src/reforestacion/geometria.py": "a29a331209f8d5414b5add6180a841deca90239d21afb0dde06df50ac2e64792",
+    "src/reforestacion/geometria_real.py": "5e6066e59fcc18dd7186a7d30496c66d4e9df58db51e60736753b2d6f1c3000c",
+    "src/reforestacion/mejoras.py": "dbe161e9dfbf11ca93df02e302c88c94d39c4b0d78c0d7a7bb5729be9f008b1e",
+    "src/reforestacion/monte_carlo.py": "9c2a3e73d324317bed97e37bf7e81d345aeb0a9312e41bc0032352b7165c0232",
+    "src/reforestacion/motor_cpp.py": "1cf2d0bc0d30bcad67a9ce09cdb84da494a49d3f9bcf9311ca7d319cbfb8c519",
+    "src/reforestacion/motores.py": "d0449db7bc96b38f26b79a7c681314d8867d9498033d8a09046344c13058331b",
+    "src/reforestacion/optimizacion_economica.py": "cbd2618491a012c64fc4f60ffa0b35d61f67cbe041b2c0d7d0f0b49e72ba3b19",
+    "src/reforestacion/posiciones.py": "42e1dcc24c2b40da1046bb7240c5ec9db20301368d2ad0b32538ad89db60a325",
+    "src/reforestacion/reportes.py": "64dcb16bfe0aec8574dda13796773a20ad7cb8b1f562c12496e7766d4b3170a7",
+    "src/reforestacion/sensibilidad.py": "a0d5a9b4962a9183d1d8407a71d97531f6c1e1b8cfa76b761acb3465ac083f50",
+    "src/reforestacion/supervivencia.py": "f8c8e2deb64cea7c2530035b99952de6d7a348d279f1975de5d3b41a049869ef",
+    "src/reforestacion/validacion.py": "4f2971fcec145e60705b17ff15f4e82020342a2420af15daa0a559f0a57341d6",
+    "src/reforestacion/visualizacion.py": "27bda49588002c59cb72aade9f98a38f838d6c920dd38074af4f820c4eba9c9b",
+    "data/especies.csv": "3ad11d0def80f190e4ecd305808aa06d1b05c4027c8d85e01b1ebf249d946967",
+    "data/inventario.csv": "308daa43203fa8c683402a9cded94489b3b9c304d9978509c6a9dabfb69bc044",
+    "data/poligonos_aproximados.csv": "7cf19abd3fb9d4cd39e3b3cc2f24c3c714e5bbd71e6736b1da4df00b3d707fb8",
+    "data/supervivencia_porcentajes.csv": "4f995a2de1ff567d84256683208f1ff583bf59a6b91414af047d0bf76f28aa7c",
+    "config/competencia.json": "9cd7ea7238bfe2bc8de09c446360871aafd13ad148ea004cea526003fc8e54ea",
+    "config/escenarios_supervivencia.json": "2045f8d8dcfb1681ac1ee6e349c385f5670850e3973d75797d6d967b0909056f",
+    "config/requirements.txt": "fd1d77e0f0a32dce2fd11a5c1b4f878153df425fccda347e687ef7c0cee4cbb6",
+    "config/sensibilidad_competencia.json": "80b5463f98dc6fcf940d0b59058b1e1099454bebdc7671cc5742981b73735637",
+    "scripts/optimizar_fase8.py": "1488ec1891827729f3173361caf09d3c07acbb9b476b629b397031b05d264f6b"
+  },
+  "segundos_lote": 112.5059118999925,
+  "solicitados": 36,
+  "validos": 36,
+  "limites": "Rectángulos simulados; C heurística; búsqueda acotada sin certificado espacial. IC puntuales exploratorios de diferencias, sin relación J-supervivencia."
+}

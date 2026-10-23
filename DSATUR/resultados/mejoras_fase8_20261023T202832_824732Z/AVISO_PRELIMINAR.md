@@ -1,0 +1,1 @@
+Ensayo preliminar; los campos porcentuales heredados no se habían actualizado al nuevo J/costo. No usar sus porcentajes ni su manifiesto como evidencia final. Repetido íntegramente en mejoras_fase8_20261023T202903_615483Z, con igual solución y J.

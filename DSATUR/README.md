@@ -108,7 +108,28 @@ nutrientes y raíces no aportan mediciones de los pares de las diez especies del
 catálogo. No comparar directamente objetivos de matrices diferentes para
 atribuir mejora ecológica. Fórmulas, fuentes, resultados y límites en
 [SENSIBILIDAD_FASE7.md](docs/SENSIBILIDAD_FASE7.md).
-La fase 8 requiere una nueva solicitud.
+## Mejoras opcionales y decisión conjunta — fase 8
+
+```shell
+python scripts/optimizar_fase8.py --motor cpp
+# Hipótesis conjunta explícita: margen adicional de desviación relativa total
+python scripts/optimizar_fase8.py --motor cpp --intentos-conjuntos 6000 --margen-desviacion 0.02
+python tests/verificar_mejoras.py
+```
+
+Ejecutor independiente con DSATUR tolerante a casi empates y tres reinicios de
+asignación/búsqueda local sobre los mismos sitios. Incluye la referencia entre
+los candidatos: J final no empeora. Por defecto no cambia composición.
+La etapa conjunta opcional permite cambiar la especie de plantas nuevas,
+conservando bandas ±10%, inventario, total y presupuesto decimal por polígono.
+Prioriza J dentro de D≤D de referencia+margen; no conserva necesariamente el
+costo mínimo del desempate económico. El margen predeterminado es cero.
+
+Exporta informe legible, diferencias pareadas con IC/denominadores, tiempos,
+trayectorias, cuotas, coordenadas y soluciones NPZ auditables. **78/78 pruebas**
+y **144 regresiones históricas** verificadas; resultados, formulación y límites
+en [MEJORAS_FASE8.md](docs/MEJORAS_FASE8.md). Las fases 2/3 permanecen pendientes;
+no se avanza automáticamente a ellas.
 
 ## Estructura
 

@@ -2,7 +2,28 @@
 
 Una fase por solicitud. Leer este documento, ESTADO_IMPLEMENTACION.md, Git y las dependencias antes de continuar. No modificar Algoritmo Genético, datos sincronizados ni evidencia histórica. Python sigue disponible como referencia. No se afirma optimalidad global espacial.
 
-## Solicitud vigente: fase 7 — matriz alternativa y sensibilidad
+## Solicitud vigente: fase 8 — mejoras y decisión conjunta
+
+Solicitud explícita del 23 de octubre de 2026 sobre `1da57a7`, main limpio.
+Ejecutor opcional independiente: DSATUR con tolerancia de casi empates,
+reinicios reproducibles de asignación/local y búsqueda conjunta de especies
+nuevas en grafo fijo. Se conservan motores, algoritmo histórico, C y economía.
+La referencia es candidata; J final no empeora. Presupuesto decimal, bandas,
+inventario y total se verifican tras cada cambio económico aceptado.
+
+Contrato conjunto explícito: D≤D_referencia+margen decimal no negativo,
+margen=0 e intentos conjuntos=0 por defecto. Se optimiza J en ese conjunto;
+no se afirma conservar el desempate de costo mínimo ni óptimo global conjunto.
+Sin datos para una función monetaria-ecológica calibrada, no se inventa peso
+que sume dinero y J. La configuración 0.02 es sensibilidad, no recomendación.
+
+Aceptación: pruebas finales heredadas/nuevas, regresiones apagada/mixta,
+reproducción y equivalencia entre motores, soluciones exportadas recalculables,
+matemática y explicación accesibles en informe/CLI/notebook. Evidencia en
+[MEJORAS_FASE8.md](MEJORAS_FASE8.md). Tras documentar y crear commit,
+detenerse; no retomar fases 2/3 ni modificar Algoritmo Genético.
+
+## Historial: solicitud de fase 7 completada
 
 Solicitud explícita del 23 de octubre de 2026, sobre `c2c0fe4`, main limpio.
 Implementar exclusivamente matrices alternativas configurables, análisis de
@@ -100,7 +121,7 @@ Alcance de sustituciones completado: 31/31 pruebas, 72/72 regresiones desactivad
 |5 — completada|Escalar Monte Carlo espacial, convergencia, error estándar, IC y percentiles; evaluar paralelismo/agregación.|Motor y benchmarks; inventario conocido documentado.|Piloto 30 y confirmación independiente 100 por P1/P13/P5; precisión verificada, semillas/denominadores, procesos equivalentes y compras fijas. Evidencia en MONTE_CARLO_FASE5.md.|
 |6 — completada|Supervivencia esperada y escenarios exploratorios de mortalidad, reposición de un ciclo, precios y presupuesto.|CSV auditado; costos disponibles solo de adquisición, sin denominadores históricos calibrables.|Observaciones, proyecciones e hipótesis separadas; 54/54 pruebas, 144 regresiones y evidencia en SUPERVIVENCIA_FASE6.md. Sin causalidad competencia-supervivencia no validada.|
 |7 — completada|Matriz alternativa configurable y sensibilidad; revisión de agua, nutrientes y raíces con fuentes primarias.|Supuestos explícitos, C original conservada; sin calibración local disponible.|Comparación cruzada reproducible de siete matrices, coeficientes heurísticos identificados y validación en SENSIBILIDAD_FASE7.md; sin inventar mediciones.|
-|8|Mejoras DSATUR/local, reinicios y decisiones económicas conjuntas; interfaz, exportaciones e informe.|Fases anteriores, datos suficientes y baselines.|Proyecto reproducible, pruebas finales, documentación matemática y presentación comprensible.|
+|8 — completada|DSATUR tolerante, reinicios/local y composición conjunta acotada; CLI, notebook, CSV/NPZ e informe.|Referencias y economía de fases anteriores; margen explícito sin peso ecológico inventado.|78/78 pruebas, 144 regresiones; evidencia recalculada y equivalencia de motores en MEJORAS_FASE8.md. Sin óptimo global ni cambio automático de fase.|
 
 ## Diseño histórico de fase 1 (completado; prioridad sustituida arriba)
 

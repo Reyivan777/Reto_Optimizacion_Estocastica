@@ -1,0 +1,17 @@
+test_casi_empates_resueltos_por_cuota (__main__.PruebasMejoras.test_casi_empates_resueltos_por_cuota) ... ok
+test_cero_opciones_identico_a_referencia (__main__.PruebasMejoras.test_cero_opciones_identico_a_referencia) ... ok
+test_cli_limite_y_exportaciones (__main__.PruebasMejoras.test_cli_limite_y_exportaciones) ... ok
+test_conjunta_acepta_mejora_y_preserva_bandas (__main__.PruebasMejoras.test_conjunta_acepta_mejora_y_preserva_bandas) ... ok
+test_conjunta_rechaza_desviacion_y_presupuesto (__main__.PruebasMejoras.test_conjunta_rechaza_desviacion_y_presupuesto) ... ok
+test_deltas_recalculados_matriz_general (__main__.PruebasMejoras.test_deltas_recalculados_matriz_general) ... ok
+test_dsatur_cuotas_fijas_reproducible (__main__.PruebasMejoras.test_dsatur_cuotas_fijas_reproducible) ... ok
+test_equivalencia_motores_posiciones (__main__.PruebasMejoras.test_equivalencia_motores_posiciones) ... ok
+test_error_tecnico_se_propaga (__main__.PruebasMejoras.test_error_tecnico_se_propaga) ... ok
+test_parametros_invalidos (__main__.PruebasMejoras.test_parametros_invalidos) ... ok
+test_reinicios_no_empeoran_y_semillas (__main__.PruebasMejoras.test_reinicios_no_empeoran_y_semillas) ... ok
+test_sin_nuevas_y_sin_aristas (__main__.PruebasMejoras.test_sin_nuevas_y_sin_aristas) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 5.859s
+
+OK

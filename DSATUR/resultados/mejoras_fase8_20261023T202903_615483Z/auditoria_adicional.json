@@ -1,0 +1,21 @@
+{
+  "mejoras_fase8_20261023T202903_615483Z": {
+    "soluciones_recalculadas": 36,
+    "max_error_J": 4.547473508864641e-13
+  },
+  "mejoras_fase8_20261023T202913_687511Z": {
+    "soluciones_recalculadas": 36,
+    "max_error_J": 4.547473508864641e-13
+  },
+  "mejoras_fase8_20261023T203041_559780Z": {
+    "soluciones_recalculadas": 30,
+    "max_error_J": 4.547473508864641e-13
+  },
+  "mejoras_fase8_20261023T203152_428797Z": {
+    "soluciones_recalculadas": 6,
+    "max_error_J": 4.547473508864641e-13
+  },
+  "equivalencias_motores": 36,
+  "corridas_default": 6,
+  "celdas_previas_intactas": 37
+}
