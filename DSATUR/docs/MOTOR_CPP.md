@@ -1,5 +1,7 @@
 # Motor espacial C++17
 
+La migración descrita aquí está completada. La extensión opcional `sustituir` añade búsqueda discreta de posiciones tras DSATUR/local de especies; utiliza CSR de sitios y ocupación dinámica. Fase 4 añade `intercambiar_posiciones` para la vecindad mixta (libres: sustitución; ocupados por otra nueva: intercambio de coordenadas con especie fija). Ambos comparten núcleo y conservan los símbolos y ABI 1 anteriores. Recompilar la biblioteca para activarla. Véanse [formulación, integración y mediciones](OPTIMIZACION_POSICIONES.md). El símbolo correspondiente se carga únicamente al usar esa etapa, sin fallback silencioso.
+
 ## Instalación
 
 Desde DSATUR/, con las dependencias Python de config/requirements.txt y un compilador GCC/Clang C++17:

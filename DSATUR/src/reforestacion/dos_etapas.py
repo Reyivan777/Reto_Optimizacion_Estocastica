@@ -84,9 +84,11 @@ def ejecutar(datos, config, C, modo='economico', etapa='ambas', salida=None,
                         np.testing.assert_array_equal(asignadas-n,planes[p]['compras'])
                     f['estado_factibilidad']='factible_economica_y_espacialmente' if f['cumple_presupuesto'] else 'inviable_economicamente_cuotas_fijas'
                     if original is not None:
-                        np.testing.assert_array_equal(d['g']['U'],od['g']['U'])
+                        np.testing.assert_array_equal(d['g_inicial']['U'],od['g_inicial']['U'])
                         np.testing.assert_array_equal(d['fijas'],od['fijas'])
-                        diferencias.append(dict(poligono=p,escenario=e,geometria_identica=True,
+                        diferencias.append(dict(poligono=p,escenario=e,
+                            geometria_identica=bool(np.array_equal(d['g']['U'],od['g']['U'])),
+                            geometria_inicial_identica=True,
                             **{k+'_fijo':original[k] for k in ('J_base','J_dsatur','J_final')},
                             **{k+'_economico':f[k] for k in ('J_base','J_dsatur','J_final')},
                             cambio_J_final=f['J_final']-original['J_final'],

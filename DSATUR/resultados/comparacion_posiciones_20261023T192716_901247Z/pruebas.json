@@ -1,0 +1,26 @@
+[
+  {
+    "bateria": "verificar_modelo.py",
+    "returncode": 0,
+    "pruebas": 9,
+    "segundos": 5.169960200000787
+  },
+  {
+    "bateria": "verificar_economia.py",
+    "returncode": 0,
+    "pruebas": 6,
+    "segundos": 5.654712699993979
+  },
+  {
+    "bateria": "verificar_cpp.py",
+    "returncode": 0,
+    "pruebas": 5,
+    "segundos": 15.47990249999566
+  },
+  {
+    "bateria": "verificar_posiciones.py",
+    "returncode": 0,
+    "pruebas": 16,
+    "segundos": 26.211295099987183
+  }
+]

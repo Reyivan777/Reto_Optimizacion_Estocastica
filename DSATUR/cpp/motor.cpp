@@ -83,3 +83,78 @@ API int intercambiar(I K, I intentos, const I* off, const I* adj, const double* 
     contadores[0]=iguales; contadores[1]=aceptados;
     return 0;
 }
+
+// Static candidate-neighbour CSR, dynamic occupancy. Only incident terms change.
+static int mover_sitios(bool mixta, I K, I nf, I m, const I* off, const I* adj, const double* w,
+                 const I* bloquea, const I* validos, const double* C, const I* y,
+                 const I* propuestas, I* sitios, I* ocupantes, I* pasos,
+                 double* deltas, I* counts) noexcept {
+    I aceptados=0, factibles=0, swaps_factibles=0, swaps_aceptados=0;
+    for(I k=0;k<m;++k) {
+        I a=propuestas[2*k], c=propuestas[2*k+1], destino=nf+c;
+        if(!validos[c]) continue;
+        I b=ocupantes[destino], origen=sitios[a];
+        if(b>=0) {
+            if(!mixta || b<nf || b==a) continue;
+            ++swaps_factibles;
+            double da=0, db=0;
+            for(I e=off[origen];e<off[origen+1];++e) {
+                I j=ocupantes[adj[e]];
+                if(j>=0 && j!=b) da+=w[e]*(C[y[b]*K+y[j]]-C[y[a]*K+y[j]]);
+            }
+            for(I e=off[destino];e<off[destino+1];++e) {
+                I j=ocupantes[adj[e]];
+                if(j>=0 && j!=a) db+=w[e]*(C[y[a]*K+y[j]]-C[y[b]*K+y[j]]);
+            }
+            double delta=da+db;
+            if(delta < -1e-10) {
+                ocupantes[origen]=b; ocupantes[destino]=a;
+                sitios[a]=destino; sitios[b]=origen;
+                pasos[aceptados]=k; deltas[aceptados]=delta; ++aceptados; ++swaps_aceptados;
+            }
+            continue;
+        }
+        bool viable=true;
+        double nuevo=0, previo=0;
+        for(I e=off[destino];e<off[destino+1];++e) {
+            I j=ocupantes[adj[e]];
+            if(j<0 || j==a) continue;
+            if(bloquea[e]) { viable=false; break; }
+            nuevo+=w[e]*C[y[a]*K+y[j]];
+        }
+        if(!viable) continue;
+        ++factibles;
+        for(I e=off[origen];e<off[origen+1];++e) {
+            I j=ocupantes[adj[e]];
+            if(j>=0) previo+=w[e]*C[y[a]*K+y[j]];
+        }
+        double delta=nuevo-previo;
+        if(delta < -1e-10) {
+            ocupantes[origen]=-1; ocupantes[destino]=a; sitios[a]=destino;
+            pasos[aceptados]=k; deltas[aceptados]=delta; ++aceptados;
+        }
+    }
+    counts[0]=factibles; counts[1]=swaps_factibles;
+    counts[2]=aceptados-swaps_aceptados; counts[3]=swaps_aceptados;
+    return 0;
+}
+
+// Preserve the original exported ABI and substitution-only counts.
+API int sustituir(I K, I nf, I m, const I* off, const I* adj, const double* w,
+                 const I* bloquea, const I* validos, const double* C, const I* y,
+                 const I* propuestas, I* sitios, I* ocupantes, I* pasos,
+                 double* deltas, I* counts) noexcept {
+    I tipos[4]={0,0,0,0};
+    int status=mover_sitios(false,K,nf,m,off,adj,w,bloquea,validos,C,y,propuestas,
+                          sitios,ocupantes,pasos,deltas,tipos);
+    counts[0]=tipos[0]; counts[1]=tipos[2];
+    return status;
+}
+
+API int intercambiar_posiciones(I K, I nf, I m, const I* off, const I* adj, const double* w,
+                 const I* bloquea, const I* validos, const double* C, const I* y,
+                 const I* propuestas, I* sitios, I* ocupantes, I* pasos,
+                 double* deltas, I* counts) noexcept {
+    return mover_sitios(true,K,nf,m,off,adj,w,bloquea,validos,C,y,propuestas,
+                       sitios,ocupantes,pasos,deltas,counts);
+}

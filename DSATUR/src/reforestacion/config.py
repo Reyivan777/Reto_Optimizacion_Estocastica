@@ -20,8 +20,15 @@ class Config:
     diagnosticos: bool = False
     presupuesto_por_ha: float = 12500.0  # referencia; se valida, no altera cuotas
     motor: str = 'python'      # al final para conservar argumentos posicionales
+    optimizar_posiciones: bool = False
+    intentos_posiciones: int = 6000
+    vecindad_posiciones: str = 'sustituciones'  # 'mixta' habilita destinos ocupados
 
     def __post_init__(self):
+        if not isinstance(self.optimizar_posiciones, bool):
+            raise ValueError('optimizar_posiciones debe ser booleano.')
+        if self.vecindad_posiciones not in ('sustituciones', 'mixta'):
+            raise ValueError('vecindad_posiciones debe ser sustituciones o mixta.')
         if self.motor not in ('python', 'cpp'):
             raise ValueError('Motor debe ser python o cpp.')
         positivos = [self.presupuesto_por_ha, self.densidad, self.aspecto, self.paso_malla, self.separacion_min, self.radio]
@@ -30,7 +37,7 @@ class Config:
         if self.paso_malla < self.separacion_min:
             raise ValueError('paso_malla debe ser >= separacion_min.')
         for nombre in ('escenarios', 'intentos_local', 'intentos_por_nueva',
-                       'max_propuestas_posicion', 'max_plantas', 'max_corridas', 'semilla'):
+                       'max_propuestas_posicion', 'max_plantas', 'max_corridas', 'semilla', 'intentos_posiciones'):
             v = getattr(self, nombre)
             if not isinstance(v, int) or isinstance(v, bool) or v < 0:
                 raise ValueError(f'{nombre} debe ser entero no negativo.')

@@ -1,0 +1,2 @@
+poligono,escenario,geometria_identica,geometria_inicial_identica,J_base_fijo,J_dsatur_fijo,J_final_fijo,J_base_economico,J_dsatur_economico,J_final_economico,cambio_J_final,cambio_J_final_pct,seg_fijo,seg_economico_adicional
+1,0,True,True,1089.006627233044,991.7477053447574,874.5251827583863,1089.006627233044,991.7477053447574,874.5251827583863,0.0,0.0,0.06009129999438301,0.0

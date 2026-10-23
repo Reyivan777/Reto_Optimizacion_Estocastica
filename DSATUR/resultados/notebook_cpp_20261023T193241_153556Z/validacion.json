@@ -1,0 +1,10 @@
+{
+  "motor": "cpp",
+  "metodo": "IPython en proceso",
+  "celdas_ejecutadas": 17,
+  "errores": 0,
+  "segundos": 7.1635142999875825,
+  "optimizar_posiciones": true,
+  "vecindad_posiciones": "mixta",
+  "poligonos": "1,13,5"
+}

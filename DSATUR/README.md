@@ -4,9 +4,42 @@ La interfaz didáctica es **modelo_reforestacion.ipynb**. Trabajar desde `DSATUR
 
 ## Motor C++17 opcional — fase 1
 
+La migración C++17 está completada. La fase 4 incorpora sustituciones e intercambios de posiciones candidatas. Las geometrías aproximadas aportadas todavía no están integradas en el ejecutor; los experimentos usan el rectángulo simulado y los mapas HTML siguen pospuestos.
+
 Python permanece como referencia predeterminada. Compilar con `python scripts/compilar_cpp.py` (GCC/Clang C++17) y seleccionar `MOTOR = "cpp"` en el notebook o `--motor cpp` en `scripts/ejecutar_dos_etapas.py`. La selección de candidatas, DSATUR y los intercambios se ejecutan en C++; NumPy conserva los flujos aleatorios y SciPy/HiGHS la economía. No hay fallback silencioso.
 
 Consultar [compilación, arquitectura y tolerancias](docs/MOTOR_CPP.md), [plan por fases](docs/PLAN_IMPLEMENTACION.md), [estado persistente](docs/ESTADO_IMPLEMENTACION.md) y [benchmarks medidos](docs/BENCHMARKS_CPP.md). Ejecutar `python tests/verificar_cpp.py` además de las dos baterías originales. Los módulos Python originales y los resultados históricos se conservan.
+
+## Sustitución opcional de posiciones
+
+DSATUR sigue siendo el algoritmo principal. Tras los intercambios de especies se puede sustituir la posición de una planta nueva por una candidata libre de la malla. La vecindad `mixta` permite también intercambiar coordenadas de dos plantas nuevas cuando el destino está ocupado. Cada planta conserva su especie, las existentes permanecen fijas y se mantienen cuotas, costo, presupuesto y C. Solo se aceptan descensos del objetivo original respetando pertenencia y separación. La etapa está **desactivada por defecto**, con los flujos históricos intactos; `sustituciones` preserva la implementación previa.
+
+```powershell
+python scripts/compilar_cpp.py
+python scripts/ejecutar_dos_etapas.py --motor cpp --poligonos 1,13,5 --escenarios 12 --optimizar-posiciones --intentos-posiciones 6000 --sin-graficas
+python tests/verificar_posiciones.py
+# Comparación independiente: tres métodos, ambos motores, cuotas factibles, mismos escenarios
+python scripts/comparar_posiciones.py
+# Fase 4 completa: sustituciones + intercambios; económico o fijo
+python scripts/ejecutar_dos_etapas.py --motor cpp --poligonos 1,13,5 --escenarios 1 --optimizar-posiciones --vecindad-posiciones mixta --sin-graficas
+python scripts/comparar_posiciones.py --incluir-mixta
+```
+
+En el notebook: `OPTIMIZAR_POSICIONES = True`, `VECINDAD_POSICIONES = "mixta"` e `INTENTOS_POSICIONES = 6000`; en código: `perfil('completo', optimizar_posiciones=True, vecindad_posiciones='mixta', intentos_posiciones=6000, motor='cpp')`. Omitir la bandera o usar `False` reproduce el modelo de posiciones fijas. No hay alternancia ni desplazamientos continuos.
+
+La interfaz `Terreno.contiene(puntos)` permite conectar posteriormente polígonos irregulares sin implementarlos aquí. `g_inicial` conserva las posiciones de las referencias; `g` contiene la distribución final. Véanse [formulación, resultados y límites](docs/OPTIMIZACION_POSICIONES.md). Los experimentos crean carpetas nuevas `resultados/comparacion_posiciones_<fecha>/`; no sustituyen históricos.
+
+Referencia previa de **solo sustituciones** (21 de octubre): 12 escenarios por polígono, 6000 propuestas; mejora adicional media sobre DSATUR + local de especies y tiempo adicional C++ medido:
+
+|Polígono|Reducción adicional|Tiempo adicional medio|
+|---|---:|---:|
+|P1, 842 plantas|2.58%|0.017 s|
+|P13, 3323 plantas|1.80%|0.072 s|
+|P5, 5264 plantas|1.98%|0.086 s|
+
+En esa referencia 36/36 escenarios mejoraron, Python/C++ produjeron soluciones idénticas y 31/31 pruebas pasaron. Son resultados sobre rectángulos simulados, sin garantía de optimalidad espacial. La comparación actual de cuatro métodos, pruebas y límites se documenta en [OPTIMIZACION_POSICIONES.md](docs/OPTIMIZACION_POSICIONES.md); el diagnóstico de diferencias entre ramas está en [DIAGNOSTICO_FASE4.md](docs/DIAGNOSTICO_FASE4.md).
+
+**Fase 4, validación del 23 de octubre:** vecindad mixta con reducción adicional media frente a posiciones fijas de **4.19% (P1), 3.44% (P13) y 3.50% (P5)**; mejoró los 36/36 escenarios y coincidió exactamente entre motores. La etapa C++ adicional promedió 0.0135/0.0781/0.1450 s respectivamente. Pasaron 36/36 pruebas, 72 regresiones apagadas y 216 comparaciones con los tres métodos previos; se preservaron 1217 archivos por SHA-256. Ver [resumen medido](resultados/comparacion_posiciones_20261023T192716_901247Z/resumen_fase4.csv). Se conserva el costo computacional adicional; no se certifica optimalidad ni supervivencia. La fase 5 requiere una nueva solicitud.
 
 ## Estructura
 
@@ -94,9 +127,9 @@ El costo y el presupuesto se convierten a unidades decimales enteras comunes par
 
 ## Integración, estados y rendimiento
 
-`optimizacion_economica.py` decide cuotas y crea una vista de datos, sin mutar el catálogo ni el inventario. `dos_etapas.py` coordina planificación, llamadas a `ejecutar_escenario`, verificación final y reportes. **No se modifican** `algoritmos.py`, `geometria.py`, `datos.py`, `config.py`, `economia.py`, `experimento.py`, la matriz C ni las validaciones originales.
+`optimizacion_economica.py` decide cuotas y crea una vista de datos, sin mutar el catálogo ni el inventario. `dos_etapas.py` coordina planificación, llamadas a `ejecutar_escenario`, verificación final y reportes. La etapa opcional de posiciones se integra mediante `config.py` y `experimento.py`; conserva `algoritmos.py`, `geometria.py`, `datos.py`, `economia.py`, la matriz C y las validaciones originales.
 
-Los swaps conservan las cuotas ajustadas. Se vuelve a comprobar el histograma final, las compras y el presupuesto. Como total e inventario no cambian, los mismos flujos aleatorios generan exactamente los mismos sitios y etiquetas existentes en ambos modos; esto se verifica en cada comparación pareada. Todas las especies pueden ocupar cualquier sitio nuevo: no existe una prohibición especie-sitio adicional. La capacidad geométrica depende del total, no de la composición.
+Los swaps y la sustitución de posiciones conservan las cuotas ajustadas. Se vuelve a comprobar el histograma final, las compras y el presupuesto. Como total e inventario no cambian, los mismos flujos aleatorios generan exactamente los mismos sitios iniciales y etiquetas existentes en ambos modos; esto se verifica en cada comparación pareada. Las posiciones finales pueden diferir si se activa su optimización. Todas las especies pueden ocupar cualquier sitio nuevo: no existe una prohibición especie-sitio adicional. La capacidad geométrica depende del total, no de la composición.
 
 `estado_factibilidad` distingue:
 

@@ -41,6 +41,18 @@ def ejecutar_escenario(p, escenario, datos, config, C):
     jb,jd,jf=[objetivo(y,g,C) for y in [base,ds,final]]
     fijo=objetivo(final,g,C,True)['FF']
     assert jf<=jd+1e-8
+    g_inicial=g; j_especies=jf
+    h_pos=np.empty((0,4)); stats_pos={}; tp=0.
+    if config.optimizar_posiciones:
+        from .posiciones import optimizar_posiciones, Rectangulo
+        # Independent stream: existing positions/base/species swaps stay identical.
+        rng_pos=np.random.default_rng(np.random.SeedSequence([config.semilla,p,escenario,104729]))
+        t=perf_counter()
+        g,h_pos,stats_pos=optimizar_posiciones(final,g,pool,C,Rectangulo(tuple(limites)),config,rng_pos)
+        tp=perf_counter()-t
+        validar_solucion(final,g,fijas,n,R,limites,config)
+        jf=objetivo(final,g,C)
+        assert jf<=j_especies
     fila={'poligono':p,'escenario':escenario,'motor':config.motor,'estado':'ok','detalle':'',
         'existentes':int(n.sum()),'nuevas':int(q.sum()),'total':int(R.sum()),
         'candidatas':len(pool),'J_base':jb,'J_dsatur':jd,'J_final':jf,'J_fijo':fijo,
@@ -50,8 +62,12 @@ def ejecutar_escenario(p, escenario, datos, config, C):
         'seg_geometria':tiempo_geometria,'seg_base':tb,'seg_dsatur':td,'seg_local':tl,
         'seg_existentes':te,'seg_candidatas':tc,'seg_grafo':tg,
         'seg_total':perf_counter()-inicio, **{'local_'+k:v for k,v in stats.items()}}
+    fila.update(J_local_especies=j_especies,seg_posiciones=tp,
+                **{'posiciones_'+k:v for k,v in stats_pos.items()})
     fila.update(presupuesto_poligono(datos,p,config))
-    return fila,{'g':g,'base':base,'dsatur':ds,'final':final,'historia':h,'F':F,'fijas':fijas,'V':V,'limites':limites,'n':n,'R':R,'q':q,'stats':stats}
+    return fila,{'g':g,'g_inicial':g_inicial,'pool':pool,'base':base,'dsatur':ds,'final':final,'historia':h,
+                'historia_posiciones':h_pos,'stats_posiciones':stats_pos,
+                'F':F,'fijas':fijas,'V':V,'limites':limites,'n':n,'R':R,'q':q,'stats':stats}
 
 
 def seleccionar_poligonos(seleccion):
@@ -146,19 +162,21 @@ def guardar_detalle_poligono(raiz, datos, fila, detalle, C, graficas=True):
     g, F = detalle['g'], detalle['F']
     U, nf = g['U'], len(F)
     y = detalle['final']
+    gi=detalle.get('g_inicial',g)
     pd.DataFrame({
         'indice': np.arange(len(y)), 'x_m': U[:, 0], 'y_m': U[:, 1],
         'existente': np.arange(len(y)) < nf,
         'especie': [datos.S[int(s)] for s in y]
     }).to_csv(ruta/'distribucion.csv', index=False)
     tabla = pd.DataFrame([
-        {'metodo': nombre, 'J': objetivo(etiquetas, g, C),
-         **objetivo(etiquetas, g, C, True), 'segundos_asignacion': tiempo}
-        for nombre, etiquetas, tiempo in [
-            ('Aleatoria', detalle['base'], fila['seg_base']),
-            ('DSATUR', detalle['dsatur'], fila['seg_dsatur']),
-            ('DSATUR + local', y, fila['seg_dsatur'] + fila['seg_local'])
-        ]
+        {'metodo': nombre, 'J': objetivo(etiquetas, grafo, C),
+         **objetivo(etiquetas, grafo, C, True), 'segundos_asignacion': tiempo}
+        for nombre, etiquetas, grafo, tiempo in [
+            ('Aleatoria', detalle['base'], gi, fila['seg_base']),
+            ('DSATUR', detalle['dsatur'], gi, fila['seg_dsatur']),
+            ('DSATUR + local', y, gi, fila['seg_dsatur'] + fila['seg_local'])
+        ] + ([('DSATUR + local + posiciones',y,g,fila['seg_dsatur']+fila['seg_local']+fila['seg_posiciones'])]
+             if detalle.get('stats_posiciones') else [])
     ])
     for clave in ('presupuesto_um','costo_um','saldo_um','presupuesto_utilizado_pct','cumple_presupuesto'):
         tabla[clave] = fila[clave]

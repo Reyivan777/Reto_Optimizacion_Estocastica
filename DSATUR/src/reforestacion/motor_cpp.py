@@ -121,3 +121,39 @@ def busqueda_local(inicial,g,C,rng,intentos):
     y,h,stats=busqueda_con_propuestas(inicial,g,C,propuestas)
     stats['segundos']=perf_counter()-inicio
     return y,h,stats
+
+
+def _mover_sitios(y, estado, propuestas, mixta):
+    """Internal bridge; posiciones.optimizar_posiciones validates every buffer."""
+    lib=biblioteca()
+    try:
+        fn=getattr(lib, 'intercambiar_posiciones' if mixta else 'sustituir')
+    except AttributeError as error:
+        raise RuntimeError('Recompilar C++ para posiciones: python scripts/compilar_cpp.py') from error
+    fn.argtypes=[ct.c_int64,ct.c_int64,ct.c_int64,_I,_I,_D,_I,_I,_D,_I,_I,_I,_I,_I,_D,_I]
+    fn.restype=ct.c_int
+    m=len(propuestas); pasos=np.empty(m,dtype=np.int64); deltas=np.empty(m)
+    counts=np.zeros(4 if mixta else 2,dtype=np.int64)
+    _check(fn(len(estado['C']),estado['nf'],m,estado['off'],estado['adj'],estado['pesos'],
+        estado['bloquea'],np.ascontiguousarray(estado['validos'],dtype=np.int64),estado['C'],
+        y,propuestas,estado['sitios'],estado['ocupantes'],pasos,deltas,counts))
+    if mixta:
+        fs, fi, acs, aci = map(int,counts)
+    else:
+        fs, acs = map(int,counts); fi = aci = 0
+    factibles, aceptados = fs+fi, acs+aci
+    historia=[(int(k)+1,int(propuestas[k,0]),int(propuestas[k,1]),float(d))
+              for k,d in zip(pasos[:aceptados],deltas[:aceptados])]
+    return historia,factibles,dict(factibles_sustitucion=fs,factibles_intercambio=fi,
+                                   aceptados_sustitucion=acs,aceptados_intercambio=aci)
+
+
+def sustituir(y, estado, propuestas):
+    """Puente de sustituciones con interfaz histórica preservada."""
+    historia, factibles, _ = _mover_sitios(y, estado, propuestas, False)
+    return historia, factibles
+
+
+def intercambiar_posiciones(y, estado, propuestas):
+    """Puente mixto; buffers validados por posiciones.optimizar_posiciones."""
+    return _mover_sitios(y, estado, propuestas, True)

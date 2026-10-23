@@ -1,0 +1,14 @@
+test_fallo_exportacion_real_sin_obsoletos (__main__.Pruebas.test_fallo_exportacion_real_sin_obsoletos) ... ok
+test_flexibilidad_solo_diagnostico_y_minimo (__main__.Pruebas.test_flexibilidad_solo_diagnostico_y_minimo) ... ok
+test_graficas_dos_metodos (__main__.Pruebas.test_graficas_dos_metodos) ... ok
+test_modelo_completo_rechaza_subconjuntos (__main__.Pruebas.test_modelo_completo_rechaza_subconjuntos) ... ok
+test_no_agregar_faltantes_fallos_omitidos (__main__.Pruebas.test_no_agregar_faltantes_fallos_omitidos) ... ok
+test_porcentaje_global_ratio_sumas (__main__.Pruebas.test_porcentaje_global_ratio_sumas) ... ok
+test_presupuesto_individual_no_agregado (__main__.Pruebas.test_presupuesto_individual_no_agregado) ... ok
+test_regresion_historica (__main__.Pruebas.test_regresion_historica) ... ok
+test_restricciones_deltas_reproducibilidad (__main__.Pruebas.test_restricciones_deltas_reproducibilidad) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 2.764s
+
+OK

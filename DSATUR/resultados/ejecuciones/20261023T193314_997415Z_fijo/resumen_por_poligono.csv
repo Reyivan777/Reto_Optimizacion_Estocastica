@@ -1,0 +1,2 @@
+poligono,presupuesto_um,costo_original_um,costo_ajustado_um,ahorro_um,estado_economia,seg_economia,costo_minimo_um,certificado_desviacion,certificado_desempate,detalle,J_base_media,J_dsatur_media,J_final_media,seg_total_media,seg_espacial_adicional_media,escenarios_completados,escenarios_solicitados,estado_factibilidad
+1,16000.0,15903.5,15903.5,0.0,cuotas_fijas,0,,False,False,,1089.006627233044,991.7477053447574,844.5002039259595,0.22469030000502244,0.22469030000502244,1,1,factible_economica_y_espacialmente

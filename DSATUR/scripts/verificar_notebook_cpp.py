@@ -16,11 +16,20 @@ ROOT=Path(__file__).resolve().parents[1]
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--en-proceso',action='store_true',help='IPython sin sockets de kernel externo')
+    parser.add_argument('--optimizar-posiciones',action='store_true')
+    parser.add_argument('--vecindad-posiciones',choices=['sustituciones','mixta'],default='sustituciones')
+    parser.add_argument('--poligonos',help='IDs separados por coma; por defecto conserva todos')
     args=parser.parse_args()
     ruta=ROOT/'resultados'/('notebook_cpp_'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S_%fZ'))
     ruta.mkdir(exist_ok=False)
     nb=nbformat.read(ROOT/'modelo_reforestacion.ipynb',as_version=4)
     nb.cells[1].source=nb.cells[1].source.replace('MOTOR = "python"','MOTOR = "cpp"')
+    if args.optimizar_posiciones:
+        nb.cells[1].source=nb.cells[1].source.replace('OPTIMIZAR_POSICIONES = False','OPTIMIZAR_POSICIONES = True')
+    nb.cells[1].source=nb.cells[1].source.replace('VECINDAD_POSICIONES = "sustituciones"',f'VECINDAD_POSICIONES = "{args.vecindad_posiciones}"')
+    if args.poligonos:
+        ids=list(map(int,args.poligonos.split(',')))
+        nb.cells[1].source=nb.cells[1].source.replace('POLIGONOS = "todos"',f'POLIGONOS = {ids!r}')
     for cell in nb.cells:
         if cell.cell_type=='code':cell.outputs=[];cell.execution_count=None
     kernels=ROOT/'build'/'kernels'; spec=kernels/'reforestacion_cpp';spec.mkdir(parents=True,exist_ok=True)
@@ -55,5 +64,7 @@ if __name__=='__main__':
     finally:
         nbformat.write(nb,ruta/'modelo_reforestacion_cpp.ipynb')
     (ruta/'validacion.json').write_text(json.dumps(dict(motor='cpp',metodo='IPython en proceso' if args.en_proceso else 'kernel externo',
-        celdas_ejecutadas=sum(c.cell_type=='code' for c in nb.cells),errores=0,segundos=perf_counter()-inicio),indent=2)+'\n',encoding='utf-8')
+        celdas_ejecutadas=sum(c.cell_type=='code' for c in nb.cells),errores=0,segundos=perf_counter()-inicio,
+        optimizar_posiciones=args.optimizar_posiciones,vecindad_posiciones=args.vecindad_posiciones,
+        poligonos=args.poligonos or 'todos'),indent=2)+'\n',encoding='utf-8')
     print(ruta,flush=True)

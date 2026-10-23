@@ -1,0 +1,22 @@
+[
+  {
+    "prueba": "verificar_modelo.py",
+    "exit_code": 0,
+    "segundos": 5.600453400053084
+  },
+  {
+    "prueba": "verificar_economia.py",
+    "exit_code": 0,
+    "segundos": 5.80522199999541
+  },
+  {
+    "prueba": "verificar_cpp.py",
+    "exit_code": 0,
+    "segundos": 18.921526499965694
+  },
+  {
+    "prueba": "verificar_posiciones.py",
+    "exit_code": 0,
+    "segundos": 14.989442599995527
+  }
+]

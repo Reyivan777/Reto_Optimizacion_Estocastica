@@ -1,0 +1,35 @@
+{
+  "fase": 4,
+  "completada": true,
+  "pruebas": 36,
+  "fallos": 0,
+  "regresion_apagada": 72,
+  "regresion_previa": 216,
+  "pipelines_pareados": 288,
+  "pares_motores": 36,
+  "mejoras_mixta_vs_fijas": 36,
+  "mejoras_mixta_vs_sustituciones": 36,
+  "archivos_preservados": 1217,
+  "fuentes_del_benchmark_verificadas": true,
+  "notebooks": [
+    {
+      "archivo": "resultados\\notebook_cpp_20261023T193241_153556Z\\modelo_reforestacion_cpp.ipynb",
+      "celdas": 17,
+      "errores": 0
+    },
+    {
+      "archivo": "resultados\\notebook_cpp_20261023T193308_553571Z\\modelo_reforestacion_cpp.ipynb",
+      "celdas": 17,
+      "errores": 0
+    }
+  ],
+  "cli_fijo_python": "20261023T193314_997415Z_fijo",
+  "otros_directorios_modificados": [],
+  "limitaciones": [
+    "rectángulo simulado",
+    "C provisional",
+    "búsqueda acotada sin óptimo certificado",
+    "sin validación de supervivencia",
+    "kernel externo/Linux sin verificar"
+  ]
+}
