@@ -1,0 +1,11 @@
+{
+  "baterias_ok": 7,
+  "regresiones": 144,
+  "archivos_preservados_sha256": 1548,
+  "corridas": 504,
+  "evaluaciones_cruzadas": 3528,
+  "equivalencias_motores": 252,
+  "max_error_recalculo_J": 1.2732925824820995e-11,
+  "celdas_previas_intactas": 36,
+  "fuentes_manifiesto_verificadas": true
+}

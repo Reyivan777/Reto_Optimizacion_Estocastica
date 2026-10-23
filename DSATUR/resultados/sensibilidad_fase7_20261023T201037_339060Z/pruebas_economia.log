@@ -1,0 +1,11 @@
+test_30_economicos_y_diagnostico (__main__.PruebasEconomicas.test_30_economicos_y_diagnostico) ... ok
+test_enumeracion_lexicografica (__main__.PruebasEconomicas.test_enumeracion_lexicografica) ... ok
+test_estados_y_salidas_sin_sobrescribir (__main__.PruebasEconomicas.test_estados_y_salidas_sin_sobrescribir) ... ok
+test_integracion_cuotas_compras_fijas_geometria (__main__.PruebasEconomicas.test_integracion_cuotas_compras_fijas_geometria) ... ok
+test_inviables_ceros_y_bordes (__main__.PruebasEconomicas.test_inviables_ceros_y_bordes) ... ok
+test_limite_solver_no_es_inviabilidad (__main__.PruebasEconomicas.test_limite_solver_no_es_inviabilidad) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 4.249s
+
+OK

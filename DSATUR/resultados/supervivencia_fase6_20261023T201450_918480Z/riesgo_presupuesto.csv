@@ -1,0 +1,13 @@
+hipotesis,poligono,solicitados,validos,exceden_presupuesto,frecuencia_exceso,error_estandar_mc,advertencia
+referencia_transportada,1,3,3,0,0.0,0.0,Frecuencia simulada condicional; 0/1 no certifican riesgo nulo/seguro en general.
+referencia_transportada,5,3,3,3,1.0,0.0,Frecuencia simulada condicional; 0/1 no certifican riesgo nulo/seguro en general.
+mortalidad_alta,1,3,3,0,0.0,0.0,Frecuencia simulada condicional; 0/1 no certifican riesgo nulo/seguro en general.
+mortalidad_alta,5,3,3,3,1.0,0.0,Frecuencia simulada condicional; 0/1 no certifican riesgo nulo/seguro en general.
+mortalidad_existentes,1,3,3,0,0.0,0.0,Frecuencia simulada condicional; 0/1 no certifican riesgo nulo/seguro en general.
+mortalidad_existentes,5,3,3,3,1.0,0.0,Frecuencia simulada condicional; 0/1 no certifican riesgo nulo/seguro en general.
+reposicion_un_ciclo,1,3,3,3,1.0,0.0,Frecuencia simulada condicional; 0/1 no certifican riesgo nulo/seguro en general.
+reposicion_un_ciclo,5,3,3,3,1.0,0.0,Frecuencia simulada condicional; 0/1 no certifican riesgo nulo/seguro en general.
+precios_altos,1,3,3,3,1.0,0.0,Frecuencia simulada condicional; 0/1 no certifican riesgo nulo/seguro en general.
+precios_altos,5,3,3,3,1.0,0.0,Frecuencia simulada condicional; 0/1 no certifican riesgo nulo/seguro en general.
+presupuesto_reducido,1,3,3,3,1.0,0.0,Frecuencia simulada condicional; 0/1 no certifican riesgo nulo/seguro en general.
+presupuesto_reducido,5,3,3,3,1.0,0.0,Frecuencia simulada condicional; 0/1 no certifican riesgo nulo/seguro en general.

@@ -2,7 +2,28 @@
 
 Una fase por solicitud. Leer este documento, ESTADO_IMPLEMENTACION.md, Git y las dependencias antes de continuar. No modificar Algoritmo Genético, datos sincronizados ni evidencia histórica. Python sigue disponible como referencia. No se afirma optimalidad global espacial.
 
-## Solicitud vigente: fase 6 — completada; detenerse al crear commit
+## Solicitud vigente: fase 7 — matriz alternativa y sensibilidad
+
+Solicitud explícita del 23 de octubre de 2026, sobre `c2c0fe4`, main limpio.
+Implementar exclusivamente matrices alternativas configurables, análisis de
+sensibilidad reproducible y revisión con fuentes de agua, nutrientes y raíces.
+Conservar C original, datos, motores, economía, geometrías e históricos.
+
+Implementación independiente: `sensibilidad.py`, `analizar_sensibilidad.py`,
+configuración de hipótesis y `validar_fase7.py`. Familia taxonómica explícita
+con seis alternativas y referencia original, además de matrices arbitrarias
+simétricas. Coeficientes identificados como heurísticos no calibrados; las
+fuentes no autorizan inventar mediciones de las diez especies. Comparación
+pareada y evaluación cruzada bajo la misma matriz evaluadora; no interpretar
+un cambio de escala de J como ganancia ecológica.
+
+Aceptación: validar matrices y especies, semillas/sitios/cuotas idénticos,
+invariantes espaciales y económicos, equivalencia Python/C++, regresiones y
+preservación por SHA-256. Denominadores y límites explícitos. Evidencia y
+resultados en [SENSIBILIDAD_FASE7.md](SENSIBILIDAD_FASE7.md).
+Al documentar y crear commit, detenerse. No implementar fase 8 ni retomar 2/3.
+
+## Historial: solicitud de fase 6 completada
 
 Solicitud explícita del 23 de octubre de 2026, sobre `4100608`, main limpio.
 Implementar exclusivamente supervivencia esperada y escenarios exploratorios
@@ -78,7 +99,7 @@ Alcance de sustituciones completado: 31/31 pruebas, 72/72 regresiones desactivad
 |4 — completada|Sustituciones e intercambios discretos de candidatas para plantas nuevas, opcionales tras DSATUR/local de especies.|Motor validado, interfaz de pertenencia; rectángulo actual.|36/36 pruebas; 72 regresiones apagadas, 216 comparaciones previas, 36/36 escenarios mejorados y equivalencia exacta Python/C++; evidencia en OPTIMIZACION_POSICIONES.md.|
 |5 — completada|Escalar Monte Carlo espacial, convergencia, error estándar, IC y percentiles; evaluar paralelismo/agregación.|Motor y benchmarks; inventario conocido documentado.|Piloto 30 y confirmación independiente 100 por P1/P13/P5; precisión verificada, semillas/denominadores, procesos equivalentes y compras fijas. Evidencia en MONTE_CARLO_FASE5.md.|
 |6 — completada|Supervivencia esperada y escenarios exploratorios de mortalidad, reposición de un ciclo, precios y presupuesto.|CSV auditado; costos disponibles solo de adquisición, sin denominadores históricos calibrables.|Observaciones, proyecciones e hipótesis separadas; 54/54 pruebas, 144 regresiones y evidencia en SUPERVIVENCIA_FASE6.md. Sin causalidad competencia-supervivencia no validada.|
-|7|Matriz alternativa configurable y sensibilidad; revisar agua, nutrientes y raíces con fuentes.|Documentar supuestos y evidencia; conservar C original.|Coeficientes heurísticos identificados y comparación reproducible; no inventar mediciones.|
+|7 — completada|Matriz alternativa configurable y sensibilidad; revisión de agua, nutrientes y raíces con fuentes primarias.|Supuestos explícitos, C original conservada; sin calibración local disponible.|Comparación cruzada reproducible de siete matrices, coeficientes heurísticos identificados y validación en SENSIBILIDAD_FASE7.md; sin inventar mediciones.|
 |8|Mejoras DSATUR/local, reinicios y decisiones económicas conjuntas; interfaz, exportaciones e informe.|Fases anteriores, datos suficientes y baselines.|Proyecto reproducible, pruebas finales, documentación matemática y presentación comprensible.|
 
 ## Diseño histórico de fase 1 (completado; prioridad sustituida arriba)

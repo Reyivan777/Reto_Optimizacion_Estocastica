@@ -1,0 +1,11 @@
+test_agregacion_exige_escenarios_pareados_completos (__main__.PruebasMonteCarlo.test_agregacion_exige_escenarios_pareados_completos) ... ok
+test_cero_uno_constantes_faltantes_no_se_imputan (__main__.PruebasMonteCarlo.test_cero_uno_constantes_faltantes_no_se_imputan) ... ok
+test_fallos_construccion_sin_reemplazo_y_error_tecnico_visible (__main__.PruebasMonteCarlo.test_fallos_construccion_sin_reemplazo_y_error_tecnico_visible) ... ok
+test_media_ic_percentiles_calculo_conocido (__main__.PruebasMonteCarlo.test_media_ic_percentiles_calculo_conocido) ... ok
+test_serial_paralelo_ambos_motores_semillas_y_cuotas (__main__.PruebasMonteCarlo.test_serial_paralelo_ambos_motores_semillas_y_cuotas) ... ok
+test_tamano_limites_precision_y_piloto (__main__.PruebasMonteCarlo.test_tamano_limites_precision_y_piloto) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 3.212s
+
+OK

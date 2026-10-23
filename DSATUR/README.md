@@ -88,7 +88,27 @@ Validación: **54/54 pruebas**, 144 regresiones espaciales y 1461 archivos
 previos preservados por SHA-256. Experimento exploratorio: 30 polígonos ×
 1000 índices × seis hipótesis. Resultados, fórmulas, auditoría, denominadores
 y límites en [SUPERVIVENCIA_FASE6.md](docs/SUPERVIVENCIA_FASE6.md).
-La fase 7 requiere una nueva solicitud.
+La fase 7 se documenta a continuación.
+
+## Matrices alternativas y sensibilidad — fase 7
+
+```shell
+python scripts/analizar_sensibilidad.py --motores python,cpp
+python tests/verificar_sensibilidad.py
+```
+
+Ejecutor independiente con seis hipótesis configurables y la matriz original
+intacta. Compara sitios, cuotas y semillas pareados; evalúa todas las soluciones
+bajo cada matriz y publica diferencias, SE, IC puntuales y percentiles con sus
+denominadores. `--config` admite pesos taxonómicos o una matriz explícita;
+`--modo fijo` y `--optimizar-posiciones` permiten los modos previos.
+
+Los coeficientes son **heurísticos no calibrados**. Las fuentes sobre agua,
+nutrientes y raíces no aportan mediciones de los pares de las diez especies del
+catálogo. No comparar directamente objetivos de matrices diferentes para
+atribuir mejora ecológica. Fórmulas, fuentes, resultados y límites en
+[SENSIBILIDAD_FASE7.md](docs/SENSIBILIDAD_FASE7.md).
+La fase 8 requiere una nueva solicitud.
 
 ## Estructura
 

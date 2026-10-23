@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "especies": [
+    "Agave lechuguilla",
+    "Agave salmiana",
+    "Agave scabra",
+    "Agave striata",
+    "Opuntia cantabrigiensis",
+    "Opuntia engelmannii",
+    "Opuntia robusta",
+    "Opuntia streptacantha",
+    "Prosopis laevigata",
+    "Yucca filifera"
+  ],
+  "advertencia": "Todos los coeficientes son heurísticos no calibrados, adimensionales. Ninguno mide consumo de agua, nutrientes o solapamiento radicular. Conservar competencia.json como referencia.",
+  "formula": "C_ab = fondo + genero * I(mismo genero) + identidad * I(misma especie)",
+  "fuentes": [
+    "https://doi.org/10.1093/treephys/tpy080",
+    "https://doi.org/10.1071/FP11130"
+  ],
+  "hipotesis": [
+    {
+      "nombre": "contraste_moderado",
+      "naturaleza": "heuristica_no_calibrada",
+      "justificacion": "Atenuar simultáneamente los contrastes taxonómicos; alternativa principal 2/1.5/1.",
+      "pesos": {
+        "fondo": 1,
+        "genero": 0.5,
+        "identidad": 0.5
+      }
+    },
+    {
+      "nombre": "genero_bajo",
+      "naturaleza": "heuristica_no_calibrada",
+      "justificacion": "Sensibilidad unilateral al peso de mismo género.",
+      "pesos": {
+        "fondo": 1,
+        "genero": 0.5,
+        "identidad": 1
+      }
+    },
+    {
+      "nombre": "genero_alto",
+      "naturaleza": "heuristica_no_calibrada",
+      "justificacion": "Sensibilidad unilateral al peso de mismo género.",
+      "pesos": {
+        "fondo": 1,
+        "genero": 1.5,
+        "identidad": 1
+      }
+    },
+    {
+      "nombre": "identidad_baja",
+      "naturaleza": "heuristica_no_calibrada",
+      "justificacion": "Sensibilidad unilateral al peso de misma especie.",
+      "pesos": {
+        "fondo": 1,
+        "genero": 1,
+        "identidad": 0.5
+      }
+    },
+    {
+      "nombre": "identidad_alta",
+      "naturaleza": "heuristica_no_calibrada",
+      "justificacion": "Sensibilidad unilateral al peso de misma especie.",
+      "pesos": {
+        "fondo": 1,
+        "genero": 1,
+        "identidad": 1.5
+      }
+    },
+    {
+      "nombre": "uniforme",
+      "naturaleza": "heuristica_no_calibrada",
+      "justificacion": "Control sin diferencias taxonómicas; no equivale a ausencia de competencia.",
+      "pesos": {
+        "fondo": 1,
+        "genero": 0,
+        "identidad": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "poligono": 1,
+  "escenario": 0,
+  "paso_primera_divergencia": 177,
+  "decisiones": [
+    [
+      425,
+      2
+    ],
+    [
+      425,
+      6
+    ]
+  ],
+  "especies": [
+    "Agave scabra",
+    "Opuntia robusta"
+  ],
+  "cuotas_restantes": [
+    35,
+    51
+  ],
+  "costos_original": [
+    1.7333333333333347,
+    1.7333333333333352
+  ],
+  "costos_moderado": [
+    1.516666666666668,
+    1.516666666666668
+  ],
+  "costos_afin_calculados": [
+    1.5166666666666677,
+    1.516666666666668
+  ],
+  "interpretacion": "Divergencia de la heurística en casi empate de punto flotante; no cambian preferencias matemáticas en grafo fijo. Se conserva el motor original."
+}
