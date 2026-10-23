@@ -96,7 +96,10 @@ def construir_datos(root, resultados, ids=None):
             U,y,nf = leer_distribucion(ruta/'distribucion.csv',datos.S)
             comprobar('identificador', meta.get('poligono',p) == p)
             comprobar('area_csv_inventario', abs(float(entrada.set_index('id').loc[p,'area_ha'])-area)<1e-8)
-            comprobar('area_metadatos', abs(meta.get('area_ha',area)-area)<1e-8)
+            if 'area_ha' in meta:
+                comprobar('area_metadatos', abs(meta['area_ha']-area)<1e-8)
+            else:
+                checks['area_metadatos']='no_disponible'
             comprobar('total', len(y) == R.sum())
             comprobar('por_especie', np.array_equal(np.bincount(y,minlength=10), R))
             comprobar('existentes_por_especie', np.array_equal(np.bincount(y[:nf],minlength=10), n))
@@ -157,7 +160,10 @@ def construir_datos(root, resultados, ids=None):
                 checks['existentes_inmutables'] = checks['competencia_inicial'] = 'no_disponible'
                 checks['competencia_dsatur']='no_disponible'
             fuentes = {n:sha(ruta/n) for n in ('distribucion.csv','comparacion.csv','metadatos.json','distribucion_inicial.csv','monte_carlo.csv') if (ruta/n).exists()}
-            comprobar('integridad_exportacion',all(fuentes.get(n)==h for n,h in meta.get('archivos_sha256',{}).items()))
+            if meta.get('archivos_sha256'):
+                comprobar('integridad_exportacion',all(fuentes.get(n)==h for n,h in meta['archivos_sha256'].items()))
+            else:
+                checks['integridad_exportacion']='no_disponible'
             ref = root/f'resultados/P{p}/distribucion.csv'
             fila.update(area_ha=area,total=len(y),existentes=nf,nuevas=len(y)-nf,
                 geometria_utilizada=info['tipo'],limites_m=list(geom.bounds),origen_m=info['origen_m'],

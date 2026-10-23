@@ -131,7 +131,7 @@ final recalculada desde aristas, métricas MC, costo y presupuesto y hashes.
 Total verificado: **120419**, de ellos **23569 existentes y 96850 nuevas**.
 Separación observada mínima 3.399999999999915 m, dentro de tolerancia 1e-8 m.
 
-Los históricos carecen de CSV inicial: la inmutabilidad entre inicial/final y
+Los históricos carecen de sidecar de hashes/área (estos campos también se marcan `no_disponible`, con preservación independiente por Git/SHA-256) y de CSV inicial: la inmutabilidad entre inicial/final y
 J inicial/intermedio se marcan `no_disponible` en la auditoría del exportado,
 sin convertir esa ausencia en aprobación. La [regresión 360](validacion_mapa/regresion_360.csv)
 reprodujo independientemente todos sus J_base/J_dsatur/J_final con diferencia
